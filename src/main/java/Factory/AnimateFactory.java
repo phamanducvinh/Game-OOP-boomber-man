@@ -1,7 +1,8 @@
 package Factory;
 
-import Entities.Animate.Bomber;
+import Entities.Animate.Character.Bomber;
 import Entities.Animate.Brick;
+import Entities.Animate.Character.Enemy.Balloon;
 import Entities.Entity;
 import Graphics.Sprite;
 
@@ -12,6 +13,8 @@ public class AnimateFactory {
                 return (new Brick(j,i, Sprite.brick));
             case 'p':
                 return (new Bomber(j,i,Sprite.player_right_1));
+            case '1':
+                return (new Balloon(j,i,Sprite.BALLOON_RIGHT[0]));
             default:
                 return null;
         }

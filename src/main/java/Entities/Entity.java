@@ -28,5 +28,5 @@ public abstract class Entity {
         graphicsContext.drawImage(img, pixelX, pixelY);
     }
 
-    abstract public void update();
+    public abstract void update();
 }

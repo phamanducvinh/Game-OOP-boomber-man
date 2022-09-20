@@ -12,4 +12,9 @@ public class Brick extends AnimateEntity{
     public void update() {
 
     }
+
+    @Override
+    public void getDirection() {
+
+    }
 }

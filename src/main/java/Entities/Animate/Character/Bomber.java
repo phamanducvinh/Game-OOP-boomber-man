@@ -1,4 +1,4 @@
-package Entities.Animate;
+package Entities.Animate.Character;
 import Entities.Entity;
 import Graphics.Sprite;
 import javafx.scene.SnapshotParameters;
@@ -15,5 +15,7 @@ public class Bomber extends Entity {
 
     @Override
     public void update() {
+
     }
+
 }
