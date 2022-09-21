@@ -1,8 +1,9 @@
-package Entities.Animate;
+package Entities.Still;
 
+import Entities.Animate.AnimateEntity;
 import Graphics.Sprite;
 
-public class Brick extends AnimateEntity{
+public class Brick extends StillEntity {
     public Brick(int x, int y, Sprite sprite) {
         super(x,y,sprite);
         canBlock = true;
@@ -13,8 +14,4 @@ public class Brick extends AnimateEntity{
 
     }
 
-    @Override
-    public void getDirection() {
-
-    }
 }

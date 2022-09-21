@@ -22,6 +22,22 @@ public class Map {
         return gameMap;
     }
 
+    public int getHeightMap() {
+        return HEIGHT;
+    }
+
+    public int getWidthMap() {
+        return WIDTH;
+    }
+
+    public Entity getEntity(int x,int y) {
+        if((-1 < x && x < HEIGHT)
+                && (-1 < y && y <WIDTH)) {
+            return stillEntities[x][y];
+        }
+        return null;
+    }
+
     private void resetEntities() {
         stillEntities = new Entity[HEIGHT][WIDTH];
         animateEntities = new Entity[HEIGHT][WIDTH];

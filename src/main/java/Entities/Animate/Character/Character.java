@@ -2,11 +2,14 @@ package Entities.Animate.Character;
 
 import Constants.Contants.DIRECTION;
 import Entities.Animate.AnimateEntity;
+import Entities.Entity;
+import Entities.Still.Grass;
 import Graphics.Sprite;
+import Map.Map;
 
 public abstract class Character extends AnimateEntity {
 
-    protected int defaultVelocity = 1;
+    protected int defaultVelocity = 5;
     protected int velocityX = 0;
     protected int velocityY = 0;
     protected DIRECTION direction;
@@ -45,12 +48,34 @@ public abstract class Character extends AnimateEntity {
         tileY = pixelY / Sprite.SCALED_SIZE;
     }
 
+    public void isMovable() {
+        isCollision = false;
+
+        tileX += velocityX;
+        tileY += velocityY;
+        Map gameMap = Map.getGameMap();
+
+                Entity entity = gameMap.getEntity(tileX+velocityX,tileY+velocityY);
+                if(entity  instanceof Grass) {
+                    return;
+                }
+                if(isCollision(entity)) {
+                    isCollision = true;
+                }
+        tileX -= velocityX;tileY -= velocityY;
+    }
 
     @Override
     public void update() {
         getDirection();
-        updateAnimation();
-        move();
+        isMovable();
+        if(!isStand) {
+            updateAnimation();
+        }
+
+        if(!isCollision) {
+            move();
+        }
     }
 
     @Override

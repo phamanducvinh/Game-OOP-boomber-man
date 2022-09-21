@@ -21,19 +21,19 @@ public abstract class Enemy extends Character {
     public void getDirection() {
         direction = new RandomTrace().getRandomDirection();
         if(direction==DIRECTION.LEFT) {
-            this.setVelocity(-defaultVelocity,0);
+            this.setVelocity(0,-defaultVelocity);
             currentAnimate = animation.get(DIRECTION.LEFT);
         }
         if(direction==DIRECTION.RIGHT) {
-            this.setVelocity(defaultVelocity,0);
+            this.setVelocity(0,defaultVelocity);
             currentAnimate = animation.get(DIRECTION.RIGHT);
         }
         if(direction==DIRECTION.UP) {
-            this.setVelocity(0,-defaultVelocity);
+            this.setVelocity(-defaultVelocity,0);
             currentAnimate = animation.get(DIRECTION.UP);
         }
         if(direction==DIRECTION.DOWN) {
-            this.setVelocity(0,defaultVelocity);
+            this.setVelocity(defaultVelocity,0);
             currentAnimate = animation.get(DIRECTION.DOWN);
         }
         if(direction==DIRECTION.DESTROYED) {
