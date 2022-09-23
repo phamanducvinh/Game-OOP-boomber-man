@@ -22,6 +22,22 @@ public class Map {
         return gameMap;
     }
 
+    public int getHeightMap() {
+        return HEIGHT;
+    }
+
+    public int getWidthMap() {
+        return WIDTH;
+    }
+
+    public Entity getEntity(int x,int y) {
+        if((-1 < x && x < HEIGHT)
+                && (-1 < y && y <WIDTH)) {
+            return stillEntities[x][y];
+        }
+        return null;
+    }
+
     private void resetEntities() {
         stillEntities = new Entity[HEIGHT][WIDTH];
         animateEntities = new Entity[HEIGHT][WIDTH];
@@ -44,7 +60,12 @@ public class Map {
     }
 
     public void updateMap() {
-
+        for(int i=0;i<HEIGHT;++i) {
+            for(int j=0;j<WIDTH;++j) {
+                if(animateEntities[i][j] != null)
+                animateEntities[i][j].update();
+            }
+        }
     }
 
     public void renderMap(GraphicsContext graphicsContext) {
@@ -53,8 +74,13 @@ public class Map {
             for(int j=0;j<WIDTH;++j) {
                 if(stillEntities[i][j]!=null)
                 stillEntities[i][j].render(graphicsContext);
+            }
+        }
+
+        for(int i=0;i<HEIGHT;++i) {
+            for (int j=0;j<WIDTH;++j) {
                 if(animateEntities[i][j]!=null)
-                animateEntities[i][j].render(graphicsContext);
+                    animateEntities[i][j].render(graphicsContext);
             }
         }
     }

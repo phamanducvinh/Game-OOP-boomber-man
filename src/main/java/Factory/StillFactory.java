@@ -1,6 +1,5 @@
 package Factory;
 
-import Entities.Animate.Brick;
 import Entities.Entity;
 import Entities.Still.Grass;
 import Entities.Still.Wall;
@@ -12,6 +11,9 @@ public class StillFactory {
         switch (c) {
             case '#':
                 return (new Wall(j, i, Sprite.wall));
+
+            case 'p':
+                return (new Wall(j,i,Sprite.brick));
             default:
                 return (new Grass(j, i, Sprite.grass));
         }

@@ -3,7 +3,6 @@ package GameController;
 
 import Constants.Contants;
 import Entities.*;
-import Entities.Animate.Bomber;
 import Graphics.Sprite;
 import Map.Map;
 import javafx.animation.AnimationTimer;
@@ -14,13 +13,12 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Bomberman extends Application {
 
+    public static long time;
     public static final int WIDTH = 31;
     public static final int HEIGHT = 13;
     private static Map mapGame = Map.getGameMap();
@@ -48,11 +46,14 @@ public class Bomberman extends Application {
 
         stage.setScene(scene);
         stage.show();
+        final long startNanoTime = System.nanoTime();
         mapGame.createMap(Contants.MAP_PATHS[0]);
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
-            public void handle(long l) {
+            public void handle(long currentNanoTime) {
+                gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+                time = (long) ((currentNanoTime - startNanoTime) / 600000000) + 1;
                 mapGame.updateMap();
                 mapGame.renderMap(gc);
             }
