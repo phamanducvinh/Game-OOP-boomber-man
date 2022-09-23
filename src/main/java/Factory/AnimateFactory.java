@@ -13,6 +13,8 @@ public class AnimateFactory {
                 return (new Brick(j,i, Sprite.brick));
             case '1':
                 return (new Balloon(j,i,Sprite.BALLOON_RIGHT[0]));
+            case 'p':
+                return (new Bomber(j,i,Sprite.player_right));
             default:
                 return null;
         }
