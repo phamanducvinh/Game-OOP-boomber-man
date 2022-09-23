@@ -48,12 +48,11 @@ public class Bomberman extends Application {
         stage.show();
         final long startNanoTime = System.nanoTime();
         mapGame.createMap(Contants.MAP_PATHS[0]);
-
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long currentNanoTime) {
                 gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-                time = (long) ((currentNanoTime - startNanoTime) / 600000000) + 1;
+                time = (long) ((currentNanoTime - startNanoTime) / 1000000000) + 1;
                 mapGame.updateMap();
                 mapGame.renderMap(gc);
             }

@@ -4,12 +4,15 @@ import Constants.Contants.DIRECTION;
 import Entities.Animate.AnimateEntity;
 import Entities.Entity;
 import Entities.Still.Grass;
+import Entities.Still.StillEntity;
 import Graphics.Sprite;
 import Map.Map;
 
+import java.util.concurrent.Delayed;
+
 public abstract class Character extends AnimateEntity {
 
-    protected int defaultVelocity = 5;
+    protected int defaultVelocity = 1;
     protected int velocityX = 0;
     protected int velocityY = 0;
     protected DIRECTION direction;
@@ -48,34 +51,27 @@ public abstract class Character extends AnimateEntity {
         tileY = pixelY / Sprite.SCALED_SIZE;
     }
 
-    public void isMovable() {
-        isCollision = false;
-
-        tileX += velocityX;
-        tileY += velocityY;
+    public boolean isMovable() {
         Map gameMap = Map.getGameMap();
+        StillEntity entity = gameMap.getEntity(tileX+velocityX,tileY+velocityY);
 
-                Entity entity = gameMap.getEntity(tileX+velocityX,tileY+velocityY);
-                if(entity  instanceof Grass) {
-                    return;
-                }
-                if(isCollision(entity)) {
-                    isCollision = true;
-                }
-        tileX -= velocityX;tileY -= velocityY;
+        if((entity  instanceof Grass)) {
+            return true;
+        }
+
+        return false;
     }
 
     @Override
     public void update() {
-        getDirection();
-        isMovable();
-        if(!isStand) {
-            updateAnimation();
-        }
-
-        if(!isCollision) {
-            move();
-        }
+        if(cntMove==0) {
+            do{
+                getDirection();
+            }while (isMovable()==false);
+            cntMove = Sprite.SCALED_SIZE-1;
+        } else cntMove--;
+        updateAnimation(cntMove);
+        move();
     }
 
     @Override

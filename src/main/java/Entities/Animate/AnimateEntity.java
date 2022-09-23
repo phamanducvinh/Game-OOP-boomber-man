@@ -8,17 +8,16 @@ import java.util.HashMap;
 
 public abstract class AnimateEntity extends Entity {
     protected Sprite[] currentAnimate;
-
-
-    public HashMap<DIRECTION,Sprite[]> animation = new HashMap<>();
+    protected int cntMove = 0;
+    public static HashMap<DIRECTION,Sprite[]> animation = new HashMap<>();
     public AnimateEntity(int x, int y, Sprite sprite) {
         super(x, y, sprite);
     }
 
     public abstract void getDirection();
 
-    public void updateAnimation() {
-        this.sprite = Sprite.movingSprite(currentAnimate,3, Bomberman.time);
+    public void updateAnimation(int time) {
+        this.sprite = Sprite.movingSprite(currentAnimate, time);
         this.img = this.sprite.getFxImage();
     }
 

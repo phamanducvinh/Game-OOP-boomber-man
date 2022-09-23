@@ -20,24 +20,28 @@ public abstract class Enemy extends Character {
     @Override
     public void getDirection() {
         direction = new RandomTrace().getRandomDirection();
-        if(direction==DIRECTION.LEFT) {
-            this.setVelocity(0,-defaultVelocity);
-            currentAnimate = animation.get(DIRECTION.LEFT);
+
+        switch (direction) {
+
+            case UP:
+                this.setVelocity(-defaultVelocity,0);
+                currentAnimate = animation.get(DIRECTION.LEFT);
+                break;
+            case DOWN:
+                this.setVelocity(defaultVelocity,0);
+                currentAnimate = animation.get(DIRECTION.RIGHT);
+                break;
+            case LEFT:
+                this.setVelocity(0,-defaultVelocity);
+                currentAnimate = animation.get(DIRECTION.LEFT);
+                break;
+            case RIGHT:
+                this.setVelocity(0,defaultVelocity);
+                currentAnimate = animation.get(DIRECTION.RIGHT);
+                break;
+            default:
+                break;
         }
-        if(direction==DIRECTION.RIGHT) {
-            this.setVelocity(0,defaultVelocity);
-            currentAnimate = animation.get(DIRECTION.RIGHT);
-        }
-        if(direction==DIRECTION.UP) {
-            this.setVelocity(-defaultVelocity,0);
-            currentAnimate = animation.get(DIRECTION.UP);
-        }
-        if(direction==DIRECTION.DOWN) {
-            this.setVelocity(defaultVelocity,0);
-            currentAnimate = animation.get(DIRECTION.DOWN);
-        }
-        if(direction==DIRECTION.DESTROYED) {
-            this.setVelocity(0,0);
-        }
+
     }
 }
