@@ -14,8 +14,9 @@ public class AnimateFactory {
             case '1':
                 return (new Balloon(i,j,Sprite.BALLOON_RIGHT[0]));
             case 'p':
-                Bomber bomber = new Bomber(j,i,Sprite.player_right, new PlayerOne());
-                return bomber;
+                //return
+                return  new Bomber(i,j,Sprite.PLAYER_RIGHT[0]);
+                //return bomber;
             default:
                 return null;
         }

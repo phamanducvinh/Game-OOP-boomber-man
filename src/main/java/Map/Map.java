@@ -4,6 +4,7 @@ import Entities.Entity;
 import Entities.Still.StillEntity;
 import Factory.AnimateFactory;
 import Factory.StillFactory;
+import Input.PlayerOne;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.io.File;
@@ -14,6 +15,12 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Map {
+    private String code;
+
+    public void getKey(String code) {
+        this.code = code;
+        //System.out.println(this.code);
+    }
     private static Map gameMap;
     public int WIDTH, HEIGHT;
     public static Entity[][] stillEntities;
@@ -43,6 +50,8 @@ public class Map {
     private void resetEntities() {
         stillEntities = new Entity[HEIGHT][WIDTH];
         animateEntities = new ArrayList<Entity>();
+
+        //player = new PlayerOne();
     }
 
     public void createMap(String mapPath) throws FileNotFoundException {
@@ -59,8 +68,14 @@ public class Map {
                 Entity animateEntity =  AnimateFactory.getAnimate(c,i,j);
                 if(animateEntity != null) {
                     System.out.println(animateEntity);
-                    animateEntities.add(animateEntity);
+                    if(animateEntity instanceof Bomber) {
+                        player =(Bomber) animateEntity;
+                    }else {
+                        animateEntities.add(animateEntity);
+                    }
                 }
+
+
             }
         }
     }
@@ -69,6 +84,14 @@ public class Map {
         animateEntities.forEach(entity -> {
             entity.update();
         });
+
+        if(code!= null){
+            player.getDirection(code);
+            player.update();
+
+            code = null;
+        }
+
     }
 
     public void renderMap(GraphicsContext graphicsContext) {
@@ -82,6 +105,8 @@ public class Map {
         animateEntities.forEach(animateEntity -> {
             animateEntity.render(graphicsContext);
         });
+
+        player.render(graphicsContext);
     }
 
 }

@@ -11,34 +11,73 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
 public class Bomber extends Character {
-    private KeyInput keyInput;
+
+    //private KeyInput keyInput;
     private int DIRECT_X[] = new int[]{0, 1, 0, 1};
     private int DIRECT_Y[] = new int[]{1, 0, 1, 0};
 
-    public Bomber(int x, int y, Sprite sprite, KeyInput keyInput) {
+    public Bomber(int x, int y, Sprite sprite) {
         super( x, y, sprite);
-        animation.put(Contants.DIRECTION.LEFT,
-                new Sprite[]{Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2});
-        animation.put(Contants.DIRECTION.RIGHT,
-                new Sprite[]{Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2});
-        animation.put(Contants.DIRECTION.UP,
-                new Sprite[]{Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2});
-        animation.put(Contants.DIRECTION.DOWN,
-                new Sprite[]{Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2});
+        animation.put(Contants.DIRECTION.LEFT, Sprite.PLAYER_LEFT);
+        animation.put(Contants.DIRECTION.RIGHT, Sprite.PLAYER_RIGHT);
+        animation.put(Contants.DIRECTION.UP, Sprite.PLAYER_UP);
+        animation.put(Contants.DIRECTION.DOWN,Sprite.PLAYER_DOWN);
         currentAnimate = animation.get(Contants.DIRECTION.RIGHT);
-        speed = 2;
-        this.keyInput = keyInput;
+        //this.keyInput = keyInput;
     }
 
     @Override
     public void update() {
 
+        if(cntMove==0) {
+            cntMove = Sprite.SCALED_SIZE-1;
+        } else cntMove--;
+
+        for(int i=0;i<2;++i) {
+            updateAnimation(cntMove);
+            move();
+        }
     }
 
     @Override
     public void getDirection() {
-        this.setVelocity(0, 0);
-        Contants.DIRECTION newDirection = keyInput.handleKeyInput(this);
+
+    }
+
+    public void getDirection(String code) {
+        if(code == null) {
+            System.out.println("null");
+            return;
+        }
+        switch (code){
+            case ("W"):
+                this.setVelocity(-defaultVelocity, 0);
+                currentAnimate = animation.get(Contants.DIRECTION.UP);
+                direction = Contants.DIRECTION.UP;
+                break;
+            case ("A"):
+                this.setVelocity(0, -defaultVelocity);
+                currentAnimate = animation.get(Contants.DIRECTION.LEFT);
+                direction = Contants.DIRECTION.LEFT;
+                break;
+            case ("S"):
+                this.setVelocity(defaultVelocity, 0);
+                currentAnimate = animation.get(Contants.DIRECTION.DOWN);
+                direction = Contants.DIRECTION.DOWN;
+                break;
+            case ("D"):
+                this.setVelocity(0, defaultVelocity);
+                currentAnimate = animation.get(Contants.DIRECTION.RIGHT);
+                direction = Contants.DIRECTION.RIGHT;
+                break;
+            default:
+                break;
+        }
+
+        //this.setVelocity(0, 0);
+        //Contants.DIRECTION newDirection = keyInput.handleKeyInput(this);
+
+        /*
         if (newDirection == Contants.DIRECTION.UP){
             this.setVelocity(-defaultVelocity, 0);
             currentAnimate = animation.get(Contants.DIRECTION.UP);
@@ -62,7 +101,7 @@ public class Bomber extends Character {
             currentAnimate = animation.get(Contants.DIRECTION.LEFT);
             direction = newDirection;
             //updateAnimation(3);
-        }
+        }*/
 
     }
 }

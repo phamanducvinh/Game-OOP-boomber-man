@@ -3,6 +3,7 @@ package GameController;
 
 import Constants.Contants;
 import Entities.*;
+import Entities.Animate.Character.Bomber;
 import Graphics.Sprite;
 import Input.KeyInput;
 import Map.Map;
@@ -18,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bomberman extends Application {
-
     public static long time;
     public static final int WIDTH = 31;
     public static final int HEIGHT = 13;
@@ -27,6 +27,7 @@ public class Bomberman extends Application {
     private Canvas canvas;
     private List<Entity> entities = new ArrayList<>();
     private List<Entity> stillObjects = new ArrayList<>();
+
 
 
     public static void main(String[] args) {
@@ -56,14 +57,18 @@ public class Bomberman extends Application {
                 time = (long) ((currentNanoTime - startNanoTime) / 600000000) + 1;
                 scene.setOnKeyPressed(keyEvent -> {
                     String code = keyEvent.getCode().toString();
-                    System.out.println(code + "Pressed");
-                    KeyInput.keyInput.put(code, true);
+                    //System.out.println(code);
+                    mapGame.getKey(code);
+                    //System.out.println(code);
+                    //KeyInput.keyInput.put(code, true);
                 });
+                /*
                 scene.setOnKeyReleased(keyEvent -> {
                     String code = keyEvent.getCode().toString();
                     System.out.println(code + "Released");
                     KeyInput.keyInput.put(code, false);
                 });
+                */
 
                 mapGame.updateMap();
                 mapGame.renderMap(gc);
