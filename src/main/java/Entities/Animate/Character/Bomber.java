@@ -43,25 +43,25 @@ public class Bomber extends Character {
             this.setVelocity(-defaultVelocity, 0);
             currentAnimate = animation.get(Contants.DIRECTION.UP);
             direction = newDirection;
-            updateAnimation();
+            //updateAnimation(1);
         }
         if (newDirection == Contants.DIRECTION.RIGHT){
             this.setVelocity(0, defaultVelocity);
             currentAnimate = animation.get(Contants.DIRECTION.RIGHT);
             direction = newDirection;
-            updateAnimation();
+            //updateAnimation(1);
         }
         if (newDirection == Contants.DIRECTION.DOWN){
             this.setVelocity(defaultVelocity, 0);
             currentAnimate = animation.get(Contants.DIRECTION.DOWN);
             direction = newDirection;
-            updateAnimation();
+            //updateAnimation(1);
         }
         if (newDirection == Contants.DIRECTION.LEFT){
             this.setVelocity(0, -defaultVelocity);
             currentAnimate = animation.get(Contants.DIRECTION.LEFT);
             direction = newDirection;
-            updateAnimation();
+            //updateAnimation(3);
         }
 
     }

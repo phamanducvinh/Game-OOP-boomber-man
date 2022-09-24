@@ -1,5 +1,7 @@
 package Trace;
 
+import static Constants.Contants.DIRECTION.*;
+
 import Constants.Contants.DIRECTION;
 import Entities.Animate.Character.Bomber;
 import Entities.Animate.Character.Enemy.Enemy;
@@ -12,16 +14,15 @@ public class RandomTrace implements TraceStrategy {
         int random = new Random().nextInt(4);
         switch (random){
             case 0:
-                return DIRECTION.LEFT;
+                return LEFT;
             case 1:
-                return DIRECTION.RIGHT;
+                return RIGHT;
             case 2:
-                return DIRECTION.UP;
+                return UP;
             case 3:
-                return DIRECTION.DOWN;
+                return DOWN;
             default:
-                return DIRECTION.DESTROYED;
-
+                return DESTROYED;
         }
     }
 }

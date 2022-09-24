@@ -26,7 +26,7 @@ public abstract class Entity {
      * Khởi tạo khối hình chữ nhật.
      * */
     public Rectangle2D getBoundary() {
-        return new Rectangle2D(pixelX, pixelY,Sprite.SCALED_SIZE,Sprite.SCALED_SIZE);
+        return new Rectangle2D(pixelY, pixelX,Sprite.SCALED_SIZE,Sprite.SCALED_SIZE);
     }
 
     // Kiểm tra xem có va chạm với thực thể khác không
@@ -37,7 +37,7 @@ public abstract class Entity {
 
     // In ảnh ra màn hình
     public void render(GraphicsContext graphicsContext) {
-        graphicsContext.drawImage(img, pixelX, pixelY);
+        graphicsContext.drawImage(img, pixelY, pixelX);
     }
 
     // Hàm trừu tượng update thực thể sau mỗi milisecon
