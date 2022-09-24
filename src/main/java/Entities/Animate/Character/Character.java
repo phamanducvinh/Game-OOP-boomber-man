@@ -12,6 +12,7 @@ import java.util.concurrent.Delayed;
 
 public abstract class Character extends AnimateEntity {
 
+
     protected int defaultVelocity = 1;
     protected int velocityX = 0;
     protected int velocityY = 0;

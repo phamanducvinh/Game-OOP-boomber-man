@@ -3,7 +3,11 @@ package Input;
 import Constants.Contants;
 import Entities.Animate.Character.Bomber;
 
-public class PlayerOne implements KeyInput{
+public class PlayerOne {
+    public PlayerOne(){
+
+    };
+    /*
     @Override
     public void initialization() {
         keyInput.put("A", false);
@@ -31,5 +35,5 @@ public class PlayerOne implements KeyInput{
             return Contants.DIRECTION.LEFT;
         }
         return Contants.DIRECTION.DESTROYED;
-    }
+    }*/
 }

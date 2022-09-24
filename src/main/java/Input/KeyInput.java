@@ -2,11 +2,11 @@ package Input;
 
 import java.util.HashMap;
 
-import Constants.Contants;
+import static Constants.Contants.DIRECTION;
 import Entities.Animate.Character.Bomber;
 
 public interface KeyInput {
-    HashMap<String, Boolean> keyInput = new HashMap<>();
+    HashMap<String, DIRECTION> keyInput = new HashMap<>();
     void initialization();
-    Contants.DIRECTION handleKeyInput(Bomber bomber);
+    DIRECTION handleKeyInput(Bomber bomber);
 }
