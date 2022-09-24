@@ -4,6 +4,7 @@ package GameController;
 import Constants.Contants;
 import Entities.*;
 import Graphics.Sprite;
+import Input.KeyInput;
 import Map.Map;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -54,10 +55,21 @@ public class Bomberman extends Application {
             public void handle(long currentNanoTime) {
                 gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
                 time = (long) ((currentNanoTime - startNanoTime) / 600000000) + 1;
+                scene.setOnKeyPressed(keyEvent -> {
+                    String code = keyEvent.getCode().toString();
+                    System.out.println(code + "Pressed");
+                    KeyInput.keyInput.put(code, true);
+                });
+                scene.setOnKeyReleased(keyEvent -> {
+                    String code = keyEvent.getCode().toString();
+                    System.out.println(code + "Released");
+                    KeyInput.keyInput.put(code, false);
+                });
                 mapGame.updateMap();
                 mapGame.renderMap(gc);
             }
         };
         timer.start();
     }
+
 }
