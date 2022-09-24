@@ -1,6 +1,5 @@
 package Map;
-
-import Entities.Animate.AnimateEntity;
+import Entities.Animate.Character.Bomber;
 import Entities.Entity;
 import Entities.Still.StillEntity;
 import Factory.AnimateFactory;
@@ -18,6 +17,8 @@ public class Map {
     private static Map gameMap;
     public int WIDTH, HEIGHT;
     public static Entity[][] stillEntities;
+
+    public Bomber player;
     List<Entity> animateEntities;
     public static Map getGameMap() {
         if (gameMap == null) {
