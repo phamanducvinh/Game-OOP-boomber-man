@@ -14,6 +14,7 @@ public class Contants {
         UP,
         RIGHT,
         DOWN,
-        DESTROYED
+        DESTROYED,
+        NONE
     }
 }

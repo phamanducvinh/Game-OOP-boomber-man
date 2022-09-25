@@ -4,7 +4,6 @@ import Entities.Entity;
 import Entities.Still.StillEntity;
 import Factory.AnimateFactory;
 import Factory.StillFactory;
-import Input.PlayerOne;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.io.File;
