@@ -6,7 +6,7 @@ import Entities.Still.Brick;
 import Entities.Animate.Character.Enemy.Balloon;
 import Entities.Entity;
 import Graphics.Sprite;
-import Input.PlayerOne;
+import Input.PlayerOneKeyInput;
 
 public class AnimateFactory {
     public static Entity getAnimate(char c, int i, int j) {
@@ -14,9 +14,7 @@ public class AnimateFactory {
             case '1':
                 return (new Balloon(i,j,Sprite.BALLOON_RIGHT[0]));
             case 'p':
-                //return
-                return  new Bomber(i,j,Sprite.PLAYER_RIGHT[0]);
-                //return bomber;
+                return  new Bomber(i,j,Sprite.PLAYER_RIGHT[0], new PlayerOneKeyInput());
             default:
                 return null;
         }
