@@ -7,7 +7,9 @@ import Entities.Still.Grass;
 import Entities.Still.StillEntity;
 import Graphics.Sprite;
 import Map.Map;
+import javafx.util.Pair;
 
+import java.util.ArrayList;
 import java.util.concurrent.Delayed;
 
 public abstract class Character extends AnimateEntity {
@@ -53,14 +55,16 @@ public abstract class Character extends AnimateEntity {
     }
 
     public boolean isMovable() {
-        Map gameMap = Map.getGameMap();
-        StillEntity entity = gameMap.getEntity(tileX+velocityX,tileY+velocityY);
-
-        if((entity  instanceof Grass)) {
-            return true;
+        ArrayList<Pair<Integer, Integer>> border = getBorder();
+        for (Pair<Integer, Integer> point : border) {
+            int x = (point.getKey() + velocityX) / Sprite.SCALED_SIZE;
+            int y = (point.getValue() + velocityY) / Sprite.SCALED_SIZE;
+            StillEntity entity = gameMap.getEntity(x, y);
+            if (!(entity instanceof Grass)) {
+                return false;
+            }
         }
-
-        return false;
+        return true;
     }
 
     @Override
@@ -75,6 +79,5 @@ public abstract class Character extends AnimateEntity {
         move();
     }
 
-    @Override
     public abstract void getDirection();
 }
