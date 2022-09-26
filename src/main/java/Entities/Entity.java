@@ -6,12 +6,16 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 public abstract class Entity {
-    public Map gameMap = Map.getGameMap();
-    public int pixelX, pixelY;
-    public int tileX, tileY;
+    protected static Map gameMap;
+    protected int pixelX, pixelY;
+    protected int tileX, tileY;
     protected Sprite sprite;
     protected Image img;
     public boolean canBlock = false;
+
+    public static void setGameMap(Map gameMap) {
+        Entity.gameMap = gameMap;
+    }
 
     public Entity(int x, int y, Sprite sprite) {
         this.tileX = x;

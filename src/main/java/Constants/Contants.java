@@ -9,7 +9,7 @@ public class Contants {
             Contants.class.getResource("/Levels/map2.txt").getPath()
     };
 
-    public static enum DIRECTION{
+    public enum DIRECTION{
         LEFT,
         UP,
         RIGHT,

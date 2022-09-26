@@ -22,11 +22,10 @@ public class Bomberman extends Application {
     public static long time;
     public static final int WIDTH = 31;
     public static final int HEIGHT = 13;
-    private static Map mapGame = Map.getGameMap();
     private GraphicsContext gc;
     private Canvas canvas;
-    private List<Entity> entities = new ArrayList<>();
-    private List<Entity> stillObjects = new ArrayList<>();
+    private final List<Entity> entities = new ArrayList<>();
+    private final List<Entity> stillObjects = new ArrayList<>();
 
 
 
@@ -48,13 +47,15 @@ public class Bomberman extends Application {
 
         stage.setScene(scene);
         stage.show();
+        Map mapGame = new Map();
         final long startNanoTime = System.nanoTime();
+        Entity.setGameMap(mapGame.getGameMap());
         mapGame.createMap(Contants.MAP_PATHS[0]);
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long currentNanoTime) {
                 gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-                time = (long) ((currentNanoTime - startNanoTime) / 600000000) + 1;
+                time = ((currentNanoTime - startNanoTime) / 600000000) + 1;
                 scene.setOnKeyPressed(keyEvent -> {
                     String code = keyEvent.getCode().toString();
                     mapGame.getKey(code);

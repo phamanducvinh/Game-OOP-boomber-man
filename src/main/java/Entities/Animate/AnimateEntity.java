@@ -18,7 +18,6 @@ public abstract class AnimateEntity extends Entity {
         super(x, y, sprite);
     }
 
-    public abstract void getDirection();
     public ArrayList<Pair<Integer, Integer>> getBorder(){
         int width = (int) currentAnimate[0].getFxImage().getWidth();
         int height = (int) currentAnimate[0].getFxImage().getHeight();
@@ -29,6 +28,7 @@ public abstract class AnimateEntity extends Entity {
         result.add(new Pair<>(pixelX + height - 1, pixelY + width - 1));
         return result;
     }
+
     public void updateAnimation(int time) {
         this.sprite = Sprite.movingSprite(currentAnimate, time);
         this.img = this.sprite.getFxImage();

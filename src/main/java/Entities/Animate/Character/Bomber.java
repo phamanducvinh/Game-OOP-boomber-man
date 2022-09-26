@@ -1,40 +1,41 @@
 package Entities.Animate.Character;
+
 import Constants.Contants;
-import Entities.Entity;
+import Entities.Animate.AnimateEntity;
+import Entities.Animate.Bomb;
+import Factory.AnimateFactory;
 import Graphics.Sprite;
 import Input.KeyInput;
-import javafx.scene.SnapshotParameters;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 
 public class Bomber extends Character {
 
-    private KeyInput keyInput;
-    private int DIRECT_X[] = new int[]{0, 1, 0, 1};
-    private int DIRECT_Y[] = new int[]{1, 0, 1, 0};
+    private final KeyInput keyInput;
+    private int numBomb;
+    private final int maxBomb;
+    private final int[] DIRECT_X = new int[]{0, 1, 0, 1};
+    private final int[] DIRECT_Y = new int[]{1, 0, 1, 0};
 
     public Bomber(int x, int y, Sprite sprite, KeyInput keyInput) {
-        super( x, y, sprite);
+        super(x, y, sprite);
         animation.put(Contants.DIRECTION.LEFT, Sprite.PLAYER_LEFT);
         animation.put(Contants.DIRECTION.RIGHT, Sprite.PLAYER_RIGHT);
         animation.put(Contants.DIRECTION.UP, Sprite.PLAYER_UP);
-        animation.put(Contants.DIRECTION.DOWN,Sprite.PLAYER_DOWN);
+        animation.put(Contants.DIRECTION.DOWN, Sprite.PLAYER_DOWN);
         currentAnimate = animation.get(Contants.DIRECTION.RIGHT);
         this.keyInput = keyInput;
+        this.numBomb = 0;
+        this.maxBomb = 3;
     }
 
     @Override
     public void update() {
-        if (!isMovable()){
+        if (!isMovable()) {
             return;
         }
-        if(cntMove==0) {
-            cntMove = Sprite.SCALED_SIZE-1;
+        if (cntMove == 0) {
+            cntMove = Sprite.SCALED_SIZE - 1;
         } else cntMove--;
-
-        for(int i=0;i<2;++i) {
+        for (int i = 0; i < 2; ++i) {
             updateAnimation(cntMove);
             move();
         }
@@ -45,13 +46,25 @@ public class Bomber extends Character {
 
     }
 
+    private void placeBomb() {
+        if (numBomb == maxBomb) {
+            return;
+        }
+        numBomb ++;
+        gameMap.addAnimateEntities(new Bomb(tileX, tileY, Sprite.bomb, this));
+    }
+
+    public void decreaseNumBomb() {
+        numBomb--;
+    }
+
     public void getDirection(String code) {
-        if(code == null) {
+        if (code == null) {
             System.out.println("null");
             return;
         }
         Contants.DIRECTION handleDirection = keyInput.handleKeyInput(code);
-        switch (handleDirection){
+        switch (handleDirection) {
             case UP:
                 this.setVelocity(-defaultVelocity, 0);
                 break;
@@ -63,6 +76,9 @@ public class Bomber extends Character {
                 break;
             case RIGHT:
                 this.setVelocity(0, defaultVelocity);
+                break;
+            case DESTROYED:
+                placeBomb();
                 break;
             default:
                 break;

@@ -55,7 +55,6 @@ public abstract class Character extends AnimateEntity {
     }
 
     public boolean isMovable() {
-        Map gameMap = Map.getGameMap();
         ArrayList<Pair<Integer, Integer>> border = getBorder();
         for (Pair<Integer, Integer> point : border) {
             int x = (point.getKey() + velocityX) / Sprite.SCALED_SIZE;
@@ -80,6 +79,5 @@ public abstract class Character extends AnimateEntity {
         move();
     }
 
-    @Override
     public abstract void getDirection();
 }
