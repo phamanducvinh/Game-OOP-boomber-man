@@ -102,4 +102,8 @@ public class Map {
         });
         player.render(graphicsContext);
     }
+
+    public Bomber getPlayer() {
+        return player;
+    }
 }

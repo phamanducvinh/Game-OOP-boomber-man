@@ -4,6 +4,7 @@ import Entities.Animate.AnimateEntity;
 import Entities.Animate.Character.Character;
 import Graphics.Sprite;
 import Map.Map;
+import Trace.BfsTrace;
 import Trace.RandomTrace;
 import Trace.TraceStrategy;
 
@@ -19,8 +20,8 @@ public abstract class Enemy extends Character {
 
     @Override
     public void getDirection() {
-        direction = new RandomTrace().getRandomDirection();
-
+        RandomTrace bfsTrace = new RandomTrace(gameMap.getPlayer(),this, gameMap);
+        direction = bfsTrace.getDirection();
         switch (direction) {
 
             case UP:
