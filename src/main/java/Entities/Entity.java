@@ -4,6 +4,7 @@ import Map.Map;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.util.Pair;
 
 public abstract class Entity {
     protected static Map gameMap;
@@ -26,24 +27,22 @@ public abstract class Entity {
         this.img = sprite.getFxImage();
     }
 
-    /**
-     * Khởi tạo khối hình chữ nhật.
-     * */
     public Rectangle2D getBoundary() {
         return new Rectangle2D(pixelY, pixelX,Sprite.SCALED_SIZE,Sprite.SCALED_SIZE);
     }
 
-    // Kiểm tra xem có va chạm với thực thể khác không
     public boolean isCollision(Entity entity) {
         if(entity == null) return false;
         return getBoundary().intersects(entity.getBoundary());
     }
 
-    // In ảnh ra màn hình
     public void render(GraphicsContext graphicsContext) {
         graphicsContext.drawImage(img, pixelY, pixelX);
     }
 
-    // Hàm trừu tượng update thực thể sau mỗi milisecon
     public abstract void update();
+
+    public Pair<Integer,Integer> getTile() {
+        return new Pair(tileX,tileY);
+    }
 }

@@ -37,34 +37,34 @@ public class Sprite {
      */
 
     public static Sprite[] PLAYER_RIGHT = {
-            new Sprite(DEFAULT_SIZE, 1, 0, SpriteSheet.tiles, 10, 16),
-            new Sprite(DEFAULT_SIZE, 1, 1, SpriteSheet.tiles, 11, 16),
-            new Sprite(DEFAULT_SIZE, 1, 2, SpriteSheet.tiles, 12, 16),
+            new Sprite(DEFAULT_SIZE, 1, 0, SpriteSheet.tiles, 10, 13),
+            new Sprite(DEFAULT_SIZE, 1, 1, SpriteSheet.tiles, 11, 13),
+            new Sprite(DEFAULT_SIZE, 1, 2, SpriteSheet.tiles, 12, 13),
     };
 
     public static Sprite[] PLAYER_LEFT = {
-            new Sprite(DEFAULT_SIZE, 3, 0, SpriteSheet.tiles, 10, 15),
-            new Sprite(DEFAULT_SIZE, 3, 1, SpriteSheet.tiles, 11, 16),
-            new Sprite(DEFAULT_SIZE, 3, 2, SpriteSheet.tiles, 12 ,15)
+            new Sprite(DEFAULT_SIZE, 3, 0, SpriteSheet.tiles, 10, 13),
+            new Sprite(DEFAULT_SIZE, 3, 1, SpriteSheet.tiles, 11, 13),
+            new Sprite(DEFAULT_SIZE, 3, 2, SpriteSheet.tiles, 12 ,13)
     };
 
 
     public static Sprite[] PLAYER_UP = {
-            new Sprite(DEFAULT_SIZE, 0, 0, SpriteSheet.tiles, 12, 15),
-            new Sprite(DEFAULT_SIZE, 0, 1, SpriteSheet.tiles, 12, 16),
-            new Sprite(DEFAULT_SIZE, 0, 2, SpriteSheet.tiles, 12, 15),
+            new Sprite(DEFAULT_SIZE, 0, 0, SpriteSheet.tiles, 12, 13),
+            new Sprite(DEFAULT_SIZE, 0, 1, SpriteSheet.tiles, 12, 13),
+            new Sprite(DEFAULT_SIZE, 0, 2, SpriteSheet.tiles, 12, 13),
     };
 
     public static Sprite[] PLAYER_DOWN = {
-            new Sprite(DEFAULT_SIZE, 2, 0, SpriteSheet.tiles, 12, 15),
-            new Sprite(DEFAULT_SIZE, 2, 1, SpriteSheet.tiles, 12, 16),
-            new Sprite(DEFAULT_SIZE, 2, 2, SpriteSheet.tiles, 12, 15)
+            new Sprite(DEFAULT_SIZE, 2, 0, SpriteSheet.tiles, 12, 13),
+            new Sprite(DEFAULT_SIZE, 2, 1, SpriteSheet.tiles, 12, 13),
+            new Sprite(DEFAULT_SIZE, 2, 2, SpriteSheet.tiles, 12, 13)
     };
 
     public static Sprite[] PLAYER_DEAD = {
-            new Sprite(DEFAULT_SIZE, 4, 2, SpriteSheet.tiles, 14, 15),
-            new Sprite(DEFAULT_SIZE, 5, 2, SpriteSheet.tiles, 13, 16),
-            new Sprite(DEFAULT_SIZE, 6, 2, SpriteSheet.tiles, 16, 15)
+            new Sprite(DEFAULT_SIZE, 4, 2, SpriteSheet.tiles, 14, 13),
+            new Sprite(DEFAULT_SIZE, 5, 2, SpriteSheet.tiles, 13, 13),
+            new Sprite(DEFAULT_SIZE, 6, 2, SpriteSheet.tiles, 16, 13)
     };
 
 
