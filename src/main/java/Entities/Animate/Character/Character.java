@@ -69,13 +69,13 @@ public abstract class Character extends AnimateEntity {
     @Override
     public void update() {
         if(cntMove==0) {
-            do{
-                getDirection();
-            }while (isMovable()==false);
+
+            getDirection();
+
             cntMove = Sprite.SCALED_SIZE-1;
         } else cntMove--;
         updateAnimation(cntMove);
-        move();
+        if(isMovable()) move();
     }
 
     public abstract void getDirection();

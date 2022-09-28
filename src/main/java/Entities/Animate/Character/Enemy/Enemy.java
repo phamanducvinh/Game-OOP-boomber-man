@@ -13,6 +13,7 @@ import java.util.Random;
 public abstract class Enemy extends Character {
 
     public TraceStrategy traceStrategy;
+    BfsTrace bfsTrace;
 
     public Enemy(int x, int y, Sprite sprite) {
         super(x,y,sprite);
@@ -20,8 +21,10 @@ public abstract class Enemy extends Character {
 
     @Override
     public void getDirection() {
-        RandomTrace bfsTrace = new RandomTrace(gameMap.getPlayer(),this, gameMap);
+        bfsTrace = new BfsTrace(gameMap.getPlayer(),this, gameMap);
         direction = bfsTrace.getDirection();
+        System.out.println(direction);
+        //if(direction == null) direction = DIRECTION.DOWN;
         switch (direction) {
 
             case UP:
