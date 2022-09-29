@@ -25,10 +25,10 @@ public class Sprite {
     | Board sprites
     |--------------------------------------------------------------------------
      */
-    public static Sprite grass = new Sprite(DEFAULT_SIZE, 6, 0, SpriteSheet.tiles, 16, 16);
-    public static Sprite brick = new Sprite(DEFAULT_SIZE, 7, 0, SpriteSheet.tiles, 16, 16);
-    public static Sprite wall = new Sprite(DEFAULT_SIZE, 5, 0, SpriteSheet.tiles, 16, 16);
-    public static Sprite portal = new Sprite(DEFAULT_SIZE, 4, 0, SpriteSheet.tiles, 14, 14);
+    public static Sprite GRASS = new Sprite(DEFAULT_SIZE, 6, 0, SpriteSheet.tiles, 16, 16);
+    public static Sprite BRICK = new Sprite(DEFAULT_SIZE, 7, 0, SpriteSheet.tiles, 16, 16);
+    public static Sprite WALL = new Sprite(DEFAULT_SIZE, 5, 0, SpriteSheet.tiles, 16, 16);
+    public static Sprite PORTAL = new Sprite(DEFAULT_SIZE, 4, 0, SpriteSheet.tiles, 14, 14);
 
     /*
     |--------------------------------------------------------------------------
@@ -217,18 +217,20 @@ public class Sprite {
     | Brick FlameSegment
     |--------------------------------------------------------------------------
      */
-    public static Sprite brick_exploded = new Sprite(DEFAULT_SIZE, 7, 1, SpriteSheet.tiles, 16, 16);
-    public static Sprite brick_exploded1 = new Sprite(DEFAULT_SIZE, 7, 2, SpriteSheet.tiles, 16, 16);
-    public static Sprite brick_exploded2 = new Sprite(DEFAULT_SIZE, 7, 3, SpriteSheet.tiles, 16, 16);
+    public static Sprite[] BRICK_EXPLODED = {
+            new Sprite(DEFAULT_SIZE, 7, 1, SpriteSheet.tiles, 16, 16),
+            new Sprite(DEFAULT_SIZE, 7, 2, SpriteSheet.tiles, 16, 16),
+            new Sprite(DEFAULT_SIZE, 7, 3, SpriteSheet.tiles, 16, 16),
+    };
 
     /*
     |--------------------------------------------------------------------------
     | PowerUps
     |--------------------------------------------------------------------------
      */
-    public static Sprite powerUp_bombs = new Sprite(DEFAULT_SIZE, 0, 10, SpriteSheet.tiles, 16, 16);
-    public static Sprite powerUp_flames = new Sprite(DEFAULT_SIZE, 1, 10, SpriteSheet.tiles, 16, 16);
-    public static Sprite powerUp_speed = new Sprite(DEFAULT_SIZE, 2, 10, SpriteSheet.tiles, 16, 16);
+    public static Sprite BOMB_ITEM = new Sprite(DEFAULT_SIZE, 0, 10, SpriteSheet.tiles, 16, 16);
+    public static Sprite FLAME_ITEM = new Sprite(DEFAULT_SIZE, 1, 10, SpriteSheet.tiles, 16, 16);
+    public static Sprite SPEED_ITEM = new Sprite(DEFAULT_SIZE, 2, 10, SpriteSheet.tiles, 16, 16);
     public static Sprite powerUp_wallPass = new Sprite(DEFAULT_SIZE, 3, 10, SpriteSheet.tiles, 16, 16);
     public static Sprite powerUp_bombPass = new Sprite(DEFAULT_SIZE, 5, 10, SpriteSheet.tiles, 16, 16);
     public static Sprite powerUp_flamePass = new Sprite(DEFAULT_SIZE, 6, 10, SpriteSheet.tiles, 16, 16);

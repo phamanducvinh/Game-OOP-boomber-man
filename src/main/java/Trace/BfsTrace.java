@@ -36,7 +36,7 @@ public class BfsTrace implements Trace {
             return false;
         }
 
-        return (gameMap.getEntity(x,y) instanceof Grass);
+        return (gameMap.getTiles(x,y) instanceof Grass);
     }
 
     private Pair<Integer,Integer> Bfs(Bomber bomber,Enemy enemy) {

@@ -18,26 +18,12 @@ public abstract class Enemy extends Character {
     @Override
     public void getDirection() {
         direction = trace(gameMap.getPlayer(),this,gameMap);
+        currentAnimate = animation.get(direction);
         switch (direction) {
-            case UP -> {
-                this.setVelocity(-defaultVelocity, 0);
-                currentAnimate = animation.get(DIRECTION.LEFT);
-            }
-            case DOWN -> {
-                this.setVelocity(defaultVelocity, 0);
-                currentAnimate = animation.get(DIRECTION.RIGHT);
-            }
-            case LEFT -> {
-                this.setVelocity(0, -defaultVelocity);
-                currentAnimate = animation.get(DIRECTION.LEFT);
-            }
-            case RIGHT -> {
-                this.setVelocity(0, defaultVelocity);
-                currentAnimate = animation.get(DIRECTION.RIGHT);
-            }
-            default -> {
-            }
+            case UP -> this.setVelocity(-defaultVelocity, 0);
+            case DOWN -> this.setVelocity(defaultVelocity, 0);
+            case LEFT -> this.setVelocity(0, -defaultVelocity);
+            case RIGHT -> this.setVelocity(0, defaultVelocity);
         }
-
     }
 }

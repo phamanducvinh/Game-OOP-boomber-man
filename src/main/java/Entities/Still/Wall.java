@@ -4,7 +4,7 @@ import Graphics.Sprite;
 public class Wall extends StillEntity {
     public Wall(int x, int y, Sprite sprite) {
         super(x, y, sprite);
-        canBlock = false;
-
+        setBlock(true);
+        gameMap.setTiles(x,y,this);
     }
 }
