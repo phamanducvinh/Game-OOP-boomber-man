@@ -93,15 +93,24 @@ public class Sprite {
     };
 
     //ONEAL
-    public static Sprite oneal_left1 = new Sprite(DEFAULT_SIZE, 11, 0, SpriteSheet.tiles, 16, 16);
-    public static Sprite oneal_left2 = new Sprite(DEFAULT_SIZE, 11, 1, SpriteSheet.tiles, 16, 16);
-    public static Sprite oneal_left3 = new Sprite(DEFAULT_SIZE, 11, 2, SpriteSheet.tiles, 16, 16);
 
-    public static Sprite oneal_right1 = new Sprite(DEFAULT_SIZE, 12, 0, SpriteSheet.tiles, 16, 16);
-    public static Sprite oneal_right2 = new Sprite(DEFAULT_SIZE, 12, 1, SpriteSheet.tiles, 16, 16);
-    public static Sprite oneal_right3 = new Sprite(DEFAULT_SIZE, 12, 2, SpriteSheet.tiles, 16, 16);
+    public static Sprite[] ONEAL_LEFT = {
+            new Sprite(DEFAULT_SIZE, 11, 0, SpriteSheet.tiles, 16, 16),
+            new Sprite(DEFAULT_SIZE, 11, 1, SpriteSheet.tiles, 16, 16),
+            new Sprite(DEFAULT_SIZE, 11, 2, SpriteSheet.tiles, 16, 16)
+    };
 
-    public static Sprite oneal_dead = new Sprite(DEFAULT_SIZE, 11, 3, SpriteSheet.tiles, 16, 16);
+    public static Sprite[] ONEAL_RIGHT = {
+            new Sprite(DEFAULT_SIZE, 12, 0, SpriteSheet.tiles, 16, 16),
+            new Sprite(DEFAULT_SIZE, 12, 1, SpriteSheet.tiles, 16, 16),
+            new Sprite(DEFAULT_SIZE, 12, 2, SpriteSheet.tiles, 16, 16),
+    };
+
+    public static Sprite[] ONEAL_DEAD = {
+            new Sprite(DEFAULT_SIZE, 11, 3, SpriteSheet.tiles, 16, 16),
+            new Sprite(DEFAULT_SIZE, 11, 3, SpriteSheet.tiles, 16, 16),
+            new Sprite(DEFAULT_SIZE, 11, 3, SpriteSheet.tiles, 16, 16)
+    };
 
     //BOSS
     public static Sprite boss_down1 = new Sprite(DEFAULT_SIZE, 6, 11, SpriteSheet.tiles, 16, 16);

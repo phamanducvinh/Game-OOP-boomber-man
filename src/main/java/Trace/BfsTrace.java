@@ -13,11 +13,16 @@ import javafx.util.Pair;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class BfsTrace extends TraceStrategy {
+public class BfsTrace implements Trace {
+    private Bomber player;
+    private Enemy enemy;
+    private Map gameMap;
     private static boolean[][] distance = new boolean[HEIGHT][WIDTH];
 
     public BfsTrace(Bomber player,Enemy enemy,Map gameMap) {
-        super(player,enemy,gameMap);
+        this.player = player;
+        this.enemy = enemy;
+        this.gameMap = gameMap;
 
         for(int i=0;i<HEIGHT;++i) {
             for(int j=0;j<WIDTH;++j) {
@@ -71,7 +76,7 @@ public class BfsTrace extends TraceStrategy {
     public DIRECTION getDirection() {
         Pair<Integer,Integer> trace = Bfs(player,enemy);
         if(trace == null) {
-            return new RandomTrace(player,enemy,gameMap).getDirection();
+            return new RandomTrace().getDirection();
         }
         int _x = trace.getKey()-enemy.getTile().getKey();
         int _y = trace.getValue()-enemy.getTile().getValue();
