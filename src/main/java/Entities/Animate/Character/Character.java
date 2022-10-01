@@ -31,6 +31,7 @@ public abstract class Character extends AnimateEntity implements Movable {
         collision = false;
         stand = true;
         speed = 1;
+        defaultVelocity = 1;
         gameMap.addCharacter(this);
     }
 
@@ -70,6 +71,7 @@ public abstract class Character extends AnimateEntity implements Movable {
                 }
             }
         }
+        stand = ((velocityX==0 && velocityY==0)||collision);
         pixelX -= velocityX;
         pixelY -= velocityY;
 
@@ -77,11 +79,12 @@ public abstract class Character extends AnimateEntity implements Movable {
 
     @Override
     public void update() {
+        /*
         if(destroyed) {
             updateDestroyAnimation();
             return;
-        }
-        for(int i=1;i<speed;++i) {
+        }*/
+        for(int i=0;i<speed;++i) {
             getDirection();
             checkCollision();
             if(!stand) {

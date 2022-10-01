@@ -2,6 +2,8 @@ package Entities.Animate.Character;
 
 import static Constants.Contants.DIRECTION;
 import static Constants.Contants.DIRECTION.*;
+
+import Constants.Contants;
 import Entities.Animate.Character.Enemy.Enemy;
 import Entities.Entity;
 import Entities.Still.Item.Bomb;
@@ -19,7 +21,6 @@ import static Graphics.Sprite.*;
 
 public class Bomber extends Character {
     private int life ;
-    private final KeyInput keyInput;
     private int numBomb;
     private boolean bombPass;
     private int flameLength;
@@ -28,7 +29,7 @@ public class Bomber extends Character {
     private final int[] DIRECT_X = new int[]{0, 1, 0, 1};
     private final int[] DIRECT_Y = new int[]{1, 0, 1, 0};
 
-    public Bomber(int x, int y, Sprite sprite, KeyInput keyInput) {
+    public Bomber(int x, int y, Sprite sprite) {
         super(x, y, sprite);
         animation.put(LEFT,PLAYER_LEFT);
         animation.put(RIGHT,PLAYER_RIGHT);
@@ -38,13 +39,13 @@ public class Bomber extends Character {
 
         currentAnimate = animation.get(RIGHT);
         this.speed = 2;
-        this.keyInput = keyInput;
         this.numBomb = 0;
         this.maxBomb = 3;
         this.life = 3;
         this.flameLength = 3;
         this.bombPass = false;
         gameMap.setPlayer(this);
+        defaultVelocity = 1;
     }
 
     public boolean isCollision2(Entity other) {
@@ -90,27 +91,49 @@ public class Bomber extends Character {
     @Override
     public void getDirection() {
         this.setVelocity(0, 0);
-        DIRECTION newDirection = keyInput.handleKeyInput(this);
-        currentAnimate = animation.get(newDirection);
-        updateAnimation();
+        Contants.PLAYER newDirection = gameMap.getEvent();
 
+        if(newDirection == null) {
+            this.setVelocity(0,0);
+            stand = true;
+            return;
+        }
+        stand = false;
+
+        //currentAnimate = animation.get(newDirection);
         switch (newDirection) {
             case UP -> this.setVelocity(-defaultVelocity,0);
             case DOWN -> this.setVelocity(defaultVelocity,0);
             case LEFT -> this.setVelocity(0,-defaultVelocity);
             case RIGHT -> this.setVelocity(0,defaultVelocity);
+            case PLACE_BOMB -> placeBomb();
         }
-        updateAnimation();
+
+        //updateAnimation();
     }
 
+    @Override
+    public void update(){
+        //if(!stand) {
+        //if(!collision){
+            getDirection();
+
+            checkCollision();
+        if(!collision){
+            move();
+            //stand = true;
+        }
+
+        //}
+    }
     public void placeBomb() {
         if (numBomb == maxBomb) {
             return;
         }
         numBomb += 1;
-
-        Bomb bomb = new Bomb(this.tileX, this.tileY, BOMB, this);
-        gameMap.bombs.add(bomb);
+        this.setVelocity(0,0);
+        Bomb bomb = new Bomb(this.tileX, this.tileY, sprite, this);
+        gameMap.addBomb(bomb);
     }
 
     @Override

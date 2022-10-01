@@ -14,7 +14,7 @@ public class Bomb extends AnimateEntity {
     private final Bomber owner;
     private Explosion[][] explosion;
     public int timeBeforeExplode = 200;
-    public boolean isExploded = false;
+    public boolean exploded = false;
 
     public Bomb(int x, int y, Sprite sprite, Bomber bomber) {
         super(x, y, sprite);
@@ -22,6 +22,7 @@ public class Bomb extends AnimateEntity {
         animation.put(DESTROYED, Sprite.EXPLODED);
         currentAnimate = animation.get(BOMB);
         owner = bomber;
+        exploded = false;
     }
 
     @Override

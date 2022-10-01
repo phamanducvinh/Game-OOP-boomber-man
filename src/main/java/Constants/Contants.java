@@ -24,6 +24,14 @@ public class Contants {
         DESTROYED,
     }
 
+    public enum PLAYER{
+        LEFT,
+        UP,
+        RIGHT,
+        DOWN,
+        PLACE_BOMB
+    }
+
     public enum EXPLOSION{
         HORIZONTAL,
         RIGHT_LAST,

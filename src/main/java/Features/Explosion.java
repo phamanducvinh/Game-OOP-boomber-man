@@ -66,7 +66,8 @@ public class Explosion extends AnimateEntity {
         }
 
 
-        for (Bomb bomb: gameMap.bombs) {
+        List<Bomb> bombs = gameMap.getBombs();
+        for (Bomb bomb: bombs) {
             if (this.isCollision(bomb) && !bomb.exploded) {
                 bomb.timeBeforeExplode = 1;
             }

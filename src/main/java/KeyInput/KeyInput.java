@@ -7,7 +7,10 @@ import Entities.Animate.Character.Bomber;
 import java.util.HashMap;
 
 public interface KeyInput {
-    HashMap<Contants.DIRECTION,Boolean> keyInput = new HashMap<>();
     void initialization();
-    Contants.DIRECTION handleKeyInput(Bomber bomber);
+
+    Contants.PLAYER inputToDirection(String code);
+    //Contants.DIRECTION handleKeyInput(Bomber bomber);
+
+    HashMap<String, Enum> keyInput = new HashMap<>();
 }

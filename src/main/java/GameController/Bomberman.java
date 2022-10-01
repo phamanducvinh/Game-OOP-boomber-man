@@ -3,9 +3,7 @@ package GameController;
 
 import Constants.Contants;
 import Entities.*;
-import Entities.Animate.Character.Bomber;
 import Graphics.Sprite;
-import Input.KeyInput;
 import Map.Map;
 import com.sun.javafx.iio.gif.GIFDescriptor;
 import javafx.animation.AnimationTimer;
@@ -49,6 +47,7 @@ public class Bomberman extends Application {
         final long startNanoTime = System.nanoTime();
         Entity.setGameMap(mapGame.getGameMap());
         mapGame.createMap(Contants.MAP_PATHS[0]);
+
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long currentNanoTime) {
@@ -56,6 +55,7 @@ public class Bomberman extends Application {
                 gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
                 scene.setOnKeyPressed(keyEvent -> {
                     String code = keyEvent.getCode().toString();
+                    mapGame.setEvent(code);
                 });
                 mapGame.updateMap();
                 mapGame.renderMap(gc);
@@ -63,6 +63,7 @@ public class Bomberman extends Application {
         };
         timer.start();
     }
+
 
     public static long getSystemTime() {
         return time;

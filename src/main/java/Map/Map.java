@@ -1,17 +1,21 @@
 package Map;
 
+import Constants.Contants;
 import Entities.Animate.Character.Bomber;
 import Entities.Animate.Character.Character;
 import Entities.Entity;
+import Entities.Still.Item.Bomb;
 import Entities.Still.Item.Item;
 import Factory.CharacterFactory;
 import Factory.ItemFactory;
 import Factory.StillFactory;
+import KeyInput.PlayerInput;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -22,6 +26,10 @@ public class Map {
     private Entity[][] tiles;
     private List<Character> characters;
     private List<Item> items;
+
+    private List<Bomb> bombs;
+    private PlayerInput playerInput = new PlayerInput();
+    private Contants.PLAYER event;
     private Bomber player;
     public Map getGameMap() {
         return this;
@@ -33,6 +41,7 @@ public class Map {
    }
 
     public void createMap(String mapPath) throws FileNotFoundException {
+        playerInput.initialization();
         Scanner scanner = new Scanner(new File(mapPath));
         resetEntities();
         for (int i = 0; i < HEIGHT; i++) {
@@ -105,5 +114,27 @@ public class Map {
 
     public List<Item> getItems() {
         return items;
+    }
+
+    public List<Bomb> getBombs() {
+        return bombs;
+    }
+
+    public void addBomb(Bomb bomb) {
+        bombs.add(bomb);
+    }
+
+    public void removeBomb(Bomb bomb) {
+        bombs.remove(bomb);
+    }
+
+    public void setEvent(String code) {
+        if(code == null){
+            event = null;
+        }else event = playerInput.inputToDirection(code);
+    }
+
+    public Contants.PLAYER getEvent() {
+        return event;
     }
 }
