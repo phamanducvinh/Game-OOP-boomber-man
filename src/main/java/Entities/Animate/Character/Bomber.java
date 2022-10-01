@@ -1,16 +1,28 @@
 package Entities.Animate.Character;
 
-import Constants.Contants;
+import static Constants.Contants.DIRECTION;
+import static Constants.Contants.DIRECTION.*;
+import Entities.Animate.Character.Enemy.Enemy;
 import Entities.Entity;
+import Entities.Still.Item.Bomb;
+import Entities.Still.Item.Item;
+import GameController.Bomberman;
 import Graphics.Sprite;
-import Input.KeyInput;
+
+import KeyInput.KeyInput;
 import javafx.geometry.Rectangle2D;
 
-public class Bomber extends Character {
+import java.util.List;
 
+import static Constants.Contants.DIRECTION.*;
+import static Graphics.Sprite.*;
+
+public class Bomber extends Character {
+    private int life ;
     private final KeyInput keyInput;
     private int numBomb;
     private boolean bombPass;
+    private int flameLength;
     private static final int DEFAULT_MAX_BOMB = 3;
     private int maxBomb;
     private final int[] DIRECT_X = new int[]{0, 1, 0, 1};
@@ -18,15 +30,19 @@ public class Bomber extends Character {
 
     public Bomber(int x, int y, Sprite sprite, KeyInput keyInput) {
         super(x, y, sprite);
-        animation.put(Contants.DIRECTION.LEFT, Sprite.PLAYER_LEFT);
-        animation.put(Contants.DIRECTION.RIGHT, Sprite.PLAYER_RIGHT);
-        animation.put(Contants.DIRECTION.UP, Sprite.PLAYER_UP);
-        animation.put(Contants.DIRECTION.DOWN, Sprite.PLAYER_DOWN);
-        currentAnimate = animation.get(Contants.DIRECTION.RIGHT);
+        animation.put(LEFT,PLAYER_LEFT);
+        animation.put(RIGHT,PLAYER_RIGHT);
+        animation.put(UP,PLAYER_UP);
+        animation.put(DOWN,PLAYER_DOWN);
+        animation.put(DESTROYED,PLAYER_DEAD);
+
+        currentAnimate = animation.get(RIGHT);
         this.speed = 2;
         this.keyInput = keyInput;
         this.numBomb = 0;
         this.maxBomb = 3;
+        this.life = 3;
+        this.flameLength = 3;
         this.bombPass = false;
         gameMap.setPlayer(this);
     }
@@ -43,62 +59,62 @@ public class Bomber extends Character {
     public void setMaxBomb(int maxBomb){
         this.maxBomb = maxBomb;
     }
+    public int getFlameLength() {
+        return flameLength;
+    }
 
-    public void resetMaxBomb() {
-        this.maxBomb = DEFAULT_MAX_BOMB;
+    public void setFlameLength(int flameLength) {
+        this.flameLength = flameLength;
     }
 
     @Override
-    public void update() {
-        if (cntMove == 0) {
-            cntMove = Sprite.SCALED_SIZE - 1;
-        } else cntMove--;
-        for (int i = 0; i < 2; ++i) {
-            updateAnimation(cntMove);
-            move();
+    public void checkCollision() {
+        if (direction == DESTROYED) {
+            stand = true;
+            return;
         }
-    }
 
-    @Override
-    public void delete() {
+        List<Character> characters = gameMap.getCharacters();
+        for (Character character: characters) {
+            if (this.isCollision2(character) && character instanceof Enemy) {
+                destroy();
+            }
+        }
 
+        super.checkCollision();
+
+        tileX = pixelX / Sprite.SCALED_SIZE;
+        tileY = pixelY / Sprite.SCALED_SIZE;
     }
 
     @Override
     public void getDirection() {
+        this.setVelocity(0, 0);
+        DIRECTION newDirection = keyInput.handleKeyInput(this);
+        currentAnimate = animation.get(newDirection);
+        updateAnimation();
 
+        switch (newDirection) {
+            case UP -> this.setVelocity(-defaultVelocity,0);
+            case DOWN -> this.setVelocity(defaultVelocity,0);
+            case LEFT -> this.setVelocity(0,-defaultVelocity);
+            case RIGHT -> this.setVelocity(0,defaultVelocity);
+        }
+        updateAnimation();
     }
 
-    private void placeBomb() {
+    public void placeBomb() {
         if (numBomb == maxBomb) {
             return;
         }
-        numBomb ++;
+        numBomb += 1;
 
+        Bomb bomb = new Bomb(this.tileX, this.tileY, BOMB, this);
+        gameMap.bombs.add(bomb);
     }
 
-    public void decreaseNumBomb() {
-        numBomb--;
-    }
-
-    public void getDirection(String code) {
-        if (code == null) {
-            System.out.println("null");
-            return;
-        }
-        Contants.DIRECTION handleDirection = keyInput.handleKeyInput(code);
-        switch (handleDirection) {
-            case UP -> this.setVelocity(-defaultVelocity, 0);
-            case LEFT -> this.setVelocity(0, -defaultVelocity);
-            case DOWN -> this.setVelocity(defaultVelocity, 0);
-            case RIGHT -> this.setVelocity(0, defaultVelocity);
-            case DESTROYED -> placeBomb();
-            default -> {
-            }
-        }
-        if (handleDirection != Contants.DIRECTION.DESTROYED && handleDirection != Contants.DIRECTION.NONE) {
-            currentAnimate = animation.get(handleDirection);
-            direction = handleDirection;
-        }
+    @Override
+    public void delete() {
+        updateDestroyAnimation();
     }
 }

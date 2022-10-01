@@ -2,11 +2,13 @@ package Entities.Still.Item;
 
 import Entities.Animate.Brick;
 import Entities.Animate.Character.Bomber;
+import Entities.Still.Grass;
 import Entities.Still.StillEntity;
 import Graphics.Sprite;
 import javafx.scene.canvas.GraphicsContext;
 
 import static Graphics.Sprite.BRICK;
+import static Graphics.Sprite.GRASS;
 
 public abstract class Item extends StillEntity {
     private boolean hidden;
@@ -34,6 +36,14 @@ public abstract class Item extends StillEntity {
         gameMap.addItem(this);
     }
 
+    public void destroy() {
+        if(hidden) {
+            hidden = false;
+        }
+        remove();
+        Grass grass = new Grass(tileX,tileY,GRASS);
+        gameMap.setTiles(tileX,tileY,grass);
+    }
 
     public boolean isHidden() {
         return hidden;

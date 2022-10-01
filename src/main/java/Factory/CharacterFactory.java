@@ -12,7 +12,7 @@ public class CharacterFactory {
         switch (c) {
             case '1' -> new Balloon(i, j, Sprite.BALLOON_RIGHT[0]);
             case '2' -> new Oneal(i, j, Sprite.ONEAL_RIGHT[0]);
-            //case 'p' -> new Bomber(i,j,Sprite.PLAYER_RIGHT[0],null);
+            case 'p' -> new Bomber(i,j,Sprite.PLAYER_RIGHT[0],null);
         };
     }
 }

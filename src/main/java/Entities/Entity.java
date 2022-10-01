@@ -59,11 +59,10 @@ public abstract class Entity {
     public void setDestroyable(boolean destroyable) {
         this.destroyable = destroyable;
     }
+    public void setDestroyed(boolean destroyed) {
+        this.destroyed = destroyed;
+    }
 
 
     public abstract void update();
-
-    public Pair<Integer,Integer> getTile() {
-        return new Pair(tileX,tileY);
-    }
 }

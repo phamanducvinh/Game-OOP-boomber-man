@@ -52,7 +52,6 @@ public class Map {
                 tiles[i][j].update();
             }
         }
-//        player.update();
 
         for(Character character : characters) {
             character.update();
@@ -98,5 +97,13 @@ public class Map {
     }
     public void setTiles(int x,int y,Entity entity) {
         tiles[x][y] = entity;
+    }
+
+    public List<Character> getCharacters() {
+        return characters;
+    }
+
+    public List<Item> getItems() {
+        return items;
     }
 }

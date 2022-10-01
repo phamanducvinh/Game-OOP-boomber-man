@@ -12,7 +12,8 @@ public class SpeedItem extends Item {
 
     @Override
     public void effect(Bomber player) {
-        player.setSpeed(player.getSpeed()+1);
-        remove();
+        int speed = player.getSpeed();
+        player.setSpeed(speed+1);
+        destroy();
     }
 }

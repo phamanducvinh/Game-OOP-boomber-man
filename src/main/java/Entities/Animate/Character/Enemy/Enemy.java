@@ -5,9 +5,6 @@ import Entities.Animate.Character.Bomber;
 import Entities.Animate.Character.Character;
 import Graphics.Sprite;
 import Map.Map;
-import Trace.BfsTrace;
-
-import java.util.Random;
 
 public abstract class Enemy extends Character {
     public Enemy(int x, int y, Sprite sprite) {
@@ -24,6 +21,12 @@ public abstract class Enemy extends Character {
             case DOWN -> this.setVelocity(defaultVelocity, 0);
             case LEFT -> this.setVelocity(0, -defaultVelocity);
             case RIGHT -> this.setVelocity(0, defaultVelocity);
+            case DESTROYED -> this.setVelocity(0,0);
         }
+    }
+
+    @Override
+    public void delete() {
+        gameMap.removeCharacter(this);
     }
 }

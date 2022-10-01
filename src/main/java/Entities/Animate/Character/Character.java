@@ -5,6 +5,7 @@ import Entities.Animate.AnimateEntity;
 import Entities.Entity;
 import Entities.Still.Grass;
 import Entities.Still.StillEntity;
+import Features.Movable;
 import Graphics.Sprite;
 import Map.Map;
 import javafx.util.Pair;
@@ -15,31 +16,31 @@ import java.util.concurrent.Delayed;
 import static Constants.Contants.HEIGHT;
 import static Constants.Contants.WIDTH;
 
-public abstract class Character extends AnimateEntity {
+public abstract class Character extends AnimateEntity implements Movable {
 
     protected int defaultVelocity;
     protected int velocityX;
     protected int velocityY;
     protected DIRECTION direction;
-
     protected int speed;
     protected boolean collision;
+    protected boolean stand;
 
     public Character(int x, int y, Sprite sprite) {
         super( x, y, sprite);
-        this.velocityX = 0;
-        this.velocityY = 0;
-        this.defaultVelocity = 4;
         collision = false;
-        gameMap.addCharacter(this);
+        stand = true;
         speed = 1;
+        gameMap.addCharacter(this);
     }
 
+    @Override
     public void setVelocity(int velocityX, int velocityY) {
         this.velocityX = velocityX;
         this.velocityY = velocityY;
     }
 
+    @Override
     public void setSpeed(int speed) {
         this.speed = speed;
     }
@@ -47,16 +48,16 @@ public abstract class Character extends AnimateEntity {
     public int getSpeed() {
         return speed;
     }
+
+    @Override
     public void move() {
-        System.out.println(velocityX+ " "+velocityY);
         pixelX += velocityX;
         pixelY += velocityY;
-        System.out.println(pixelX+" "+pixelY);
         tileX = pixelX / Sprite.SCALED_SIZE;
         tileY = pixelY / Sprite.SCALED_SIZE;
     }
 
-    public boolean movable() {
+    public void checkCollision() {
         collision = false;
         pixelX += velocityX;
         pixelY += velocityY;
@@ -71,15 +72,24 @@ public abstract class Character extends AnimateEntity {
         }
         pixelX -= velocityX;
         pixelY -= velocityY;
-        return (!collision);
+
     }
 
     @Override
     public void update() {
-        for(int i=0;i<speed;++i) {
+        if(destroyed) {
+            updateDestroyAnimation();
+            return;
+        }
+        for(int i=1;i<speed;++i) {
             getDirection();
-            updateAnimation(3);
-            if(movable()) move();
+            checkCollision();
+            if(!stand) {
+                updateAnimation();
+            }
+            if(!collision) {
+                move();
+            }
         }
     }
 

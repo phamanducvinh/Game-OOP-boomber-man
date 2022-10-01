@@ -1,3 +1,4 @@
+/*
 package Trace;
 
 import static Constants.Contants.*;
@@ -87,3 +88,4 @@ public class BfsTrace implements Trace {
         return DOWN;
     }
 }
+*/

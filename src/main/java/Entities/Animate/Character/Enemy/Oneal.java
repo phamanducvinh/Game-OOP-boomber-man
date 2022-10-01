@@ -6,7 +6,6 @@ import static Graphics.Sprite.*;
 import Entities.Animate.Character.Bomber;
 import Graphics.Sprite;
 import Map.Map;
-import Trace.BfsTrace;
 import Trace.RandomTrace;
 
 public class Oneal extends Enemy{
@@ -18,11 +17,6 @@ public class Oneal extends Enemy{
         animation.put(UP,ONEAL_RIGHT);
         animation.put(DESTROYED,ONEAL_DEAD);
         currentAnimate = animation.get(RIGHT);
-    }
-
-    @Override
-    public void delete() {
-
     }
 
     @Override

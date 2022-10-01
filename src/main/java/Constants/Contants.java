@@ -22,6 +22,21 @@ public class Contants {
         RIGHT,
         DOWN,
         DESTROYED,
-        NONE
     }
+
+    public enum EXPLOSION{
+        HORIZONTAL,
+        RIGHT_LAST,
+        VERTICAL,
+        LEFT_LAST,
+        TOP_LAST,
+        DOWN_LAST,
+        CENTER,
+    }
+
+    public enum BOMB{
+        BOMB,
+        DESTROYED,
+    }
+
 }

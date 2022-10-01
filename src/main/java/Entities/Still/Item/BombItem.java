@@ -11,9 +11,7 @@ public class BombItem extends Item {
     @Override
     public void effect(Bomber player) {
         int maxBomb = player.getMaxBomb();
-        if(maxBomb<5) {
-            player.setMaxBomb(maxBomb+1);
-        }
-        remove();
+        player.setMaxBomb(maxBomb+1);
+        destroy();
     }
 }

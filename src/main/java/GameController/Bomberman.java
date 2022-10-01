@@ -7,6 +7,7 @@ import Entities.Animate.Character.Bomber;
 import Graphics.Sprite;
 import Input.KeyInput;
 import Map.Map;
+import com.sun.javafx.iio.gif.GIFDescriptor;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -19,20 +20,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bomberman extends Application {
-    public static long time;
-    public static final int WIDTH = 31;
-    public static final int HEIGHT = 13;
+    private static long time;
+    private static final int WIDTH = 31;
+    private static final int HEIGHT = 13;
     private GraphicsContext gc;
     private Canvas canvas;
-    private final List<Entity> entities = new ArrayList<>();
-    private final List<Entity> stillObjects = new ArrayList<>();
-
+    private static final double FPS = 60.0;
 
 
     public static void main(String[] args) {
         Application.launch(Bomberman.class);
     }
-
     @Override
     public void start(Stage stage) throws Exception {
         stage.setTitle(Contants.GAME_TITLE);
@@ -54,8 +52,8 @@ public class Bomberman extends Application {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long currentNanoTime) {
+                time = (long) ((currentNanoTime - startNanoTime) / 60000000) + 1;
                 gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-                time = ((currentNanoTime - startNanoTime) / 600000000) + 1;
                 scene.setOnKeyPressed(keyEvent -> {
                     String code = keyEvent.getCode().toString();
                 });
@@ -64,6 +62,10 @@ public class Bomberman extends Application {
             }
         };
         timer.start();
+    }
+
+    public static long getSystemTime() {
+        return time;
     }
 
 }
