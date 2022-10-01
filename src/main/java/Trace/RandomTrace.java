@@ -1,24 +1,41 @@
 package Trace;
 
-import static Constants.Contants.DIRECTION.*;
-
 import Constants.Contants.DIRECTION;
+import Entities.Animate.Character.Bomber;
+import Entities.Animate.Character.Enemy.Enemy;
+import Map.Map;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
-public class RandomTrace implements Trace {
+import static Constants.Contants.DIRECTION.*;
+
+public class RandomTrace extends Trace {
+    public RandomTrace(Bomber player, Enemy enemy, Map gameMap) {
+        super(player, enemy, gameMap);
+    }
+
     @Override
     public DIRECTION getDirection() {
-        int random = new Random().nextInt(4);
-        switch (random){
-            case 0:
-                return LEFT;
-            case 1:
-                return RIGHT;
-            case 2:
-                return UP;
-            default :
-                return DOWN;
+        List<DIRECTION> directions = new ArrayList<>();
+        int x = enemy.getTile().getKey();
+        int y = enemy.getTile().getValue();
+        if (isMovable(x, y - 1)) {
+            directions.add(LEFT);
         }
+        if (isMovable(x, y + 1)) {
+            directions.add(RIGHT);
+        }
+        if (isMovable(x - 1, y)) {
+            directions.add(UP);
+        }
+        if (isMovable(x + 1, y)) {
+            directions.add(DOWN);
+        }
+        if (directions.size() > 0) {
+            return directions.get(new Random().nextInt(directions.size()));
+        }
+        return LEFT;
     }
 }

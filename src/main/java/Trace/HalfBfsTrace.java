@@ -12,29 +12,17 @@ import java.util.Queue;
 import static Constants.Contants.*;
 import static Constants.Contants.DIRECTION.*;
 
-public class HalfBfsTrace implements Trace {
+public class HalfBfsTrace extends Trace {
     private static final int[][] distance = new int[HEIGHT][WIDTH];
     private final int DISTANCE = 10;
-    private final Bomber player;
-    private final Enemy enemy;
-    private final Map gameMap;
 
     public HalfBfsTrace(Bomber player, Enemy enemy, Map gameMap) {
-        this.player = player;
-        this.enemy = enemy;
-        this.gameMap = gameMap;
+        super(player, enemy, gameMap);
         for (int i = 0; i < HEIGHT; ++i) {
             for (int j = 0; j < WIDTH; ++j) {
                 distance[i][j] = -1;
             }
         }
-    }
-
-    private boolean isMovable(int x, int y) {
-        if (x < 0 || x >= HEIGHT || y < 0 || y >= WIDTH) {
-            return false;
-        }
-        return (gameMap.getEntity(x, y) instanceof Grass);
     }
 
     private Pair<Integer, Integer> Bfs(Bomber bomber, Enemy enemy) {
@@ -58,7 +46,6 @@ public class HalfBfsTrace implements Trace {
             for (int i = 0; i < 4; ++i) {
                 int u = x + dx[i];
                 int v = y + dy[i];
-
                 if (isMovable(u, v) && distance[u][v] == -1) {
                     if (u == end.getKey() && v == end.getValue()) {
                         return new Pair<>(x, y);
@@ -77,7 +64,7 @@ public class HalfBfsTrace implements Trace {
     public DIRECTION getDirection() {
         Pair<Integer, Integer> trace = Bfs(player, enemy);
         if (trace == null) {
-            return new RandomTrace().getDirection();
+            return new RandomTrace(player,enemy,gameMap).getDirection();
         }
         int _x = trace.getKey() - enemy.getTile().getKey();
         int _y = trace.getValue() - enemy.getTile().getValue();
