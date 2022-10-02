@@ -58,15 +58,12 @@ public class Bomberman extends Application {
                 time = ((currentNanoTime - startNanoTime) / 600000000) + 1;
                 scene.setOnKeyPressed(keyEvent -> {
                     String code = keyEvent.getCode().toString();
-                    mapGame.getKey(code);
+                    mapGame.pressedKey(code);
                 });
-                /*
                 scene.setOnKeyReleased(keyEvent -> {
                     String code = keyEvent.getCode().toString();
-                    System.out.println(code + "Released");
-                    KeyInput.keyInput.put(code, false);
+                    mapGame.releasedKey(code);
                 });
-                */
 
                 mapGame.updateMap();
                 mapGame.renderMap(gc);
