@@ -2,6 +2,7 @@ package Trace;
 
 import Entities.Animate.Character.Bomber;
 import Entities.Animate.Character.Enemy.Enemy;
+import Entities.Still.Grass;
 import Map.Map;
 import javafx.util.Pair;
 
@@ -11,14 +12,15 @@ import java.util.Queue;
 import static Constants.Contants.*;
 import static Constants.Contants.DIRECTION.*;
 
-public class BfsTrace extends Trace {
-    private static final boolean[][] distance = new boolean[HEIGHT][WIDTH];
+public class HalfBfsTrace extends Trace {
+    private static final int[][] distance = new int[HEIGHT][WIDTH];
+    private final int DISTANCE = 10;
 
-    public BfsTrace(Bomber player, Enemy enemy, Map gameMap) {
+    public HalfBfsTrace(Bomber player, Enemy enemy, Map gameMap) {
         super(player, enemy, gameMap);
         for (int i = 0; i < HEIGHT; ++i) {
             for (int j = 0; j < WIDTH; ++j) {
-                distance[i][j] = false;
+                distance[i][j] = -1;
             }
         }
     }
@@ -27,36 +29,42 @@ public class BfsTrace extends Trace {
         Queue<Pair<Integer, Integer>> queue = new LinkedList<>();
         Pair<Integer, Integer> start = bomber.getTile();
         Pair<Integer, Integer> end = enemy.getTile();
-        Pair<Integer, Integer> trace = null;
         queue.add(start);
-        distance[start.getKey()][start.getValue()] = true;
+        for (int i = 0; i < HEIGHT; ++i) {
+            for (int j = 0; j < WIDTH; ++j) {
+                distance[i][j] = -1;
+            }
+        }
+        distance[start.getKey()][start.getValue()] = -1;
+
         boolean stop = false;
-        while (!queue.isEmpty() && !stop) {
+        while (!queue.isEmpty()) {
+
             Pair<Integer, Integer> tile = queue.remove();
             int x = tile.getKey();
             int y = tile.getValue();
             for (int i = 0; i < 4; ++i) {
                 int u = x + dx[i];
                 int v = y + dy[i];
-                if (isMovable(u, v) && !distance[u][v]) {
+                if (isMovable(u, v) && distance[u][v] == -1) {
                     if (u == end.getKey() && v == end.getValue()) {
-                        trace = new Pair<>(x, y);
-                        stop = true;
-                        break;
+                        return new Pair<>(x, y);
                     }
-                    queue.add(new Pair<>(u, v));
-                    distance[u][v] = true;
+                    distance[u][v] = distance[x][y] + 1;
+                    if (distance[u][v] < DISTANCE) {
+                        queue.add(new Pair<>(u, v));
+                    }
                 }
             }
         }
-        return trace;
+        return null;
     }
 
     @Override
     public DIRECTION getDirection() {
         Pair<Integer, Integer> trace = Bfs(player, enemy);
         if (trace == null) {
-            return new RandomTrace(player, enemy, gameMap).getDirection();
+            return new RandomTrace(player,enemy,gameMap).getDirection();
         }
         int _x = trace.getKey() - enemy.getTile().getKey();
         int _y = trace.getValue() - enemy.getTile().getValue();

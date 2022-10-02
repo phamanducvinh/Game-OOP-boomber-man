@@ -30,8 +30,12 @@ public class Map {
         return animateEntities;
     }
 
-    public void getKey(String code) {
-        this.code = code;
+    public void pressedKey(String code) {
+        player.pressedKey(code);
+    }
+
+    public void releasedKey(String code) {
+        player.releasedKey(code);
     }
 
     public int getHeight() {
@@ -83,11 +87,7 @@ public class Map {
         animateEntities.forEach(entity -> {
             entity.update();
         });
-        if (code != null) {
-            player.getDirection(code);
-            player.update();
-            code = null;
-        }
+        player.update();
     }
 
     public void renderMap(GraphicsContext graphicsContext) {

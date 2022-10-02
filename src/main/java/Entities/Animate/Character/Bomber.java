@@ -1,19 +1,17 @@
 package Entities.Animate.Character;
 
 import Constants.Contants;
-import Entities.Animate.AnimateEntity;
 import Entities.Animate.Bomb;
-import Factory.AnimateFactory;
 import Graphics.Sprite;
 import Input.KeyInput;
 
 public class Bomber extends Character {
 
     private final KeyInput keyInput;
-    private int numBomb;
     private final int maxBomb;
     private final int[] DIRECT_X = new int[]{0, 1, 0, 1};
     private final int[] DIRECT_Y = new int[]{1, 0, 1, 0};
+    private int numBomb;
 
     public Bomber(int x, int y, Sprite sprite, KeyInput keyInput) {
         super(x, y, sprite);
@@ -23,34 +21,43 @@ public class Bomber extends Character {
         animation.put(Contants.DIRECTION.DOWN, Sprite.PLAYER_DOWN);
         currentAnimate = animation.get(Contants.DIRECTION.RIGHT);
         this.keyInput = keyInput;
+        this.keyInput.initialization();
         this.numBomb = 0;
         this.maxBomb = 3;
     }
 
+
+    public void pressedKey(String code) {
+        keyInput.pressedKey(code);
+    }
+
+    public void releasedKey(String code) {
+        keyInput.releasedKey(code);
+    }
+
     @Override
     public void update() {
+        getDirection();
+        if (velocityX == 0 && velocityY == 0) {
+            return;
+        }
         if (!isMovable()) {
             return;
         }
         if (cntMove == 0) {
-            cntMove = Sprite.SCALED_SIZE - 1;
-        } else cntMove--;
-        for (int i = 0; i < 2; ++i) {
-            updateAnimation(cntMove);
-            move();
+            cntMove = Sprite.SCALED_SIZE * 4 - 1;
+        } else {
+            cntMove--;
         }
-    }
-
-    @Override
-    public void getDirection() {
-
+        updateAnimation(cntMove / 4);
+        move();
     }
 
     private void placeBomb() {
         if (numBomb == maxBomb) {
             return;
         }
-        numBomb ++;
+        numBomb++;
         gameMap.addAnimateEntities(new Bomb(tileX, tileY, Sprite.bomb, this));
     }
 
@@ -58,12 +65,9 @@ public class Bomber extends Character {
         numBomb--;
     }
 
-    public void getDirection(String code) {
-        if (code == null) {
-            System.out.println("null");
-            return;
-        }
-        Contants.DIRECTION handleDirection = keyInput.handleKeyInput(code);
+    @Override
+    public void getDirection() {
+        Contants.DIRECTION handleDirection = keyInput.handleKeyInput();
         switch (handleDirection) {
             case UP:
                 this.setVelocity(-defaultVelocity, 0);
@@ -79,6 +83,10 @@ public class Bomber extends Character {
                 break;
             case DESTROYED:
                 placeBomb();
+                this.setVelocity(0,0);
+                break;
+            case NONE:
+                this.setVelocity(0,0);
                 break;
             default:
                 break;
