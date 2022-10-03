@@ -18,6 +18,7 @@ import static Constants.Contants.WIDTH;
 
 public abstract class Character extends AnimateEntity implements Movable {
 
+    protected int cntMove;
     protected int defaultVelocity;
     protected int velocityX;
     protected int velocityY;
@@ -33,6 +34,7 @@ public abstract class Character extends AnimateEntity implements Movable {
         speed = 1;
         defaultVelocity = 1;
         gameMap.addCharacter(this);
+        cntMove = 0;
     }
 
     @Override
@@ -97,4 +99,8 @@ public abstract class Character extends AnimateEntity implements Movable {
     }
 
     public abstract void getDirection();
+
+    public Pair<Integer,Integer> getTile() {
+        return new Pair<>(tileX,tileY);
+    }
 }

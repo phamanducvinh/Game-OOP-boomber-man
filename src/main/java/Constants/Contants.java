@@ -4,9 +4,25 @@ public class Contants {
     public static final String TEXTURES_PATH = "/textures/classic.png";
     public static final String GAME_TITLE = "BOMBERMAN";
 
-    public static final String[] MAP_PATHS = {
-            Contants.class.getResource("/Levels/map1.txt").getPath(),
-            Contants.class.getResource("/Levels/map2.txt").getPath()
+    public static final String[] FONTS = {
+            Contants.class.getResource("/fonts/font1.ttf").getPath(),
+            Contants.class.getResource("/fonts/font2.TTF").getPath(),
+            Contants.class.getResource("/fonts/font3.otf").getPath()
+    };
+
+    public static final String MENU = Contants.class.getResource("/menu/menu.fxml").getPath();
+
+    public static final String[] MAP_PATHS_CAMPAIGN = {
+            Contants.class.getResource("/levels/campaign/level1.txt").getPath(),
+            Contants.class.getResource("/levels/campaign/level2.txt").getPath(),
+            Contants.class.getResource("/levels/campaign/level3.txt").getPath(),
+            Contants.class.getResource("/levels/campaign/level4.txt").getPath(),
+            Contants.class.getResource("/levels/campaign/level5.txt").getPath(),
+            Contants.class.getResource("/levels/campaign/level6.txt").getPath()
+    };
+
+    public static final String[] MAP_PATHS_TOW_PLAYER = {
+            Contants.class.getResource("levels/twoplayer/level1.txt").getPath()
     };
 
     public static final int HEIGHT = 13;
@@ -21,16 +37,10 @@ public class Contants {
         UP,
         RIGHT,
         DOWN,
-        DESTROYED,
+        DESTROYED,  // place bomb
+        NONE
     }
 
-    public enum PLAYER{
-        LEFT,
-        UP,
-        RIGHT,
-        DOWN,
-        PLACE_BOMB
-    }
 
     public enum EXPLOSION{
         HORIZONTAL,
@@ -45,6 +55,11 @@ public class Contants {
     public enum BOMB{
         BOMB,
         DESTROYED,
+    }
+
+    public enum MODE {
+        CAMPAIGN,
+        TWO_PLAYER
     }
 
 }

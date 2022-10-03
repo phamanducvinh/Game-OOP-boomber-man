@@ -9,13 +9,13 @@ import Entities.Still.Item.Item;
 import Factory.CharacterFactory;
 import Factory.ItemFactory;
 import Factory.StillFactory;
-import KeyInput.PlayerInput;
+import Input.PlayerOneKeyInput;
+import Input.Sound;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -23,17 +23,29 @@ import static Constants.Contants.HEIGHT;
 import static Constants.Contants.WIDTH;
 
 public class Map {
+    private int stage;
+    private int score;
+    private Contants.MODE mode;
     private Entity[][] tiles;
     private List<Character> characters;
     private List<Item> items;
 
     private List<Bomb> bombs;
-    private PlayerInput playerInput = new PlayerInput();
-    private Contants.PLAYER event;
+    private PlayerOneKeyInput playerInput = new PlayerOneKeyInput();
     private Bomber player;
     public Map getGameMap() {
         return this;
     }
+
+
+    public void pressedKey(String code) {
+        player.pressedKey(code);
+    }
+
+    public void releasedKey(String code) {
+        player.releasedKey(code);
+    }
+
     private void resetEntities() {
         tiles = new Entity[HEIGHT][WIDTH];
         characters = new ArrayList<>();
@@ -65,6 +77,9 @@ public class Map {
         for(Character character : characters) {
             character.update();
         }
+
+        player.update();
+
     }
 
     public void renderMap(GraphicsContext graphicsContext) {
@@ -128,13 +143,35 @@ public class Map {
         bombs.remove(bomb);
     }
 
-    public void setEvent(String code) {
-        if(code == null){
-            event = null;
-        }else event = playerInput.inputToDirection(code);
+    public void setMode(Contants.MODE mode) {
+        this.mode = mode;
     }
 
-    public Contants.PLAYER getEvent() {
-        return event;
+    public Contants.MODE getMode(Contants.MODE mode) {
+        return mode;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public int getStage() {
+        return stage;
+    }
+
+    public void nextStage() {
+        stage += 1;
+        if (Sound.getStageCleared().isPlaying()) {
+            Sound.getStageCleared().stop();
+        }
+        Sound.getBackgroundSound().stop();
+        Sound.setBackgroundSound(Sound.playSound(String.format("Area%s", stage % 2)));
+        String stagePath = "/levels/" + mode + String.format("/Level%d.txt", stage);
+        try {
+            createMap(stagePath);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        Message.showNextStageMessenger();
     }
 }

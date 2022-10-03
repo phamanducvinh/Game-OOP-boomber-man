@@ -1,17 +1,14 @@
 package Entities.Animate.Character;
 
-import static Constants.Contants.DIRECTION;
 import static Constants.Contants.DIRECTION.*;
 
 import Constants.Contants;
 import Entities.Animate.Character.Enemy.Enemy;
 import Entities.Entity;
 import Entities.Still.Item.Bomb;
-import Entities.Still.Item.Item;
-import GameController.Bomberman;
 import Graphics.Sprite;
 
-import KeyInput.KeyInput;
+import Input.PlayerOneKeyInput;
 import javafx.geometry.Rectangle2D;
 
 import java.util.List;
@@ -20,17 +17,21 @@ import static Constants.Contants.DIRECTION.*;
 import static Graphics.Sprite.*;
 
 public class Bomber extends Character {
+
     private int life ;
     private int numBomb;
-    private boolean bombPass;
     private int flameLength;
     private static final int DEFAULT_MAX_BOMB = 3;
     private int maxBomb;
+
+    private final PlayerOneKeyInput keyInput = new PlayerOneKeyInput();
+
     private final int[] DIRECT_X = new int[]{0, 1, 0, 1};
     private final int[] DIRECT_Y = new int[]{1, 0, 1, 0};
 
     public Bomber(int x, int y, Sprite sprite) {
         super(x, y, sprite);
+
         animation.put(LEFT,PLAYER_LEFT);
         animation.put(RIGHT,PLAYER_RIGHT);
         animation.put(UP,PLAYER_UP);
@@ -39,13 +40,18 @@ public class Bomber extends Character {
 
         currentAnimate = animation.get(RIGHT);
         this.speed = 2;
+        this.keyInput.initialization();
         this.numBomb = 0;
         this.maxBomb = 3;
         this.life = 3;
         this.flameLength = 3;
-        this.bombPass = false;
         gameMap.setPlayer(this);
         defaultVelocity = 1;
+    }
+
+    @Override
+    public void delete() {
+
     }
 
     public boolean isCollision2(Entity other) {
@@ -66,6 +72,15 @@ public class Bomber extends Character {
 
     public void setFlameLength(int flameLength) {
         this.flameLength = flameLength;
+    }
+
+
+    public void pressedKey(String code) {
+        keyInput.pressedKey(code);
+    }
+
+    public void releasedKey(String code) {
+        keyInput.releasedKey(code);
     }
 
     @Override
@@ -89,43 +104,16 @@ public class Bomber extends Character {
     }
 
     @Override
-    public void getDirection() {
-        this.setVelocity(0, 0);
-        Contants.PLAYER newDirection = gameMap.getEvent();
-
-        if(newDirection == null) {
-            this.setVelocity(0,0);
-            stand = true;
+    public void update() {
+        getDirection();
+        if (velocityX == 0 && velocityY == 0) {
             return;
         }
-        stand = false;
+        updateAnimation();
+        move();
 
-        //currentAnimate = animation.get(newDirection);
-        switch (newDirection) {
-            case UP -> this.setVelocity(-defaultVelocity,0);
-            case DOWN -> this.setVelocity(defaultVelocity,0);
-            case LEFT -> this.setVelocity(0,-defaultVelocity);
-            case RIGHT -> this.setVelocity(0,defaultVelocity);
-            case PLACE_BOMB -> placeBomb();
-        }
-
-        //updateAnimation();
     }
 
-    @Override
-    public void update(){
-        //if(!stand) {
-        //if(!collision){
-            getDirection();
-
-            checkCollision();
-        if(!collision){
-            move();
-            //stand = true;
-        }
-
-        //}
-    }
     public void placeBomb() {
         if (numBomb == maxBomb) {
             return;
@@ -136,8 +124,29 @@ public class Bomber extends Character {
         gameMap.addBomb(bomb);
     }
 
+    public void decreaseNumBomb() {
+        numBomb--;
+    }
+
     @Override
-    public void delete() {
-        updateDestroyAnimation();
+    public void getDirection() {
+        Contants.DIRECTION handleDirection = keyInput.handleKeyInput();
+        switch (handleDirection) {
+            case UP -> this.setVelocity(-defaultVelocity, 0);
+            case LEFT -> this.setVelocity(0, -defaultVelocity);
+            case DOWN -> this.setVelocity(defaultVelocity, 0);
+            case RIGHT -> this.setVelocity(0, defaultVelocity);
+            case DESTROYED -> {
+                placeBomb();
+                this.setVelocity(0, 0);
+            }
+            case NONE -> this.setVelocity(0, 0);
+            default -> {
+            }
+        }
+        if (handleDirection != Contants.DIRECTION.DESTROYED && handleDirection != Contants.DIRECTION.NONE) {
+            currentAnimate = animation.get(handleDirection);
+            direction = handleDirection;
+        }
     }
 }
