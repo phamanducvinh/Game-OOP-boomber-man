@@ -2,11 +2,13 @@ package Entities.Animate.Character;
 
 import Constants.Contants;
 import Entities.Animate.Bomb;
+import Entities.Still.Grass;
 import Graphics.Sprite;
 import Input.KeyInput;
 
 public class Bomber extends Character {
 
+    private static final int REDIRECTION_DISTANCE = 12;
     private final KeyInput keyInput;
     private final int maxBomb;
     private final int[] DIRECT_X = new int[]{0, 1, 0, 1};
@@ -35,9 +37,69 @@ public class Bomber extends Character {
         keyInput.releasedKey(code);
     }
 
+    private void determineDirectionUP() {
+        if (tileY * Sprite.SCALED_SIZE + REDIRECTION_DISTANCE > pixelY
+                && gameMap.getEntity(tileX - 1, tileY) instanceof Grass) {
+            updateDirection(Contants.DIRECTION.LEFT);
+        }
+        if ((tileY + 1) * Sprite.SCALED_SIZE - REDIRECTION_DISTANCE <= pixelY
+                && gameMap.getEntity(tileX - 1, tileY + 1) instanceof Grass) {
+            updateDirection(Contants.DIRECTION.RIGHT);
+        }
+    }
+
+    private void determineDirectionDOWN() {
+        if (tileY * Sprite.SCALED_SIZE + REDIRECTION_DISTANCE > pixelY
+                && gameMap.getEntity(tileX + 1, tileY) instanceof Grass) {
+            updateDirection(Contants.DIRECTION.LEFT);
+        }
+        if ((tileY + 1) * Sprite.SCALED_SIZE - REDIRECTION_DISTANCE <= pixelY
+                && gameMap.getEntity(tileX + 1, tileY + 1) instanceof Grass) {
+            updateDirection(Contants.DIRECTION.RIGHT);
+        }
+    }
+
+    private void determineDirectionLEFT() {
+        if (tileX * Sprite.SCALED_SIZE + REDIRECTION_DISTANCE > pixelX
+                && gameMap.getEntity(tileX, tileY - 1) instanceof Grass) {
+            updateDirection(Contants.DIRECTION.UP);
+        }
+        if ((tileX + 1) * Sprite.SCALED_SIZE - REDIRECTION_DISTANCE <= pixelX
+                && gameMap.getEntity(tileX + 1, tileY - 1) instanceof Grass) {
+            updateDirection(Contants.DIRECTION.DOWN);
+        }
+    }
+
+    private void determineDirectionRIGHT() {
+        if (tileX * Sprite.SCALED_SIZE + REDIRECTION_DISTANCE > pixelX
+                && gameMap.getEntity(tileX, tileY + 1) instanceof Grass) {
+            updateDirection(Contants.DIRECTION.UP);
+        }
+        if ((tileX + 1) * Sprite.SCALED_SIZE - REDIRECTION_DISTANCE <= pixelX
+                && gameMap.getEntity(tileX + 1, tileY + 1) instanceof Grass) {
+            updateDirection(Contants.DIRECTION.DOWN);
+        }
+    }
+
+    private void determineDirection() {
+        if (direction == Contants.DIRECTION.NONE || direction == Contants.DIRECTION.DESTROYED) {
+            return;
+        }
+        if (isMovable()) {
+            return;
+        }
+        switch (direction) {
+            case UP -> determineDirectionUP();
+            case DOWN -> determineDirectionDOWN();
+            case LEFT -> determineDirectionLEFT();
+            case RIGHT -> determineDirectionRIGHT();
+        }
+    }
+
     @Override
     public void update() {
         getDirection();
+        determineDirection();
         if (velocityX == 0 && velocityY == 0) {
             return;
         }
@@ -65,10 +127,8 @@ public class Bomber extends Character {
         numBomb--;
     }
 
-    @Override
-    public void getDirection() {
-        Contants.DIRECTION handleDirection = keyInput.handleKeyInput();
-        switch (handleDirection) {
+    private void updateDirection(Contants.DIRECTION direction) {
+        switch (direction) {
             case UP:
                 this.setVelocity(-defaultVelocity, 0);
                 break;
@@ -81,19 +141,25 @@ public class Bomber extends Character {
             case RIGHT:
                 this.setVelocity(0, defaultVelocity);
                 break;
+        }
+        currentAnimate = animation.get(direction);
+        this.direction = direction;
+    }
+
+    @Override
+    public void getDirection() {
+        Contants.DIRECTION handleDirection = keyInput.handleKeyInput();
+        switch (handleDirection) {
             case DESTROYED:
                 placeBomb();
-                this.setVelocity(0,0);
+                this.setVelocity(0, 0);
                 break;
             case NONE:
-                this.setVelocity(0,0);
-                break;
-            default:
+                this.setVelocity(0, 0);
                 break;
         }
         if (handleDirection != Contants.DIRECTION.DESTROYED && handleDirection != Contants.DIRECTION.NONE) {
-            currentAnimate = animation.get(handleDirection);
-            direction = handleDirection;
+            updateDirection(handleDirection);
         }
     }
 }
