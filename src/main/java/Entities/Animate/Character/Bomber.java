@@ -2,9 +2,10 @@ package Entities.Animate.Character;
 
 import Constants.Contants;
 import Entities.Animate.Bomb;
-import Entities.Still.Grass;
+import Entities.Entity;
 import Graphics.Sprite;
 import Input.KeyInput;
+import javafx.geometry.Rectangle2D;
 
 public class Bomber extends Character {
 
@@ -27,90 +28,32 @@ public class Bomber extends Character {
         this.numBomb = 0;
         this.maxBomb = 3;
     }
-
-
-    public void pressedKey(String code) {
-        keyInput.pressedKey(code);
+    public boolean isCollision2(Entity other) {
+        Rectangle2D rectangle2D = new Rectangle2D(pixelY, pixelX, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE);
+        return rectangle2D.intersects(other.getBoundary());
     }
 
-    public void releasedKey(String code) {
-        keyInput.releasedKey(code);
+    @Override
+    public boolean isMovable() {
+        //isCollision = super.isMovable();
+        pixelX += velocityX;
+        pixelY += velocityY;
+        isCollision = false;
+        isCollision = isCollision2(gameMap.getEntity(tileX+velocityX,tileY+velocityY));
+        pixelX -= velocityX;
+        pixelY -= velocityY;
+        return !isCollision;
     }
 
-    private void determineDirectionUP() {
-        if (tileY * Sprite.SCALED_SIZE + REDIRECTION_DISTANCE > pixelY
-                && gameMap.getEntity(tileX - 1, tileY) instanceof Grass) {
-            updateDirection(Contants.DIRECTION.LEFT);
-        }
-        if ((tileY + 1) * Sprite.SCALED_SIZE - REDIRECTION_DISTANCE <= pixelY
-                && gameMap.getEntity(tileX - 1, tileY + 1) instanceof Grass) {
-            updateDirection(Contants.DIRECTION.RIGHT);
-        }
-    }
-
-    private void determineDirectionDOWN() {
-        if (tileY * Sprite.SCALED_SIZE + REDIRECTION_DISTANCE > pixelY
-                && gameMap.getEntity(tileX + 1, tileY) instanceof Grass) {
-            updateDirection(Contants.DIRECTION.LEFT);
-        }
-        if ((tileY + 1) * Sprite.SCALED_SIZE - REDIRECTION_DISTANCE <= pixelY
-                && gameMap.getEntity(tileX + 1, tileY + 1) instanceof Grass) {
-            updateDirection(Contants.DIRECTION.RIGHT);
-        }
-    }
-
-    private void determineDirectionLEFT() {
-        if (tileX * Sprite.SCALED_SIZE + REDIRECTION_DISTANCE > pixelX
-                && gameMap.getEntity(tileX, tileY - 1) instanceof Grass) {
-            updateDirection(Contants.DIRECTION.UP);
-        }
-        if ((tileX + 1) * Sprite.SCALED_SIZE - REDIRECTION_DISTANCE <= pixelX
-                && gameMap.getEntity(tileX + 1, tileY - 1) instanceof Grass) {
-            updateDirection(Contants.DIRECTION.DOWN);
-        }
-    }
-
-    private void determineDirectionRIGHT() {
-        if (tileX * Sprite.SCALED_SIZE + REDIRECTION_DISTANCE > pixelX
-                && gameMap.getEntity(tileX, tileY + 1) instanceof Grass) {
-            updateDirection(Contants.DIRECTION.UP);
-        }
-        if ((tileX + 1) * Sprite.SCALED_SIZE - REDIRECTION_DISTANCE <= pixelX
-                && gameMap.getEntity(tileX + 1, tileY + 1) instanceof Grass) {
-            updateDirection(Contants.DIRECTION.DOWN);
-        }
-    }
-
-    private void determineDirection() {
-        if (direction == Contants.DIRECTION.NONE || direction == Contants.DIRECTION.DESTROYED) {
-            return;
-        }
-        if (isMovable()) {
-            return;
-        }
-        switch (direction) {
-            case UP -> determineDirectionUP();
-            case DOWN -> determineDirectionDOWN();
-            case LEFT -> determineDirectionLEFT();
-            case RIGHT -> determineDirectionRIGHT();
-        }
-    }
 
     @Override
     public void update() {
         getDirection();
-        determineDirection();
         if (velocityX == 0 && velocityY == 0) {
             return;
         }
-        if (!isMovable()) {
-            return;
-        }
-        if (cntMove == 0) {
-            cntMove = Sprite.SCALED_SIZE * 4 - 1;
-        } else {
-            cntMove--;
-        }
+        System.out.println(isCollision);
+
         updateAnimation();
         move();
     }
@@ -120,46 +63,23 @@ public class Bomber extends Character {
             return;
         }
         numBomb++;
-        gameMap.addAnimateEntities(new Bomb(tileX, tileY, Sprite.bomb, this));
-    }
-
-    public void decreaseNumBomb() {
-        numBomb--;
-    }
-
-    private void updateDirection(Contants.DIRECTION direction) {
-        switch (direction) {
-            case UP:
-                this.setVelocity(-defaultVelocity, 0);
-                break;
-            case LEFT:
-                this.setVelocity(0, -defaultVelocity);
-                break;
-            case DOWN:
-                this.setVelocity(defaultVelocity, 0);
-                break;
-            case RIGHT:
-                this.setVelocity(0, defaultVelocity);
-                break;
-        }
-        currentAnimate = animation.get(direction);
-        this.direction = direction;
+        gameMap.placeBomb(new Bomb(tileX, tileY, Sprite.BOMB[0], this));
     }
 
     @Override
     public void getDirection() {
-        Contants.DIRECTION handleDirection = keyInput.handleKeyInput();
-        switch (handleDirection) {
-            case DESTROYED:
+        direction = keyInput.handleKeyInput();
+        switch (direction) {
+            case PLACE_BOMB -> {
                 placeBomb();
                 this.setVelocity(0, 0);
-                break;
-            case NONE:
-                this.setVelocity(0, 0);
-                break;
+            }
+            case NONE -> this.setVelocity(0, 0);
+            case LEFT -> this.setVelocity(0,-defaultVelocity);
+            case RIGHT -> this.setVelocity(0,defaultVelocity);
+            case UP -> this.setVelocity(-defaultVelocity,0);
+            case DOWN -> this.setVelocity(defaultVelocity,0);
         }
-        if (handleDirection != Contants.DIRECTION.DESTROYED && handleDirection != Contants.DIRECTION.NONE) {
-            updateDirection(handleDirection);
-        }
+        currentAnimate = animation.get(direction);
     }
 }

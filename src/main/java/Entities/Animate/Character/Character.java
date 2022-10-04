@@ -21,11 +21,12 @@ public abstract class Character extends AnimateEntity {
 
     protected int speed = 1;
     public boolean isCollision = false;
-    public boolean isStand = false;
+    public boolean stand = false;
 
     public Character(int x, int y, Sprite sprite) {
         super( x, y, sprite);
-        isStand = true;
+
+        stand = true;
     }
 
     public void setVelocity(int velocityX, int velocityY) {

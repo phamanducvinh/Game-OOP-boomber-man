@@ -45,4 +45,5 @@ public abstract class Entity {
     public Pair<Integer,Integer> getTile() {
         return new Pair(tileX,tileY);
     }
+
 }

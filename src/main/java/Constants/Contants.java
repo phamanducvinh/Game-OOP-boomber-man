@@ -22,6 +22,7 @@ public class Contants {
         RIGHT,
         DOWN,
         DESTROYED,
-        NONE
+        NONE,
+        PLACE_BOMB
     }
 }

@@ -4,9 +4,7 @@ import Constants.Contants;
 
 import java.util.Set;
 
-public class PlayerOneKeyInput extends KeyInput {
-    public PlayerOneKeyInput() {
-    }
+public class PlayerInput implements KeyInput {
 
     public void initialization() {
         keyInput.put("A", false);
@@ -23,8 +21,7 @@ public class PlayerOneKeyInput extends KeyInput {
             if (keyInput.get(code)) {
                 switch (code) {
                     case ("SPACE"):
-                        releasedKey(code);
-                        return Contants.DIRECTION.DESTROYED;
+                        return Contants.DIRECTION.PLACE_BOMB;
                     case ("W"):
                         return Contants.DIRECTION.UP;
                     case ("D"):

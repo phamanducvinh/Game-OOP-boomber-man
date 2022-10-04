@@ -54,18 +54,15 @@ public class Bomberman extends Application {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long currentNanoTime) {
-                long now = System.nanoTime();
-
-
                 gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
                 time = ((currentNanoTime - startNanoTime) / 60000000) + 1;
                 scene.setOnKeyPressed(keyEvent -> {
                     String code = keyEvent.getCode().toString();
-                    mapGame.pressedKey(code);
+                    KeyInput.keyInput.put(code,true);
                 });
                 scene.setOnKeyReleased(keyEvent -> {
                     String code = keyEvent.getCode().toString();
-                    mapGame.releasedKey(code);
+                    KeyInput.keyInput.put(code,false);
                 });
 
                 mapGame.updateMap();

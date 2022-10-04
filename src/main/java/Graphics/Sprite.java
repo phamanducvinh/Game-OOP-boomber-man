@@ -175,9 +175,11 @@ public class Sprite {
     | Bomb Sprites
     |--------------------------------------------------------------------------
      */
-    public static Sprite bomb = new Sprite(DEFAULT_SIZE, 0, 3, SpriteSheet.tiles, 15, 15);
-    public static Sprite bomb_1 = new Sprite(DEFAULT_SIZE, 1, 3, SpriteSheet.tiles, 13, 15);
-    public static Sprite bomb_2 = new Sprite(DEFAULT_SIZE, 2, 3, SpriteSheet.tiles, 12, 14);
+    public static Sprite[] BOMB = {
+            new Sprite(DEFAULT_SIZE, 0, 3, SpriteSheet.tiles, 15, 15),
+            new Sprite(DEFAULT_SIZE, 1, 3, SpriteSheet.tiles, 13, 15),
+            new Sprite(DEFAULT_SIZE, 2, 3, SpriteSheet.tiles, 12, 14)
+    };
 
     /*
     |--------------------------------------------------------------------------
@@ -226,12 +228,9 @@ public class Sprite {
     | PowerUps
     |--------------------------------------------------------------------------
      */
-    public static Sprite powerUp_bombs = new Sprite(DEFAULT_SIZE, 0, 10, SpriteSheet.tiles, 16, 16);
-    public static Sprite powerUp_flames = new Sprite(DEFAULT_SIZE, 1, 10, SpriteSheet.tiles, 16, 16);
-    public static Sprite powerUp_speed = new Sprite(DEFAULT_SIZE, 2, 10, SpriteSheet.tiles, 16, 16);
-    public static Sprite powerUp_wallPass = new Sprite(DEFAULT_SIZE, 3, 10, SpriteSheet.tiles, 16, 16);
-    public static Sprite powerUp_bombPass = new Sprite(DEFAULT_SIZE, 5, 10, SpriteSheet.tiles, 16, 16);
-    public static Sprite powerUp_flamePass = new Sprite(DEFAULT_SIZE, 6, 10, SpriteSheet.tiles, 16, 16);
+    public static Sprite BOMB_ITEM = new Sprite(DEFAULT_SIZE, 0, 10, SpriteSheet.tiles, 16, 16);
+    public static Sprite FLAME_ITEM = new Sprite(DEFAULT_SIZE, 1, 10, SpriteSheet.tiles, 16, 16);
+    public static Sprite SPEED_ITEM = new Sprite(DEFAULT_SIZE, 2, 10, SpriteSheet.tiles, 16, 16);
 
     public Sprite(int size, int x, int y, SpriteSheet sheet, int rw, int rh) {
         SIZE = size;

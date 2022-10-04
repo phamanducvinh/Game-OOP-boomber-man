@@ -12,7 +12,7 @@ public class Bomb extends AnimateEntity {
         super(x, y, sprite);
         this.owner = owner;
         timeBeforeExplode = 100;
-        currentAnimate = new Sprite[]{Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2};
+        currentAnimate = Sprite.BOMB;
     }
 
     @Override
