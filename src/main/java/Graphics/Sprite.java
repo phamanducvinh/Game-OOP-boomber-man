@@ -262,8 +262,8 @@ public class Sprite {
         }
     }
 
-    public static Sprite movingSprite(Sprite[] sprites, int time) {
-        return sprites[time % 3];
+    public static Sprite movingSprite(Sprite[] sprites, int animate, long time) {
+        return sprites[(int) ((time + 3) / 3 % animate)];
     }
 
     public Image getFxImage() {

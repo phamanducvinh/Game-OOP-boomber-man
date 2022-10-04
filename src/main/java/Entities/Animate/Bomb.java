@@ -18,7 +18,7 @@ public class Bomb extends AnimateEntity {
     @Override
     public void update() {
         cntMove = (cntMove + 1) % 9;
-        updateAnimation(cntMove / 3);
+        updateAnimation();
         timeBeforeExplode--;
     }
 }

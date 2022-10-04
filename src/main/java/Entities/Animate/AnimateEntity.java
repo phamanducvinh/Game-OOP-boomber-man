@@ -29,8 +29,9 @@ public abstract class AnimateEntity extends Entity {
         return result;
     }
 
-    public void updateAnimation(int time) {
-        this.sprite = Sprite.movingSprite(currentAnimate, time);
+    public void updateAnimation() {
+        long time =Bomberman.time;
+        this.sprite = Sprite.movingSprite(currentAnimate, 3,time);
         this.img = this.sprite.getFxImage();
     }
 

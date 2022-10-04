@@ -111,7 +111,7 @@ public class Bomber extends Character {
         } else {
             cntMove--;
         }
-        updateAnimation(cntMove / 4);
+        updateAnimation();
         move();
     }
 

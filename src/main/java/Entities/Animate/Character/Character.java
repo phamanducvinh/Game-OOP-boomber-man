@@ -74,7 +74,7 @@ public abstract class Character extends AnimateEntity {
             cntMove = Sprite.SCALED_SIZE-1;
         } else cntMove--;
 
-        updateAnimation(cntMove);
+        updateAnimation();
         if(isMovable()) move();
     }
 
