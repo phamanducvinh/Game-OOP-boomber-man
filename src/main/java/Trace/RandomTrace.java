@@ -18,24 +18,16 @@ public class RandomTrace extends Trace {
 
     @Override
     public DIRECTION getDirection() {
-        List<DIRECTION> directions = new ArrayList<>();
-        int x = enemy.getTile().getKey();
-        int y = enemy.getTile().getValue();
-        if (isMovable(x, y - 1)) {
-            directions.add(LEFT);
+        if(enemy.isCollision()) {
+            int rand = new Random().nextInt(4);
+            return switch (rand) {
+                case 0 -> LEFT;
+                case 1 -> RIGHT;
+                case 2 -> UP;
+                default -> DOWN;
+            };
+        } else {
+            return enemy.whichDirection();
         }
-        if (isMovable(x, y + 1)) {
-            directions.add(RIGHT);
-        }
-        if (isMovable(x - 1, y)) {
-            directions.add(UP);
-        }
-        if (isMovable(x + 1, y)) {
-            directions.add(DOWN);
-        }
-        if (directions.size() > 0) {
-            return directions.get(new Random().nextInt(directions.size()));
-        }
-        return LEFT;
     }
 }

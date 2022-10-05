@@ -10,11 +10,13 @@ import Factory.CharacterFactory;
 import Factory.ItemFactory;
 import Factory.PlayerFactory;
 import Factory.StillFactory;
+import javafx.scene.LightBase;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import static Constants.Contants.*;
@@ -119,8 +121,16 @@ public class Map {
         tiles[x][y] = stillEntity;
     }
 
+    public ArrayList<Character> getCharacters() {
+        return characters;
+    }
+
     public Bomber getPlayer() {
         return player;
+    }
+
+    public ArrayList<Item> getItems() {
+        return items;
     }
     public void removeItem(Item item) {
         items.remove(item);

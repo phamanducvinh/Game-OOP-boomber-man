@@ -7,12 +7,15 @@ import Graphics.Sprite;
 import javafx.scene.canvas.GraphicsContext;
 
 public abstract class Item extends StillEntity {
-    private boolean hidden;
+    protected boolean hidden;
     public Item(int x, int y, Sprite sprite) {
         super(x,y,sprite);
         hidden = true;
     }
 
+    public boolean isHidden() {
+        return hidden;
+    }
     public void destroy() {
         if(hidden) {
             hidden = false;

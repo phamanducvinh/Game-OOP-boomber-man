@@ -6,7 +6,7 @@ import Graphics.Sprite;
 public class Brick extends StillEntity {
     public Brick(int x, int y, Sprite sprite) {
         super(x,y,sprite);
-        canBlock = true;
+        block = true;
     }
 
     @Override

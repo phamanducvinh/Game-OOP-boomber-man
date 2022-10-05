@@ -21,4 +21,9 @@ public class Bomb extends AnimateEntity {
         updateAnimation();
         timeBeforeExplode--;
     }
+
+    @Override
+    public void delete() {
+
+    }
 }

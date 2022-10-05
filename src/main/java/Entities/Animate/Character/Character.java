@@ -5,6 +5,7 @@ import Entities.Animate.AnimateEntity;
 import Entities.Entity;
 import Entities.Still.Grass;
 import Entities.Still.StillEntity;
+import Features.Movable;
 import Graphics.Sprite;
 import Map.Map;
 import javafx.util.Pair;
@@ -12,21 +13,29 @@ import javafx.util.Pair;
 import java.util.ArrayList;
 import java.util.concurrent.Delayed;
 
-public abstract class Character extends AnimateEntity {
+import static Constants.Contants.DIRECTION.LEFT;
+import static Constants.Contants.DIRECTION.NONE;
+import static Constants.Contants.HEIGHT;
+import static Constants.Contants.WIDTH;
 
-    protected int defaultVelocity = 1;
-    protected int velocityX = 0;
-    protected int velocityY = 0;
+public abstract class Character extends AnimateEntity implements Movable {
+
+    protected int defaultVelocity;
+    protected int velocityX;
+    protected int velocityY;
     protected DIRECTION direction;
-
-    protected int speed = 1;
-    public boolean isCollision = false;
-    public boolean stand = false;
+    protected int speed;
+    protected boolean collision;
+    protected boolean stand;
 
     public Character(int x, int y, Sprite sprite) {
         super( x, y, sprite);
-
+        defaultVelocity = 1;
+        velocityX = 0;
+        velocityY = 0;
         stand = true;
+        collision = false;
+        speed = 1;
     }
 
     public void setVelocity(int velocityX, int velocityY) {
@@ -34,12 +43,12 @@ public abstract class Character extends AnimateEntity {
         this.velocityY = velocityY;
     }
 
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
     public int getSpeed() {
         return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
 
     public void addVelocity(int velocityX, int velocityY) {
@@ -54,30 +63,47 @@ public abstract class Character extends AnimateEntity {
         tileY = pixelY / Sprite.SCALED_SIZE;
     }
 
-    public boolean isMovable() {
-        ArrayList<Pair<Integer, Integer>> border = getBorder();
-        for (Pair<Integer, Integer> point : border) {
-            int x = (point.getKey() + velocityX) / Sprite.SCALED_SIZE;
-            int y = (point.getValue() + velocityY) / Sprite.SCALED_SIZE;
-            StillEntity entity = gameMap.getEntity(x, y);
-            if (!(entity instanceof Grass)) {
-                return false;
+    public void checkCollision() {
+        collision = false;
+        pixelX += this.velocityX;
+        pixelY += this.velocityY;
+        for(int i=0;i< HEIGHT ;++i) {
+            for(int j=0;j<WIDTH;++j) {
+                StillEntity stillEntity = gameMap.getEntity(i,j);
+                if(stillEntity.isBlock() && this.isCollision(stillEntity)) {
+                    collision = true;
+                }
             }
         }
-        return true;
+        stand = collision || (velocityX==0&& velocityY ==0);
+        pixelX -= this.velocityX;
+        pixelY -= this.velocityY;
     }
 
     @Override
     public void update() {
-        if(cntMove==0) {
+        if(isDestroyed()) {
+            updateDestroyAnimation();
+            return;
+        }
+        for(int i=0;i<speed;++i) {
             getDirection();
-            currentAnimate = animation.get(direction);
-            cntMove = Sprite.SCALED_SIZE-1;
-        } else cntMove--;
+            checkCollision();
+            if(!stand) {
+                updateAnimation();
+            }
+            if(!collision) {
+                move();
+            }
+        }
+    }
+    public abstract void getDirection();
 
-        updateAnimation();
-        if(isMovable()) move();
+    public boolean isCollision(){
+        return collision;
     }
 
-    public abstract void getDirection();
+    public DIRECTION whichDirection() {
+        return direction;
+    }
 }
