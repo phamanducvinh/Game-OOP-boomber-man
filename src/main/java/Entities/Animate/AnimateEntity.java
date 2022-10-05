@@ -6,13 +6,14 @@ import GameController.Bomberman;
 import Graphics.Sprite;
 import javafx.util.Pair;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
-import static Constants.Contants.DIRECTION.DESTROYED;
+import static Constants.Contants.BOMB_STATUS.DESTROYED;
+
+
 
 public abstract class AnimateEntity extends Entity {
-    public HashMap<DIRECTION,Sprite[]> animation = new HashMap<>();
+    public HashMap<Enum,Sprite[]> animation = new HashMap<>();
     protected Sprite[] currentAnimate;
     protected int timeDestroyed;
     protected int cntMove = 0;

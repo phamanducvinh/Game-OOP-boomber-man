@@ -30,7 +30,7 @@ public class Bomber extends Character {
         this.keyInput.initialization();
         this.countBombs = 0;
         this.maxBombs = 3;
-        this.lengthFlame = 1;
+        this.lengthFlame = 2;
         this.life = 3;
     }
     public boolean isCollision2(Entity other) {
@@ -117,7 +117,25 @@ public class Bomber extends Character {
             //Sound.backgroundSound.stop();
             //Sound.playSound("GameOver");
         }
-
     }
+
+    public int getCountBombs() {
+        return countBombs;
+    }
+
+    public void setBomb() {
+        if(countBombs<maxBombs) {
+            countBombs++;
+        }
+    }
+
+    public void removeBomb() {
+        countBombs--;
+    };
+
+    public int getLengthFlame() {
+        return lengthFlame;
+    }
+
 
 }

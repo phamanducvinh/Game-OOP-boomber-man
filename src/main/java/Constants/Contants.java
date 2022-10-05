@@ -21,8 +21,24 @@ public class Contants {
         UP,
         RIGHT,
         DOWN,
-        DESTROYED,
+        PLACE_BOMB,
         NONE,
-        PLACE_BOMB
+        DESTROYED
     }
+
+    public enum BOMB_STATUS {
+        COUNTDOWN,
+        DESTROYED,
+    }
+
+    public enum EXPLOSION {
+        HORIZONTAL,
+        RIGHT_LAST,
+        VERTICAL,
+        LEFT_LAST,
+        TOP_LAST,
+        DOWN_LAST,
+        CENTER
+    }
+
 }
