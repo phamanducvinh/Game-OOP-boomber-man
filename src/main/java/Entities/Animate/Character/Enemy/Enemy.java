@@ -10,8 +10,10 @@ import Trace.BfsTrace;
 import java.util.Random;
 
 public abstract class Enemy extends Character {
+    protected int life = 3;
     public Enemy(int x, int y, Sprite sprite) {
         super(x,y,sprite);
+        this.direction = DIRECTION.DOWN;
     }
 
     public abstract DIRECTION trace(Bomber bomber,Enemy enemy,Map gameMap);
@@ -19,25 +21,34 @@ public abstract class Enemy extends Character {
     public void getDirection() {
         direction = trace(gameMap.getPlayer(),this,gameMap);
         switch (direction) {
-            case UP -> {
-                this.setVelocity(-defaultVelocity, 0);
-                currentAnimate = animation.get(DIRECTION.LEFT);
-            }
-            case DOWN -> {
-                this.setVelocity(defaultVelocity, 0);
-                currentAnimate = animation.get(DIRECTION.RIGHT);
-            }
-            case LEFT -> {
-                this.setVelocity(0, -defaultVelocity);
-                currentAnimate = animation.get(DIRECTION.LEFT);
-            }
-            case RIGHT -> {
-                this.setVelocity(0, defaultVelocity);
-                currentAnimate = animation.get(DIRECTION.RIGHT);
-            }
+            case UP -> this.setVelocity(-defaultVelocity, 0);
+
+
+            case DOWN -> this.setVelocity(defaultVelocity, 0);
+
+            case LEFT -> this.setVelocity(0, -defaultVelocity);
+
+            case RIGHT -> this.setVelocity(0, defaultVelocity);
+
             default -> {
             }
         }
+        currentAnimate = animation.get(direction);
+    }
 
+    @Override
+    public void delete() {
+        if (--life != 0) {
+            destroyed = false;
+            return;
+        }
+        gameMap.getCharacters().remove(this);
+        if (gameMap.getCharacters().size() == 1) {
+            //Sound.backgroundSound.stop();
+            //Sound.stageCleared.setCycleCount(999);
+            //Sound.stageCleared.play();
+        }
+        //Map.score += score;
+        //Sound.playSound("EnemyDie");
     }
 }

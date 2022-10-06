@@ -1,17 +1,14 @@
 package Factory;
 
 import Entities.Animate.Character.Bomber;
-import Entities.Entity;
 import Graphics.Sprite;
-import Input.PlayerOneKeyInput;
+import Input.PlayerInput;
 
 public class PlayerFactory {
-    public Entity getPlayer(char c,int i,int j) {
-        switch (c) {
-            case 'p' :
-                return new Bomber(i,j, Sprite.PLAYER_RIGHT[0], new PlayerOneKeyInput());
-            default:
-                return null;
+    public static Bomber getPlayer(char c, int x, int y) {
+        if(c == 'p') {
+            return new Bomber(x,y, Sprite.PLAYER_RIGHT[0],new PlayerInput());
         }
+        return null;
     }
 }

@@ -6,34 +6,41 @@ import GameController.Bomberman;
 import Graphics.Sprite;
 import javafx.util.Pair;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
+import static Constants.Contants.BOMB_STATUS.DESTROYED;
+
+
+
 public abstract class AnimateEntity extends Entity {
+    public HashMap<Enum,Sprite[]> animation = new HashMap<>();
     protected Sprite[] currentAnimate;
+    protected int timeDestroyed;
     protected int cntMove = 0;
-    public HashMap<DIRECTION,Sprite[]> animation = new HashMap<>();
-    //public HashMap<DIRECTION,Sprite[]> animationPlayerOne = new HashMap<>();
     public AnimateEntity(int x, int y, Sprite sprite) {
         super(x, y, sprite);
     }
 
-    public ArrayList<Pair<Integer, Integer>> getBorder(){
-        int width = (int) currentAnimate[0].getFxImage().getWidth();
-        int height = (int) currentAnimate[0].getFxImage().getHeight();
-        ArrayList<Pair<Integer, Integer>> result = new ArrayList<>();
-        result.add(new Pair<>(pixelX, pixelY));
-        result.add(new Pair<>(pixelX + height - 1, pixelY));
-        result.add(new Pair<>(pixelX, pixelY + width - 1));
-        result.add(new Pair<>(pixelX + height - 1, pixelY + width - 1));
-        return result;
-    }
-
     public void updateAnimation() {
-        long time =Bomberman.time;
+        long time = Bomberman.time;
         this.sprite = Sprite.movingSprite(currentAnimate, 3,time);
         this.img = this.sprite.getFxImage();
     }
 
-    public abstract void update();
+    public void destroy() {
+        currentAnimate = animation.get(DESTROYED);
+        timeDestroyed = 20;
+        destroyed = true;
+    }
+
+    public void updateDestroyAnimation() {
+        currentAnimate = animation.get(DESTROYED);
+        if (timeDestroyed -- >= 0) {
+            updateAnimation();
+        }else {
+            delete();
+        }
+    }
+
+    public abstract void delete();
 }

@@ -7,16 +7,14 @@ import javafx.scene.image.Image;
 import javafx.util.Pair;
 
 public abstract class Entity {
-    protected static Map gameMap;
+    protected static Map gameMap = Map.getGameMap();
     protected int pixelX, pixelY;
     protected int tileX, tileY;
     protected Sprite sprite;
     protected Image img;
-    public boolean canBlock = false;
-
-    public static void setGameMap(Map gameMap) {
-        Entity.gameMap = gameMap;
-    }
+    protected boolean destroyable ;
+    protected boolean destroyed;
+    protected boolean block;
 
     public Entity(int x, int y, Sprite sprite) {
         this.tileX = x;
@@ -25,14 +23,44 @@ public abstract class Entity {
         this.pixelY = y * Sprite.SCALED_SIZE;
         this.sprite = sprite;
         this.img = sprite.getFxImage();
+        this.block = false;
+        this.destroyed = false;
+        this.destroyable = false;
+    }
+
+    public void setBlock(boolean block) {
+        this.block = block;
+    }
+
+    public boolean isBlock() {
+        return block;
+    }
+
+    public void setDestroyable(boolean destroyable) {
+        this.destroyable = destroyable;
+    }
+
+    public boolean isDestroyable() {
+        return destroyable;
+    }
+
+    public void setDestroyed(boolean destroyed) {
+        this.destroyed = destroyed;
+    }
+
+    public boolean isDestroyed() {
+        return destroyed;
+    }
+
+    public static void setGameMap(Map gameMap) {
+        Entity.gameMap = gameMap;
     }
 
     public Rectangle2D getBoundary() {
-        return new Rectangle2D(pixelY, pixelX,Sprite.SCALED_SIZE,Sprite.SCALED_SIZE);
+        return new Rectangle2D(pixelX,pixelY,Sprite.SCALED_SIZE,Sprite.SCALED_SIZE);
     }
 
     public boolean isCollision(Entity entity) {
-        if(entity == null) return false;
         return getBoundary().intersects(entity.getBoundary());
     }
 
@@ -45,4 +73,5 @@ public abstract class Entity {
     public Pair<Integer,Integer> getTile() {
         return new Pair(tileX,tileY);
     }
+
 }
