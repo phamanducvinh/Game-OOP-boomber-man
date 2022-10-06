@@ -21,6 +21,7 @@ public class PlayerInput implements KeyInput {
             if (keyInput.get(code)) {
                 switch (code) {
                     case ("SPACE"):
+                        keyInput.put("SPACE",false);
                         return Contants.DIRECTION.PLACE_BOMB;
                     case ("W"):
                         return Contants.DIRECTION.UP;

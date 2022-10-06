@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 import javafx.util.Pair;
 
 public abstract class Entity {
-    protected static Map gameMap;
+    protected static Map gameMap = Map.getGameMap();
     protected int pixelX, pixelY;
     protected int tileX, tileY;
     protected Sprite sprite;

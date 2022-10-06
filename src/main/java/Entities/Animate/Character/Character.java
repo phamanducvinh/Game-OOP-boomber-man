@@ -69,8 +69,8 @@ public abstract class Character extends AnimateEntity implements Movable {
         pixelY += this.velocityY;
         for(int i=0;i< HEIGHT ;++i) {
             for(int j=0;j<WIDTH;++j) {
-                StillEntity stillEntity = gameMap.getEntity(i,j);
-                if(stillEntity.isBlock() && this.isCollision(stillEntity)) {
+                Entity entity = gameMap.getEntity(i,j);
+                if(entity.isBlock() && this.isCollision(entity)) {
                     collision = true;
                 }
             }

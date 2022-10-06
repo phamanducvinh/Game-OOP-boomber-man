@@ -23,13 +23,13 @@ import static Constants.Contants.*;
 
 public class Map {
     private static Map gameMap;
-    private static Entity[][] tiles;
-    private static ArrayList<Item> items;
-    private static ArrayList<Character> characters;
-    private static ArrayList<Bomb> bombs;
-    private Bomber player;
+    private Entity[][] tiles;
+    private ArrayList<Item> items;
+    private ArrayList<Character> characters;
+    private List<Bomb> bombs;
+    private static Bomber player;
 
-    public Map getGameMap() {
+    public static Map getGameMap() {
         if (gameMap == null) {
             gameMap = new Map();
         }
@@ -37,8 +37,8 @@ public class Map {
     }
 
 
-    public StillEntity getEntity(int x, int y) {
-        return (StillEntity) tiles[x][y];
+    public Entity getEntity(int x, int y) {
+        return tiles[x][y];
     }
 
     private void resetEntities() {
@@ -137,11 +137,13 @@ public class Map {
     }
 
     public void placeBomb(Bomb bomb) {
-        bombs.add(bomb);
+        this.bombs.add(bomb);
+        System.out.println(bombs.size());
     }
 
     public void removeBomb(Bomb bomb) {
         bombs.remove(bomb);
+        //System.out.println(bombs.size());
     }
 
 }

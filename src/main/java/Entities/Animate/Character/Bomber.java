@@ -13,7 +13,7 @@ import javafx.geometry.Rectangle2D;
 public class Bomber extends Character {
     private final int[] DIRECT_X = new int[]{0, 1, 0, 1};
     private final int[] DIRECT_Y = new int[]{1, 0, 1, 0};
-    public int life ;
+    public int life;
     public KeyInput keyInput;
     public int lengthFlame;
     private int maxBombs;
@@ -33,27 +33,28 @@ public class Bomber extends Character {
         this.lengthFlame = 2;
         this.life = 3;
     }
+
     public boolean isCollision2(Entity other) {
-        Rectangle2D rectangle2D = new Rectangle2D(pixelY+10, pixelX+10, Sprite.SCALED_SIZE-25, Sprite.SCALED_SIZE-25);
+        Rectangle2D rectangle2D = new Rectangle2D(pixelX, pixelY, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE);
         return rectangle2D.intersects(other.getBoundary());
     }
 
 
     @Override
     public void checkCollision() {
-        if(direction == null) {
+        if (direction == null) {
             stand = true;
             return;
         }
         for (Character character : gameMap.getCharacters()) {
-            if(this.isCollision2(character) && character instanceof Enemy) {
+            if (this.isCollision2(character) && character instanceof Enemy) {
                 destroy();
             }
         }
 
-        for(Item item : gameMap.getItems()) {
-            if(this.isCollision2(item) && !item.isHidden()) {
-                if(!(item instanceof Portal)) {
+        for (Item item : gameMap.getItems()) {
+            if (this.isCollision2(item) && !item.isHidden()) {
+                if (!(item instanceof Portal)) {
                     // Sound Level up
                 }
                 item.effect(this);
@@ -77,28 +78,26 @@ public class Bomber extends Character {
     }
 
     private void placeBomb() {
-        if (countBombs == maxBombs) {
-            return;
-        }
-        countBombs++;
-        gameMap.placeBomb(new Bomb(tileX, tileY, Sprite.BOMB[0], this));
+        Bomb bomb = new Bomb(tileX,tileY,Sprite.BOMB[0],this);
+        gameMap.placeBomb(bomb);
+
         // gameMap.addBomb
     }
 
     @Override
     public void getDirection() {
         direction = keyInput.handleKeyInput();
-        this.setVelocity(0,0);
+        this.setVelocity(0, 0);
         switch (direction) {
             case PLACE_BOMB -> {
                 placeBomb();
                 this.setVelocity(0, 0);
             }
             case NONE -> this.setVelocity(0, 0);
-            case LEFT -> this.setVelocity(0,-defaultVelocity);
-            case RIGHT -> this.setVelocity(0,defaultVelocity);
-            case UP -> this.setVelocity(-defaultVelocity,0);
-            case DOWN -> this.setVelocity(defaultVelocity,0);
+            case LEFT -> this.setVelocity(0, -defaultVelocity);
+            case RIGHT -> this.setVelocity(0, defaultVelocity);
+            case UP -> this.setVelocity(-defaultVelocity, 0);
+            case DOWN -> this.setVelocity(defaultVelocity, 0);
         }
         currentAnimate = animation.get(direction);
     }
@@ -108,8 +107,10 @@ public class Bomber extends Character {
         //Sound.playSound("Die");
         life -= 1;
         this.destroyed = false;
-        this.tileX = 1;     this.tileY = 1;
-        this.pixelX = 32;   this.pixelY = 32;
+        this.tileX = 1;
+        this.tileY = 1;
+        this.pixelX = 32;
+        this.pixelY = 32;
         currentAnimate = animation.get(Contants.DIRECTION.RIGHT);
         updateAnimation();
         if (life == 0) {
@@ -124,14 +125,16 @@ public class Bomber extends Character {
     }
 
     public void setBomb() {
-        if(countBombs<maxBombs) {
+        if (countBombs < maxBombs) {
             countBombs++;
         }
     }
 
     public void removeBomb() {
         countBombs--;
-    };
+    }
+
+    ;
 
     public int getLengthFlame() {
         return lengthFlame;

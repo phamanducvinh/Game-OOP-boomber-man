@@ -69,25 +69,30 @@ public class Bomb extends AnimateEntity {
 
     }
 
-    @Overridew
+    @Override
     public void update() {
         updateAnimation();
         timeBeforeExplode --;
+        if(timeBeforeExplode == 0) {
+            //gameMap.removeBomb(this);
+            //delete();
+        }
+        /*
         if (timeBeforeExplode == 0) {
             exploded = true;
             destroy();
-            buildExplosion();
+            //buildExplosion();
         }
         if (timeBeforeExplode == -10) {
             delete();
-        }
+        }*/
     }
 
     @Override
     public void render(GraphicsContext graphicsContext) {
         graphicsContext.drawImage(img, pixelY, pixelX);
         if (destroyed) {
-
+            /*
             for (int direction = 0; direction < 4; direction++) {
                 for (int i = 0; i < owner.getLengthFlame(); i++) {
                     if (explosion[direction][i] != null) {
@@ -97,12 +102,18 @@ public class Bomb extends AnimateEntity {
                 }
             }
             explosion[4][0].update();
+             */
         }
     }
 
     @Override
     public void delete() {
-        gameMap.removeBomb(this);
-        owner.removeBomb();
+        try {
+            gameMap.removeBomb(this);
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        //owner.removeBomb();
     }
 }
