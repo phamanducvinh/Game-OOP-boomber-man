@@ -7,6 +7,8 @@ import Entities.Still.Wall;
 import Graphics.Sprite;
 import Map.Map;
 import javafx.scene.canvas.GraphicsContext;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.awt.*;
 
@@ -15,7 +17,8 @@ import static Constants.Contants.EXPLOSION.*;
 import static Constants.Contants.HEIGHT;
 import static Constants.Contants.WIDTH;
 
-
+@Getter
+@Setter
 public class Bomb extends AnimateEntity {
     private final Bomber owner;
     private int timeBeforeExplode;
@@ -55,10 +58,10 @@ public class Bomb extends AnimateEntity {
                 }
                 if (i == owner.getLengthFlame() - 1) {
                     switch (direction) {
-                        case 0 -> explosion[direction][i] = new Explosion(tileX, tileY, Sprite.DOWN_LAST[0], DOWN_LAST);
-                        case 1 -> explosion[direction][i] = new Explosion(tileX, tileY, Sprite.TOP_LAST[0], TOP_LAST);
-                        case 2 -> explosion[direction][i] = new Explosion(tileX, tileY, Sprite.RIGHT_LAST[0], RIGHT_LAST);
-                        case 3 -> explosion[direction][i] = new Explosion(tileX, tileY, Sprite.LEFT_LAST[0], LEFT_LAST);
+                        case 2 -> explosion[direction][i] = new Explosion(tileX, tileY, Sprite.DOWN_LAST[0], DOWN_LAST);
+                        case 3 -> explosion[direction][i] = new Explosion(tileX, tileY, Sprite.TOP_LAST[0], TOP_LAST);
+                        case 0 -> explosion[direction][i] = new Explosion(tileX, tileY, Sprite.RIGHT_LAST[0], RIGHT_LAST);
+                        case 1 -> explosion[direction][i] = new Explosion(tileX, tileY, Sprite.LEFT_LAST[0], LEFT_LAST);
                     }
                 }
                 if (entity instanceof Brick) {
