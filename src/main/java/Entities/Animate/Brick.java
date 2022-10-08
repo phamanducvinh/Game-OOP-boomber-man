@@ -13,6 +13,7 @@ public class Brick extends AnimateEntity {
         block = true;
         destroyable = true;
         animation.put(DESTROYED,Sprite.BRICK_EXPLODED);
+        gameMap.setTiles(x,y,this);
     }
 
     @Override
@@ -24,7 +25,7 @@ public class Brick extends AnimateEntity {
     @Override
     public void update() {
         if(destroyed) {
-            updateAnimation();
+            updateDestroyAnimation();
         }
     }
 

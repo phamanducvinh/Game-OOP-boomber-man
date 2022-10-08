@@ -10,6 +10,9 @@ public class Bomb extends Item{
 
     @Override
     public void effect(Bomber bomber) {
+        if(bomber.getMaxBombs() < 5) {
+            bomber.setMaxBombs(bomber.getMaxBombs() + 1);
+        }
         destroy();
     }
 }

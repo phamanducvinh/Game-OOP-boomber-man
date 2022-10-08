@@ -5,6 +5,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.util.Pair;
+import static Graphics.Sprite.SCALED_SIZE;
 
 public abstract class Entity {
     protected static Map gameMap = Map.getGameMap();
@@ -19,8 +20,8 @@ public abstract class Entity {
     public Entity(int x, int y, Sprite sprite) {
         this.tileX = x;
         this.tileY = y;
-        this.pixelX = x * Sprite.SCALED_SIZE;
-        this.pixelY = y * Sprite.SCALED_SIZE;
+        this.pixelX = x * SCALED_SIZE;
+        this.pixelY = y * SCALED_SIZE;
         this.sprite = sprite;
         this.img = sprite.getFxImage();
         this.block = false;
@@ -57,7 +58,7 @@ public abstract class Entity {
     }
 
     public Rectangle2D getBoundary() {
-        return new Rectangle2D(pixelX,pixelY,Sprite.SCALED_SIZE,Sprite.SCALED_SIZE);
+        return new Rectangle2D(pixelX,pixelY, SCALED_SIZE, SCALED_SIZE);
     }
 
     public boolean isCollision(Entity entity) {
