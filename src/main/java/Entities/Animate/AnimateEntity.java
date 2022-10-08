@@ -36,7 +36,7 @@ public abstract class AnimateEntity extends Entity {
     public void updateDestroyAnimation() {
         currentAnimate = animation.get(DESTROYED);
         if (timeDestroyed -- >= 0) {
-            updateAnimation();
+            updateDestroyAnimation();
         }else {
             delete();
         }

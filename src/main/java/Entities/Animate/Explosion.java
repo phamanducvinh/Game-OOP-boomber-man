@@ -54,12 +54,15 @@ public class Explosion extends AnimateEntity{
                 item.destroy();
             }
         }
+
         /*
-        for (Bomb bomb: gameMap.get) {
-            if (this.isCollision(bomb) && !bomb.isExploded) {
-                bomb.timeBeforeExplode = 1;
+        for (Bomb bomb: gameMap.getBombs()) {
+            if (this.isCollision(bomb) && !bomb.isDestroyed()) {
+                bomb. = 1;
             }
-        }*/
+        }
+
+         */
     }
 
     @Override

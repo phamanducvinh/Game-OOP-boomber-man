@@ -5,18 +5,13 @@ import Entities.Animate.Character.Bomber;
 import Entities.Animate.Character.Character;
 import Entities.Entity;
 import Entities.Still.Item.Item;
-import Entities.Still.StillEntity;
 import Factory.CharacterFactory;
 import Factory.ItemFactory;
-import Factory.PlayerFactory;
 import Factory.StillFactory;
-import javafx.scene.LightBase;
 import javafx.scene.canvas.GraphicsContext;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import static Constants.Contants.*;
@@ -26,8 +21,10 @@ public class Map {
     private Entity[][] tiles;
     private ArrayList<Item> items;
     private ArrayList<Character> characters;
-    private List<Bomb> bombs;
+    private ArrayList<Bomb> bombs;
+    private ArrayList<Bomb> bombs_explosion;
     private static Bomber player;
+
 
     public static Map getGameMap() {
         if (gameMap == null) {
@@ -42,30 +39,12 @@ public class Map {
     }
 
     private void resetEntities() {
-        tiles = new StillEntity[HEIGHT][WIDTH];
+        tiles = new Entity[HEIGHT][WIDTH];
         characters = new ArrayList<>();
         items = new ArrayList<>();
         bombs = new ArrayList<>();
-    }
-
-    private void getCharacter(char c, int x, int y) {
-        Character character = CharacterFactory.getCharacter(c, x, y);
-        if (character != null) {
-            characters.add(character);
-        }
-    }
-
-    private void getItem(char c, int x, int y) {
-        Item item = ItemFactory.getItem(c, x, y);
-        if (item != null) {
-            items.add(item);
-        }
-    }
-
-    private void getBomber(char c, int x, int y) {
-        Bomber bomber = PlayerFactory.getPlayer(c, x, y);
-        if (bomber != null) {
-            player = bomber;
+        if(player != null) {
+            player.keyInput.initialization();
         }
     }
 
@@ -77,23 +56,25 @@ public class Map {
             String string = scanner.nextLine();
             for (int j = 0; j < WIDTH; j++) {
                 char c = string.charAt(j);
-                tiles[i][j] = StillFactory.getStill(c, i, j);
-                getCharacter(c, i, j);
-                getItem(c, i, j);
-                getBomber(c, i, j);
+                StillFactory.getStill(c, i, j);
+                ItemFactory.getItem(c,i,j);
+                CharacterFactory.getCharacter(c, i, j);
             }
         }
     }
 
     public void updateMap() {
-        for (int i = 0; i < HEIGHT; ++i) {
-            for (int j = 0; j < WIDTH; ++j) {
-                tiles[i][j].update();
+        try {
+            for (int i = 0; i < HEIGHT; ++i) {
+                for (int j = 0; j < WIDTH; ++j) {
+                    tiles[i][j].update();
+                }
             }
+            characters.forEach(Character::update);
+            bombs.forEach(Bomb::update);
+        } catch (Exception e) {
+            System.out.println("delete Object ||" +e.getMessage());
         }
-        characters.forEach(Character::update);
-        bombs.forEach(Bomb::update);
-        player.update();
     }
 
     public void renderMap(GraphicsContext graphicsContext) {
@@ -104,11 +85,8 @@ public class Map {
             }
         }
         items.forEach(item -> item.render(graphicsContext));
-
         characters.forEach(character -> character.render(graphicsContext));
-
         bombs.forEach(bomb -> bomb.render(graphicsContext));
-        player.render(graphicsContext);
     }
 
 
@@ -116,8 +94,8 @@ public class Map {
         return tiles;
     }
 
-    public void setTiles(int x, int y, StillEntity stillEntity) {
-        tiles[x][y] = stillEntity;
+    public void setTiles(int x, int y, Entity entity) {
+        tiles[x][y] = entity;
     }
 
     public ArrayList<Character> getCharacters() {
@@ -142,8 +120,11 @@ public class Map {
     }
 
     public void removeBomb(Bomb bomb) {
-        bombs.remove(bomb);
-        //System.out.println(bombs.size());
+        bombs_explosion.add(bomb);
+    }
+
+    public ArrayList<Bomb> getBombs() {
+        return bombs;
     }
 
 }

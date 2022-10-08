@@ -10,10 +10,13 @@ import Trace.BfsTrace;
 import java.util.Random;
 
 public abstract class Enemy extends Character {
-    protected int life = 3;
+    protected int life;
+    protected int score;
     public Enemy(int x, int y, Sprite sprite) {
         super(x,y,sprite);
         this.direction = DIRECTION.DOWN;
+        life = 1;
+        score = 100;
     }
 
     public abstract DIRECTION trace(Bomber bomber,Enemy enemy,Map gameMap);
@@ -22,16 +25,11 @@ public abstract class Enemy extends Character {
         direction = trace(gameMap.getPlayer(),this,gameMap);
         switch (direction) {
             case UP -> this.setVelocity(-defaultVelocity, 0);
-
-
             case DOWN -> this.setVelocity(defaultVelocity, 0);
-
             case LEFT -> this.setVelocity(0, -defaultVelocity);
-
             case RIGHT -> this.setVelocity(0, defaultVelocity);
+            default -> this.setVelocity(0,0);
 
-            default -> {
-            }
         }
         currentAnimate = animation.get(direction);
     }
