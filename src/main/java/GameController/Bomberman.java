@@ -2,8 +2,6 @@ package GameController;
 
 
 import Constants.Contants;
-import Entities.*;
-import Entities.Animate.Character.Bomber;
 import Graphics.Sprite;
 import Input.KeyInput;
 import Map.Map;
@@ -14,9 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Bomberman extends Application {
     public static long time;
@@ -40,7 +35,7 @@ public class Bomberman extends Application {
         isPause = true;
         this.stage = stage;
         stage.setTitle(Contants.GAME_TITLE);
-        stage.setScene(MenuContainer.getScene());
+        stage.setScene(MenuController.getScene());
         stage.show();
 
         final long startNanoTime = System.nanoTime();

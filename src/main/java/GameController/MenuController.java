@@ -1,6 +1,5 @@
 package GameController;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,7 +7,7 @@ import javafx.scene.Scene;
 
 import java.io.IOException;
 
-public class MenuContainer {
+public class MenuController {
     @FXML
     void campaignMode() throws Exception {
         System.out.println("campaignMode");
@@ -31,7 +30,7 @@ public class MenuContainer {
     }
 
     public static Scene getScene() throws IOException {
-        Parent root = FXMLLoader.load(MenuContainer.class.getResource("/scene/MainMenu.fxml"));
+        Parent root = FXMLLoader.load(MenuController.class.getResource("/scene/MainMenu.fxml"));
         return new Scene(root);
     }
 }

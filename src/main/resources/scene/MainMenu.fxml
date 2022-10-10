@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: url('textures/MainMenuBackground.jpg');" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameController.MenuContainer">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: url('textures/MainMenuBackground.jpg');" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameController.MenuController">
    <children>
       <Button layoutX="263.0" layoutY="187.0" mnemonicParsing="false" onMouseClicked="#campaignMode" text="Campaign" />
       <Button layoutX="266.0" layoutY="235.0" mnemonicParsing="false" onMouseClicked="#aiMode" text="Auto Play" />
