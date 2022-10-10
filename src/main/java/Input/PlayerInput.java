@@ -4,6 +4,8 @@ import Constants.Contants;
 
 import java.util.Set;
 
+import static Constants.Contants.DIRECTION.*;
+
 public class PlayerInput implements KeyInput {
 
     public void initialization() {
@@ -22,18 +24,18 @@ public class PlayerInput implements KeyInput {
                 switch (code) {
                     case ("SPACE"):
                         keyInput.put("SPACE",false);
-                        return Contants.DIRECTION.PLACE_BOMB;
+                        return PLACE_BOMB;
                     case ("W"):
-                        return Contants.DIRECTION.UP;
+                        return UP;
                     case ("D"):
-                        return Contants.DIRECTION.RIGHT;
+                        return RIGHT;
                     case ("S"):
-                        return Contants.DIRECTION.DOWN;
+                        return DOWN;
                     case ("A"):
-                        return Contants.DIRECTION.LEFT;
+                        return LEFT;
                 }
             }
         }
-        return Contants.DIRECTION.NONE;
+        return NONE;
     }
 }

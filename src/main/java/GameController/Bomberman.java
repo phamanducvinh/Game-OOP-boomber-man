@@ -21,9 +21,15 @@ public class Bomberman extends Application {
     public static GraphicsContext gc = canvas.getGraphicsContext2D();
 
     public static Map gameMap = Map.getGameMap();
-
     public static Stage stage;
 
+    private static final double FPS=60.0,UPS=60.0;
+    final static double timePerFrame=1000000000.0/FPS;
+    long lastFrame = System.nanoTime();
+    final double timePerUpdate=1000000000.0/UPS;;
+    long lastUpdate = System.nanoTime();
+    long lastCheckTime=System.currentTimeMillis();
+    int framesRate=0,updateRate=0;
     public static boolean isPause;
 
     public static void main(String[] args) {
@@ -40,18 +46,37 @@ public class Bomberman extends Application {
 
         final long startNanoTime = System.nanoTime();
 
-        AnimationTimer timer = new AnimationTimer() {
+        new AnimationTimer() {
             @Override
             public void handle(long currentNanoTime) {
-                time = ((currentNanoTime - startNanoTime) / 60000000) + 1;
-                if (!isPause) {
-                    gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-                    gameMap.updateMap();
-                    gameMap.renderMap(gc);
+                long now=System.nanoTime();
+
+                if(!isPause) {
+                    if (now - lastFrame >= timePerFrame) {
+                        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+                        lastFrame = System.nanoTime();
+                        gameMap.renderMap(gc);
+                        framesRate++;
+                    }
+
+                    if (now - lastUpdate >= timePerUpdate) {
+                        lastUpdate = System.nanoTime();
+                        gameMap.updateMap();
+                        updateRate++;
+                    }
+
+
+                    if(System.currentTimeMillis() - lastCheckTime >= 1000) {
+                        System.out.println("UPS: "+updateRate);
+                        lastCheckTime = System.currentTimeMillis();
+                        updateRate = 0;
+                        framesRate = 0;
+                    }
+
+                    time = ((currentNanoTime - startNanoTime) / 60000000) + 1;
                 }
             }
-        };
-        timer.start();
+        }.start();
     }
 
     public static void createPlayingStage() throws Exception {

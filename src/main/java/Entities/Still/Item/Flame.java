@@ -10,5 +10,9 @@ public class Flame extends Item{
 
     @Override
     public void effect(Bomber bomber) {
+        if(bomber.getLengthFlame() < 4) {
+            bomber.setLengthFlame(bomber.getLengthFlame() + 1);
+        }
+        destroy();
     }
 }

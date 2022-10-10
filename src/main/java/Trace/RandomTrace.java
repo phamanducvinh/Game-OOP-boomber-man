@@ -27,7 +27,7 @@ public class RandomTrace extends Trace {
                 default -> DOWN;
             };
         } else {
-            return enemy.whichDirection();
+            return enemy.direction;
         }
     }
 }
