@@ -2,9 +2,6 @@ package GameController;
 
 
 import Constants.Contants;
-import Entities.*;
-import Entities.Animate.Character.Bomber;
-import Graphics.Sprite;
 import Input.KeyInput;
 import Map.Map;
 import javafx.animation.AnimationTimer;
@@ -15,13 +12,12 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.List;
+import static Constants.Contants.*;
+import static Graphics.Sprite.*;
 
 public class Bomberman extends Application {
     public static long time;
-    public static final int WIDTH = 31;
-    public static final int HEIGHT = 13;
+    public static boolean pause;
     public static Canvas canvas = new Canvas();
     public static GraphicsContext gc = canvas.getGraphicsContext2D();
 
@@ -43,9 +39,9 @@ public class Bomberman extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        stage.setTitle(Contants.GAME_TITLE);
+        stage.setTitle(GAME_TITLE);
 
-        canvas = new Canvas(Sprite.SCALED_SIZE*WIDTH,Sprite.SCALED_SIZE*HEIGHT);
+        canvas = new Canvas(SCALED_SIZE*WIDTH,SCALED_SIZE*HEIGHT);
         gc = canvas.getGraphicsContext2D();
 
         Group root = new Group();
@@ -55,7 +51,6 @@ public class Bomberman extends Application {
         stage.show();
 
         final long startNanoTime = System.nanoTime();
-
         gameMap.createMap(Contants.MAP_PATHS[0]);
         scene.setOnKeyPressed(keyEvent -> {
             String code = keyEvent.getCode().toString();

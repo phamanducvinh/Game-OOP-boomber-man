@@ -5,8 +5,8 @@ public class Contants {
     public static final String GAME_TITLE = "BOMBERMAN";
 
     public static final String[] MAP_PATHS = {
-            Contants.class.getResource("/Levels/map1.txt").getPath(),
-            Contants.class.getResource("/Levels/map2.txt").getPath()
+            Contants.class.getResource("/levels/map1.txt").getPath(),
+            Contants.class.getResource("/levels/map2.txt").getPath()
     };
 
     public static final int HEIGHT = 13;
