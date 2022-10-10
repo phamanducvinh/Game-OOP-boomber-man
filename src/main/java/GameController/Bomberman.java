@@ -27,7 +27,9 @@ public class Bomberman extends Application {
 
     public static Map gameMap = Map.getGameMap();
 
+    public static Stage stage;
 
+    public static boolean isPause;
 
     public static void main(String[] args) {
         Application.launch(Bomberman.class);
@@ -35,39 +37,45 @@ public class Bomberman extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        isPause = true;
+        this.stage = stage;
         stage.setTitle(Contants.GAME_TITLE);
-
-        canvas = new Canvas(Sprite.SCALED_SIZE*WIDTH,Sprite.SCALED_SIZE*HEIGHT);
-        gc = canvas.getGraphicsContext2D();
-
-        Group root = new Group();
-        root.getChildren().add(canvas);
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
+        stage.setScene(MenuContainer.getScene());
         stage.show();
 
         final long startNanoTime = System.nanoTime();
 
-        gameMap.createMap(Contants.MAP_PATHS[0]);
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long currentNanoTime) {
-                gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
                 time = ((currentNanoTime - startNanoTime) / 60000000) + 1;
-                scene.setOnKeyPressed(keyEvent -> {
-                    String code = keyEvent.getCode().toString();
-                    KeyInput.keyInput.put(code,true);
-                });
-                scene.setOnKeyReleased(keyEvent -> {
-                    String code = keyEvent.getCode().toString();
-                    KeyInput.keyInput.put(code,false);
-                });
-
-                gameMap.updateMap();
-                gameMap.renderMap(gc);
+                if (!isPause) {
+                    gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+                    gameMap.updateMap();
+                    gameMap.renderMap(gc);
+                }
             }
         };
         timer.start();
     }
 
+    public static void createPlayingStage() throws Exception {
+        canvas = new Canvas(Sprite.SCALED_SIZE*WIDTH,Sprite.SCALED_SIZE*HEIGHT);
+        gc = canvas.getGraphicsContext2D();
+        Group root = new Group();
+        root.getChildren().add(canvas);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        gameMap.createMap(Contants.MAP_PATHS[0]);
+        scene.setOnKeyPressed(keyEvent -> {
+            String code = keyEvent.getCode().toString();
+            KeyInput.keyInput.put(code, true);
+        });
+        scene.setOnKeyReleased(keyEvent -> {
+            String code = keyEvent.getCode().toString();
+            KeyInput.keyInput.put(code, false);
+        });
+        isPause = false;
+    }
 }
