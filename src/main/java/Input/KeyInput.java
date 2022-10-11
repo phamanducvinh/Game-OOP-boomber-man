@@ -2,7 +2,7 @@ package Input;
 
 import java.util.HashMap;
 
-import static Constants.Contants.DIRECTION;
+import static Constants.Constants.DIRECTION;
 import Entities.Animate.Character.Bomber;
 
 public interface KeyInput {

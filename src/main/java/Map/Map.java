@@ -8,22 +8,34 @@ import Entities.Still.Item.Item;
 import Factory.CharacterFactory;
 import Factory.ItemFactory;
 import Factory.StillFactory;
+import GameController.Message;
+import Graphics.Sprite;
+import Input.PlayerInput;
 import javafx.scene.canvas.GraphicsContext;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static Constants.Contants.*;
+import static Constants.Constants.*;
 
+@Getter
+@Setter
 public class Map {
+    private int score = 0;
+    private int stage =0;
+    private int life;
+
     private static Map gameMap;
     private Entity[][] tiles;
     private ArrayList<Item> items;
     private ArrayList<Character> characters;
     private ArrayList<Bomb> bombs;
     private ArrayList<Bomb> bombs_explosion;
-    private static Bomber player;
+    private Bomber player;
 
 
     public static Map getGameMap() {
@@ -33,9 +45,14 @@ public class Map {
         return gameMap;
     }
 
+    public Map() {
+        score = 0;
+        stage = 0;
+        life = 0;//player.getLife();
+    }
 
-    public Entity getEntity(int x, int y) {
-        return tiles[x][y];
+    public Entity[][] getEntity() {
+        return tiles;
     }
 
     private void resetEntities() {
@@ -58,9 +75,11 @@ public class Map {
                 char c = string.charAt(j);
                 StillFactory.getStill(c, i, j);
                 ItemFactory.getItem(c,i,j);
+                if(c=='p') player = new Bomber(i, j, Sprite.PLAYER_RIGHT[0], new PlayerInput());
                 CharacterFactory.getCharacter(c, i, j);
             }
         }
+        characters.add(player);
     }
 
     public void updateMap() {
@@ -71,9 +90,10 @@ public class Map {
                 }
             }
             characters.forEach(Character::update);
+
             bombs.forEach(Bomb::update);
         } catch (Exception e) {
-            System.out.println("delete Object ||" +e.getMessage());
+            System.out.println("delete Object ||" +e.toString());
         }
     }
 
@@ -90,41 +110,17 @@ public class Map {
     }
 
 
-    public Entity[][] getTiles() {
-        return tiles;
-    }
-
     public void setTiles(int x, int y, Entity entity) {
         tiles[x][y] = entity;
     }
 
-    public ArrayList<Character> getCharacters() {
-        return characters;
+    public void nextStage() {
+        String map_path = MAP_PATHS[stage++];
+        try {
+            createMap(map_path);
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+        Message.showNextStageMessenger();
     }
-
-    public Bomber getPlayer() {
-        return player;
-    }
-
-    public ArrayList<Item> getItems() {
-        return items;
-    }
-
-    public void removeItem(Item item) {
-        items.remove(item);
-    }
-
-    public void placeBomb(Bomb bomb) {
-        this.bombs.add(bomb);
-        System.out.println(bombs.size());
-    }
-
-    public void removeBomb(Bomb bomb) {
-        bombs_explosion.add(bomb);
-    }
-
-    public ArrayList<Bomb> getBombs() {
-        return bombs;
-    }
-
 }

@@ -1,16 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: url('textures/MainMenuBackground.jpg');" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameController.MenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0"
+            xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+fx:controller="GameController.MenuController">
    <children>
-      <Button layoutX="263.0" layoutY="187.0" mnemonicParsing="false" onMouseClicked="#campaignMode" text="Campaign" />
-      <Button layoutX="266.0" layoutY="235.0" mnemonicParsing="false" onMouseClicked="#aiMode" text="Auto Play" />
-      <Button layoutX="275.0" layoutY="287.0" mnemonicParsing="false" onMouseClicked="#guide" text="Guide" />
-      <Button layoutX="281.0" layoutY="342.0" mnemonicParsing="false" onMouseClicked="#exit" text="Exit" />
+      <ImageView fitHeight="500.0" fitWidth="900.0">
+         <image>
+            <Image url="@../textures/background.jpg" />
+         </image>
+      </ImageView>
+      <VBox alignment="CENTER" layoutX="786.0" layoutY="286.0" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+         <children>
+            <Button alignment="TOP_LEFT" mnemonicParsing="false" onMouseClicked="#campaignMode" prefHeight="25.0" prefWidth="100.0" text="Campaign" />
+            <Button alignment="TOP_LEFT" mnemonicParsing="false" onMouseClicked="#aiMode" prefHeight="25.0" prefWidth="113.0" text="Auto play" />
+            <Button alignment="TOP_LEFT" mnemonicParsing="false" onMouseClicked="#guide" prefHeight="25.0" prefWidth="113.0" text="Guide" />
+            <Button alignment="TOP_LEFT" mnemonicParsing="false" onMouseClicked="#exit" prefHeight="25.0" prefWidth="99.0" text="Exit" />
+            <ToggleButton alignment="TOP_LEFT" mnemonicParsing="false" onMouseClicked="#sound" prefHeight="25.0" prefWidth="101.0" text="Sound">
+
+               <effect>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                  </Lighting>
+               </effect></ToggleButton>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
    </children>
 </AnchorPane>

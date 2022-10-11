@@ -1,5 +1,6 @@
 package Trace;
 
+import Constants.Constants;
 import Entities.Animate.Character.Bomber;
 import Entities.Animate.Character.Enemy.Enemy;
 import Entities.Still.Grass;
@@ -9,8 +10,8 @@ import javafx.util.Pair;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import static Constants.Contants.*;
-import static Constants.Contants.DIRECTION.*;
+import static Constants.Constants.*;
+import static Constants.Constants.DIRECTION.*;
 
 public class HalfBfsTrace extends Trace {
     private static final int[][] distance = new int[HEIGHT][WIDTH];

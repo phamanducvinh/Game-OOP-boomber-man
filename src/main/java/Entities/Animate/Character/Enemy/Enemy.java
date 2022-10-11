@@ -1,5 +1,5 @@
 package Entities.Animate.Character.Enemy;
-import Constants.Contants.DIRECTION;
+import Constants.Constants.DIRECTION;
 import Entities.Animate.AnimateEntity;
 import Entities.Animate.Character.Bomber;
 import Entities.Animate.Character.Character;

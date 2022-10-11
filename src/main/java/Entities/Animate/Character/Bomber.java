@@ -1,6 +1,6 @@
 package Entities.Animate.Character;
 
-import Constants.Contants;
+import Constants.Constants;
 import Entities.Animate.Bomb;
 import Entities.Animate.Character.Enemy.Enemy;
 import Entities.Entity;
@@ -12,7 +12,7 @@ import javafx.geometry.Rectangle2D;
 import lombok.Getter;
 import lombok.Setter;
 
-import static Constants.Contants.DIRECTION.*;
+import static Constants.Constants.DIRECTION.*;
 @Getter
 @Setter
 public class Bomber extends Character {
@@ -39,7 +39,7 @@ public class Bomber extends Character {
         this.maxBombs = 3;
         this.lengthFlame = 1;
         this.life = 3;
-        this.speed = 2;
+        this.speed = 1;
     }
 
 
@@ -70,7 +70,7 @@ public class Bomber extends Character {
 
         super.checkCollision();
         if (collision) {
-            for (int i = -4 - speed; i <= 4 + speed; i++) {
+            for (int i = -8 - speed; i <= 8 + speed; i++) {
                 switch (direction) {
                     case LEFT, RIGHT -> pixelX += i;
                     case UP, DOWN -> pixelY +=i;

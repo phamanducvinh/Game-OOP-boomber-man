@@ -1,16 +1,13 @@
 package Trace;
 
-import Constants.Contants.DIRECTION;
+import Constants.Constants;
 import Entities.Animate.Character.Bomber;
 import Entities.Animate.Character.Enemy.Enemy;
 import Map.Map;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
-import static Constants.Contants.DIRECTION.*;
-
+import static Constants.Constants.DIRECTION.*;
+import static Constants.Constants.*;
 public class RandomTrace extends Trace {
     public RandomTrace(Bomber player, Enemy enemy, Map gameMap) {
         super(player, enemy, gameMap);

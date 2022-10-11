@@ -1,6 +1,5 @@
 package Entities.Animate;
 
-import Constants.Contants;
 import Entities.Animate.Character.Bomber;
 import Entities.Entity;
 import Entities.Still.Wall;
@@ -12,10 +11,10 @@ import lombok.Setter;
 
 import java.awt.*;
 
-import static Constants.Contants.BOMB_STATUS.*;
-import static Constants.Contants.EXPLOSION.*;
-import static Constants.Contants.HEIGHT;
-import static Constants.Contants.WIDTH;
+import static Constants.Constants.*;
+import static Constants.Constants.BOMB_STATUS.*;
+import static Constants.Constants.EXPLOSION.*;
+
 
 @Getter
 @Setter
@@ -40,13 +39,13 @@ public class Bomb extends AnimateEntity {
         int[] dx = new int[]{0, 0, 1, -1};
         int[] dy = new int[]{1, -1, 0, 0};
         for (int direction = 0; direction < 4; direction++) {
-            for (int i = 0; i < owner.getLengthFlame(); i++) {
+            for (int i = 0; i < gameMap.getPlayer().getLengthFlame(); i++) {
                 int tileX = this.tileX + (i + 1) * dx[direction];
                 int tileY = this.tileY + (i + 1) * dy[direction];
                 if (tileX < 0 || tileX >= HEIGHT || tileY < 0 || tileY >= WIDTH) {
                     break;
                 }
-                Entity entity = gameMap.getEntity(tileX,tileY);
+                Entity entity = gameMap.getEntity()[tileX][tileY];
                 if (entity instanceof Wall) {
                     break;
                 }
@@ -110,9 +109,5 @@ public class Bomb extends AnimateEntity {
     public void delete() {
         gameMap.getBombs().remove(this);
         owner.explosionBomb();
-    }
-
-    public Bomber getOwner() {
-        return owner;
     }
 }

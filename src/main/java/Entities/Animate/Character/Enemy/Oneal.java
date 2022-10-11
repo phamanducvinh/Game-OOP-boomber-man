@@ -1,7 +1,7 @@
 package Entities.Animate.Character.Enemy;
 
-import static Constants.Contants.DIRECTION;
-import static Constants.Contants.DIRECTION.*;
+import static Constants.Constants.DIRECTION;
+import static Constants.Constants.DIRECTION.*;
 import static Graphics.Sprite.*;
 import Entities.Animate.Character.Bomber;
 import Graphics.Sprite;

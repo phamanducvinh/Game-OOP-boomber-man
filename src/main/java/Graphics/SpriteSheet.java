@@ -1,6 +1,6 @@
 package Graphics;
 
-import Constants.Contants;
+import Constants.Constants;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -19,7 +19,7 @@ public class SpriteSheet {
     public int[] _pixels;
     public BufferedImage image;
 
-    private static final String TEXTURES_PATH = Contants.TEXTURES_PATH;
+    private static final String TEXTURES_PATH = Constants.TEXTURES_PATH;
 
     public static SpriteSheet tiles = new SpriteSheet(TEXTURES_PATH, 256);
 

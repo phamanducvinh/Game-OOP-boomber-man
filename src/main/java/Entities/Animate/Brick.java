@@ -1,11 +1,8 @@
 package Entities.Animate;
-
-import Entities.Animate.AnimateEntity;
 import Entities.Still.Grass;
-import Entities.Still.StillEntity;
 import Graphics.Sprite;
 
-import static Constants.Contants.DIRECTION.DESTROYED;
+import static Constants.Constants.DIRECTION.DESTROYED;
 
 public class Brick extends AnimateEntity {
     public Brick(int x, int y, Sprite sprite) {

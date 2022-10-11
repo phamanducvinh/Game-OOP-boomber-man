@@ -1,10 +1,10 @@
 package Input;
 
-import Constants.Contants;
+import Constants.Constants;
 
 import java.util.Set;
 
-import static Constants.Contants.DIRECTION.*;
+import static Constants.Constants.DIRECTION.*;
 
 public class PlayerInput implements KeyInput {
 
@@ -17,7 +17,7 @@ public class PlayerInput implements KeyInput {
     }
 
     @Override
-    public Contants.DIRECTION handleKeyInput() {
+    public Constants.DIRECTION handleKeyInput() {
         Set<String> keySet = keyInput.keySet();
         for (String code : keySet) {
             if (keyInput.get(code)) {

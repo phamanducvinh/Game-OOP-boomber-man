@@ -1,6 +1,6 @@
 package Entities.Animate;
 
-import Constants.Contants;
+import Constants.Constants;
 import Entities.Animate.Character.Character;
 import Entities.Entity;
 import Entities.Still.Item.Item;
@@ -8,12 +8,13 @@ import Entities.Still.StillEntity;
 import Graphics.Sprite;
 import javafx.scene.canvas.GraphicsContext;
 
-import static Constants.Contants.EXPLOSION.*;
+import static Constants.Constants.EXPLOSION.*;
+
 
 public class Explosion extends AnimateEntity{
     private boolean destroyBrick;
 
-    public Explosion(int x, int y, Sprite sprite, Contants.EXPLOSION status) {
+    public Explosion(int x, int y, Sprite sprite, Constants.EXPLOSION status) {
         super(x, y, sprite);
         animation.put(HORIZONTAL,Sprite.HORIZONTAL);
         animation.put(RIGHT_LAST,Sprite.RIGHT_LAST);
@@ -39,7 +40,7 @@ public class Explosion extends AnimateEntity{
     }
 
     private void isCollision() {
-        Entity entity = gameMap.getEntity(tileX,tileY);
+        Entity entity = gameMap.getEntity()[tileX][tileY];
         if (entity instanceof Brick) {
             destroyBrick = true;
             ((Brick) entity).destroy();

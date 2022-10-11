@@ -1,13 +1,13 @@
 package Entities.Animate.Character.Enemy;
 
-import static Constants.Contants.DIRECTION;
-import Constants.Contants.DIRECTION.*;
+import static Constants.Constants.DIRECTION;
+import Constants.Constants.DIRECTION.*;
 import Entities.Animate.Character.Bomber;
 import Graphics.Sprite;
 import Map.Map;
 import Trace.RandomTrace;
 
-import static Constants.Contants.DIRECTION.*;
+import static Constants.Constants.DIRECTION.*;
 import static Graphics.Sprite.*;
 
 

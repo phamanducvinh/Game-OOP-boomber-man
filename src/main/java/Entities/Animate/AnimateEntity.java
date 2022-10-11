@@ -1,14 +1,11 @@
 package Entities.Animate;
-
-import Constants.Contants.DIRECTION;
 import Entities.Entity;
 import GameController.Bomberman;
 import Graphics.Sprite;
-import javafx.util.Pair;
-
 import java.util.HashMap;
 
-import static Constants.Contants.BOMB_STATUS.DESTROYED;
+import static Constants.Constants.DIRECTION.DESTROYED;
+
 
 
 
@@ -34,9 +31,8 @@ public abstract class AnimateEntity extends Entity {
     }
 
     public void updateDestroyAnimation() {
-        currentAnimate = animation.get(DESTROYED);
         if (timeDestroyed -- >= 0) {
-            updateDestroyAnimation();
+            updateAnimation();
         }else {
             delete();
         }

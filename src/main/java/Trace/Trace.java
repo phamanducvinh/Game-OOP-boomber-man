@@ -1,11 +1,11 @@
 package Trace;
 
+import static Constants.Constants.*;
 import Entities.Animate.Character.Bomber;
 import Entities.Animate.Character.Enemy.Enemy;
 import Entities.Still.Grass;
 import Map.Map;
 
-import static Constants.Contants.*;
 
 public abstract class Trace {
     protected final Bomber player;
@@ -22,7 +22,7 @@ public abstract class Trace {
         if (x < 0 || x >= HEIGHT || y < 0 || y >= WIDTH) {
             return false;
         }
-        return (gameMap.getEntity(x, y) instanceof Grass);
+        return (gameMap.getEntity()[x][y] instanceof Grass);
     }
 
     public abstract DIRECTION getDirection();

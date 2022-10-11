@@ -1,7 +1,7 @@
 package GameController;
 
 
-import Constants.Contants;
+import Constants.Constants;
 import Graphics.Sprite;
 import Input.KeyInput;
 import Map.Map;
@@ -11,9 +11,18 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
+import static Constants.Constants.*;
+import static Constants.Constants.MENU_STATUS.MENU;
+import static Constants.Constants.STATUS.*;
+import static Graphics.Sprite.SCALED_SIZE;
+
 public class Bomberman extends Application {
+    public static MENU_STATUS menu_status;
     public static long time;
     public static final int WIDTH = 31;
     public static final int HEIGHT = 13;
@@ -23,14 +32,15 @@ public class Bomberman extends Application {
     public static Map gameMap = Map.getGameMap();
     public static Stage stage;
 
-    private static final double FPS=60.0,UPS=60.0;
-    final static double timePerFrame=1000000000.0/FPS;
+    private static final double FPS = 120.0, UPS = 120.0;
+    final static double timePerFrame = 1000000000.0 / FPS;
     long lastFrame = System.nanoTime();
-    final double timePerUpdate=1000000000.0/UPS;;
+    final double timePerUpdate = 1000000000.0 / UPS;
+    ;
     long lastUpdate = System.nanoTime();
-    long lastCheckTime=System.currentTimeMillis();
-    int framesRate=0,updateRate=0;
-    public static boolean isPause;
+    long lastCheckTime = System.currentTimeMillis();
+    int framesRate = 0, updateRate = 0;
+    public static STATUS status;
 
     public static void main(String[] args) {
         Application.launch(Bomberman.class);
@@ -38,20 +48,19 @@ public class Bomberman extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        isPause = true;
-        this.stage = stage;
-        stage.setTitle(Contants.GAME_TITLE);
-        stage.setScene(MenuController.getScene());
-        stage.show();
+        Bomberman.stage = stage;
+        stage.setTitle(GAME_TITLE);
+        menu_status = MENU ;
+        Message.showMenu();
 
         final long startNanoTime = System.nanoTime();
 
         new AnimationTimer() {
             @Override
             public void handle(long currentNanoTime) {
-                long now=System.nanoTime();
+                long now = System.nanoTime();
 
-                if(!isPause) {
+                if (status == PLAYING) {
                     if (now - lastFrame >= timePerFrame) {
                         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
                         lastFrame = System.nanoTime();
@@ -61,13 +70,14 @@ public class Bomberman extends Application {
 
                     if (now - lastUpdate >= timePerUpdate) {
                         lastUpdate = System.nanoTime();
+                        Message.updateBoard();
                         gameMap.updateMap();
                         updateRate++;
                     }
 
 
-                    if(System.currentTimeMillis() - lastCheckTime >= 1000) {
-                        System.out.println("UPS: "+updateRate);
+                    if (System.currentTimeMillis() - lastCheckTime >= 1000) {
+                        System.out.println("UPS: " + updateRate);
                         lastCheckTime = System.currentTimeMillis();
                         updateRate = 0;
                         framesRate = 0;
@@ -79,23 +89,28 @@ public class Bomberman extends Application {
         }.start();
     }
 
-    public static void createPlayingStage() throws Exception {
-        canvas = new Canvas(Sprite.SCALED_SIZE*WIDTH,Sprite.SCALED_SIZE*HEIGHT);
+    public static void createStage() {
+        status = PLAYING;
+        canvas = new Canvas(SCALED_SIZE * WIDTH, SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
-        Group root = new Group();
-        root.getChildren().add(canvas);
+        VBox root = new VBox(Message.getBoard(),canvas);
         Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-        gameMap.createMap(Contants.MAP_PATHS[0]);
-        scene.setOnKeyPressed(keyEvent -> {
-            String code = keyEvent.getCode().toString();
+
+        scene.setOnKeyPressed(event -> {
+            String code = event.getCode().toString();
+            if(code.equals("P")) {
+                Message.showPauseMessage();
+            }
+
             KeyInput.keyInput.put(code, true);
         });
-        scene.setOnKeyReleased(keyEvent -> {
-            String code = keyEvent.getCode().toString();
+        scene.setOnKeyReleased(event -> {
+            String code = event.getCode().toString();
             KeyInput.keyInput.put(code, false);
         });
-        isPause = false;
+
+        stage.setScene(scene);
+        stage.show();
     }
+
 }
