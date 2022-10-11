@@ -41,6 +41,7 @@ public class Bomberman extends Application {
     long lastCheckTime = System.currentTimeMillis();
     int framesRate = 0, updateRate = 0;
     public static STATUS status;
+    public static boolean sound;
 
     public static void main(String[] args) {
         Application.launch(Bomberman.class);
@@ -51,6 +52,8 @@ public class Bomberman extends Application {
         Bomberman.stage = stage;
         stage.setTitle(GAME_TITLE);
         menu_status = MENU ;
+        sound = true;
+        SoundController.backgroundSound.play();
         Message.showMenu();
 
         final long startNanoTime = System.nanoTime();
@@ -102,6 +105,9 @@ public class Bomberman extends Application {
                 Message.showPauseMessage();
             }
 
+            if(code.equals("M")) {
+                SoundController.update();
+            }
             KeyInput.keyInput.put(code, true);
         });
         scene.setOnKeyReleased(event -> {

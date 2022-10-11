@@ -79,7 +79,7 @@ public class Bomb extends AnimateEntity {
         if (timeBeforeExplode == 0) {
             exploded = true;
             destroy();
-            buildExplosion();
+            //buildExplosion();
         }
 
         if(timeBeforeExplode == -10) {
@@ -92,6 +92,7 @@ public class Bomb extends AnimateEntity {
         graphicsContext.drawImage(img, pixelY, pixelX);
         if (destroyed) {
 
+            /*
             for (int direction = 0; direction < 4; direction++) {
                 for (int i = 0; i < owner.getLengthFlame(); i++) {
                     if (explosion[direction][i] != null) {
@@ -102,6 +103,7 @@ public class Bomb extends AnimateEntity {
             }
             explosion[4][0].update();
 
+             */
         }
     }
 

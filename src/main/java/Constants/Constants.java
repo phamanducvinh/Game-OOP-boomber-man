@@ -68,4 +68,10 @@ public class Constants {
             Constants.class.getResource("/fonts/font2.TTF").getPath(),
             Constants.class.getResource("/fonts/font3.otf").getPath()
     };
+
+    public static String[] SOUND_PATH = {
+            Constants.class.getResource("/sound/Area0.wav").getPath(),
+            Constants.class.getResource("/sound/StageCleared.wav").getPath(),
+            Constants.class.getResource("/sound/Title.wav").getPath()
+    };
 }

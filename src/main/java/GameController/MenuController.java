@@ -52,8 +52,8 @@ public class MenuController {
     }
 
     @FXML
-    void sound() {
-        System.out.println("sound");
+    void sound(){
+        SoundController.update();
     }
 
     public static Scene getScene() throws IOException {

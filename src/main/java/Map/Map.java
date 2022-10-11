@@ -25,8 +25,8 @@ import static Constants.Constants.*;
 @Getter
 @Setter
 public class Map {
-    private int score = 0;
-    private int stage =0;
+    private int score = 0       ;
+    private int stage = 0;
     private int life;
 
     private static Map gameMap;
@@ -60,7 +60,7 @@ public class Map {
         characters = new ArrayList<>();
         items = new ArrayList<>();
         bombs = new ArrayList<>();
-        if(player != null) {
+        if (player != null) {
             player.keyInput.initialization();
         }
     }
@@ -74,8 +74,8 @@ public class Map {
             for (int j = 0; j < WIDTH; j++) {
                 char c = string.charAt(j);
                 StillFactory.getStill(c, i, j);
-                ItemFactory.getItem(c,i,j);
-                if(c=='p') player = new Bomber(i, j, Sprite.PLAYER_RIGHT[0], new PlayerInput());
+                ItemFactory.getItem(c, i, j);
+                if (c == 'p') player = new Bomber(i, j, Sprite.PLAYER_RIGHT[0], new PlayerInput());
                 CharacterFactory.getCharacter(c, i, j);
             }
         }
@@ -93,7 +93,7 @@ public class Map {
 
             bombs.forEach(Bomb::update);
         } catch (Exception e) {
-            System.out.println("delete Object ||" +e.toString());
+            System.out.println("delete Object ||" + e.toString());
         }
     }
 
