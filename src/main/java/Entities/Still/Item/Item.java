@@ -4,10 +4,13 @@ import Entities.Animate.Brick;
 import Entities.Animate.Character.Bomber;
 import Entities.Still.Grass;
 import Entities.Still.StillEntity;
+import GameController.SoundController;
 import Graphics.Sprite;
 import javafx.scene.canvas.GraphicsContext;
 import lombok.Getter;
 import lombok.Setter;
+
+import static Constants.Constants.SOUND_PATH;
 
 @Getter
 @Setter
@@ -31,10 +34,12 @@ public abstract class Item extends StillEntity {
     public void destroy() {
         if(hidden) {
             hidden = false;
+            SoundController.playEffectSound(SOUND_PATH[4]);
             return;
         }
         gameMap.getItems().remove(this);
-        gameMap.setTiles(tileX,tileY,new Grass(tileX,tileY,Sprite.grass));
+        Grass grass = new Grass(tileX,tileY,Sprite.grass);
+        gameMap.setTiles(tileX,tileY,grass);
     }
 
     abstract public void effect(Bomber bomber);

@@ -6,9 +6,6 @@ import java.util.HashMap;
 
 import static Constants.Constants.DIRECTION.DESTROYED;
 
-
-
-
 public abstract class AnimateEntity extends Entity {
     public HashMap<Enum,Sprite[]> animation = new HashMap<>();
     protected Sprite[] currentAnimate;

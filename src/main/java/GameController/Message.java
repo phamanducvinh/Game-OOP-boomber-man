@@ -41,12 +41,16 @@ public class Message {
     }
 
     public static void updateBoard() {
-        stage.setText("STAGE: " + 0);
-        life.setText("LIFE: " + 0);
-        bombs.setText("BOMBS_MAX: " + 0);
-        flame.setText("LEVEL_BOMBS: " + 0);
-        speed.setText("LEVEL_SPEED: " + 0);
-        sound.setText("MIX: " + "ON");
+        stage.setText("STAGE: " + gameMap.getStage());
+        life.setText("LIFE: " + gameMap.getLife());
+        bombs.setText("BOMBS_MAX: " + gameMap.getBombs_max());
+        flame.setText("LEVEL_BOMBS: " + gameMap.getLevel_bombs());
+        speed.setText("LEVEL_SPEED: " + gameMap.getLevel_speed());
+        if(Bomberman.sound == false) {
+            sound.setText("MIX: " + "OFF");
+        } else {
+            sound.setText("MIX: " + "ON");
+        }
     }
 
     public static HBox getBoard() {
@@ -60,8 +64,7 @@ public class Message {
     public static void showNextStageMessenger() {
         Bomberman.status = PAUSE;
         Text text1 = createText("Stage " + Map.getGameMap().getStage(), 30);
-        Text text2 = createText("ENTER to play",20);
-        StackPane root = new StackPane(text1,text2);
+        StackPane root = new StackPane(text1);
         root.setAlignment(Pos.CENTER);
         root.setPrefSize(SCALED_SIZE * WIDTH, SCALED_SIZE * HEIGHT);
         root.setBackground(new Background(new BackgroundFill(Color.rgb(0, 0, 0), null, null)));

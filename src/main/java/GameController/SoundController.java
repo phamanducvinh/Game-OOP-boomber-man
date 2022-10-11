@@ -32,6 +32,10 @@ public class SoundController extends Application {
         }
     }
 
+    public static void loop() {
+        if(!backgroundSound.isPlaying() && Bomberman.sound ) backgroundSound.play();
+    }
+
     public static AudioClip playSound(String path) {
         File file = new File(path);
         Media media = new Media(file.toURI().toString());

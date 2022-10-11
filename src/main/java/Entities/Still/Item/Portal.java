@@ -23,6 +23,16 @@ public class Portal extends Item{
 
     @Override
     public void effect(Bomber bomber) {
+        if (countEnemies() == 0) {
+            gameMap.nextStage();
+            bomber.setLife(bomber.getLife() + 1);
+            destroy();
+        }
+    }
 
+    @Override
+    public void destroy() {
+        super.destroy();
+        destroyable = false;
     }
 }

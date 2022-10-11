@@ -6,6 +6,8 @@ import Entities.Animate.Character.Enemy.Enemy;
 import Entities.Entity;
 import Entities.Still.Item.Item;
 import Entities.Still.Item.Portal;
+import GameController.Message;
+import GameController.SoundController;
 import Graphics.Sprite;
 import Input.KeyInput;
 import javafx.geometry.Rectangle2D;
@@ -13,14 +15,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 import static Constants.Constants.DIRECTION.*;
+import static Constants.Constants.SOUND_PATH;
+
 @Getter
 @Setter
 public class Bomber extends Character {
-    private final int[] DIRECT_X = new int[]{0, 1, 0, 1};
-    private final int[] DIRECT_Y = new int[]{1, 0, 1, 0};
-    public int life;
+    private int life;
     public KeyInput keyInput;
-    public int lengthFlame;
+    private int lengthFlame;
     private int maxBombs;
     private int countBombs;
 
@@ -124,7 +126,7 @@ public class Bomber extends Character {
 
     @Override
     public void delete() {
-        //Sound.playSound("Die");
+        SoundController.playEffectSound(SOUND_PATH[6]);
         life -= 1;
         this.destroyed = false;
         this.tileX = 1;
@@ -134,9 +136,13 @@ public class Bomber extends Character {
         currentAnimate = animation.get(RIGHT);
         updateAnimation();
         if (life == 0) {
-            //Message.showDefeatMessage();
-            //Sound.backgroundSound.stop();
-            //Sound.playSound("GameOver");
+            try {
+                //gameMap.resetEntities();
+                Message.showMenu();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            SoundController.playEffectSound(SOUND_PATH[7]);
         }
     }
 }

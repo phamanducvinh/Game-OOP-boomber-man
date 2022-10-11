@@ -1,9 +1,11 @@
 package Entities.Animate.Character;
 import Entities.Animate.AnimateEntity;
 import Entities.Animate.Bomb;
+import Entities.Animate.Character.Enemy.Enemy;
 import Entities.Entity;
 import Features.Movable;
 import Graphics.Sprite;
+import javafx.geometry.Rectangle2D;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -57,6 +59,11 @@ public abstract class Character extends AnimateEntity implements Movable {
         tileY = pixelY / Sprite.SCALED_SIZE;
     }
 
+    public boolean isCollision2(Entity other) {
+        Rectangle2D rectangle2D = new Rectangle2D(pixelX + 10, pixelY + 10, Sprite.SCALED_SIZE - 25, Sprite.SCALED_SIZE - 25);
+        return rectangle2D.intersects(other.getBoundary());
+    }
+
     public void checkCollision() {
         collision = false;
         pixelX += this.velocityX;
@@ -65,6 +72,8 @@ public abstract class Character extends AnimateEntity implements Movable {
             if (this.isCollision(bomb)) {
                 if (bomb.isDestroyed()) {
                     this.destroy();
+                } else {
+                    collision = true;
                 }
                 if (bomb.getOwner() == this && !bomb.isBlock()) {
                     collision = false;
@@ -82,6 +91,12 @@ public abstract class Character extends AnimateEntity implements Movable {
                 if (entity.isBlock() && this.isCollision(entity)) {
                     collision = true;
                 }
+            }
+        }
+
+        if(this instanceof Enemy) {
+            if(((Enemy) this).isCollision2(gameMap.getPlayer())) {
+                gameMap.getPlayer().destroy();
             }
         }
 

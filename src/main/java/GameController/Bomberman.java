@@ -1,8 +1,4 @@
 package GameController;
-
-
-import Constants.Constants;
-import Graphics.Sprite;
 import Input.KeyInput;
 import Map.Map;
 import javafx.animation.AnimationTimer;
@@ -13,9 +9,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-
 import static Constants.Constants.*;
 import static Constants.Constants.MENU_STATUS.MENU;
 import static Constants.Constants.STATUS.*;
@@ -53,6 +46,7 @@ public class Bomberman extends Application {
         stage.setTitle(GAME_TITLE);
         menu_status = MENU ;
         sound = true;
+        SoundController.backgroundSound = SoundController.playSound(SOUND_PATH[2]);
         SoundController.backgroundSound.play();
         Message.showMenu();
 
@@ -87,6 +81,7 @@ public class Bomberman extends Application {
                     }
 
                     time = ((currentNanoTime - startNanoTime) / 60000000) + 1;
+                    SoundController.loop();
                 }
             }
         }.start();

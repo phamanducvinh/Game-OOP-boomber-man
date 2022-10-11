@@ -3,12 +3,14 @@ package Map;
 import Entities.Animate.Bomb;
 import Entities.Animate.Character.Bomber;
 import Entities.Animate.Character.Character;
+import Entities.Animate.Flame;
 import Entities.Entity;
 import Entities.Still.Item.Item;
 import Factory.CharacterFactory;
 import Factory.ItemFactory;
 import Factory.StillFactory;
 import GameController.Message;
+import GameController.SoundController;
 import Graphics.Sprite;
 import Input.PlayerInput;
 import javafx.scene.canvas.GraphicsContext;
@@ -18,6 +20,7 @@ import lombok.Setter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.Scanner;
 
 import static Constants.Constants.*;
@@ -25,16 +28,13 @@ import static Constants.Constants.*;
 @Getter
 @Setter
 public class Map {
-    private int score = 0       ;
-    private int stage = 0;
-    private int life;
-
+    private int stage, life, level_bombs, level_speed, bombs_max;
     private static Map gameMap;
     private Entity[][] tiles;
     private ArrayList<Item> items;
     private ArrayList<Character> characters;
     private ArrayList<Bomb> bombs;
-    private ArrayList<Bomb> bombs_explosion;
+    private ArrayList<Flame> flames;
     private Bomber player;
 
 
@@ -45,21 +45,20 @@ public class Map {
         return gameMap;
     }
 
-    public Map() {
-        score = 0;
-        stage = 0;
-        life = 0;//player.getLife();
-    }
-
     public Entity[][] getEntity() {
         return tiles;
     }
 
-    private void resetEntities() {
+    public Entity getTiles(int x,int y) {
+        return tiles[x][y];
+    }
+
+    public void resetEntities() {
         tiles = new Entity[HEIGHT][WIDTH];
         characters = new ArrayList<>();
         items = new ArrayList<>();
         bombs = new ArrayList<>();
+        flames = new ArrayList<>();
         if (player != null) {
             player.keyInput.initialization();
         }
@@ -90,10 +89,14 @@ public class Map {
                 }
             }
             characters.forEach(Character::update);
-
             bombs.forEach(Bomb::update);
-        } catch (Exception e) {
-            System.out.println("delete Object ||" + e.toString());
+            flames.forEach(Flame::update);
+            life = player.getLife();
+            bombs_max = player.getMaxBombs();
+            level_bombs = player.getLengthFlame();
+            level_speed = player.getSpeed();
+        } catch (ConcurrentModificationException e) {
+            System.out.println("Delete element in Array!");
         }
     }
 
@@ -107,6 +110,7 @@ public class Map {
         items.forEach(item -> item.render(graphicsContext));
         characters.forEach(character -> character.render(graphicsContext));
         bombs.forEach(bomb -> bomb.render(graphicsContext));
+        flames.forEach(flame -> flame.render(graphicsContext));
     }
 
 
@@ -115,6 +119,9 @@ public class Map {
     }
 
     public void nextStage() {
+        SoundController.backgroundSound.stop();
+        SoundController.backgroundSound = SoundController.playSound(SOUND_PATH[0]);
+        SoundController.backgroundSound.play();
         String map_path = MAP_PATHS[stage++];
         try {
             createMap(map_path);

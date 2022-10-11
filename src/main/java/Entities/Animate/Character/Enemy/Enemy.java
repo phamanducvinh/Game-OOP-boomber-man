@@ -3,11 +3,15 @@ import Constants.Constants.DIRECTION;
 import Entities.Animate.AnimateEntity;
 import Entities.Animate.Character.Bomber;
 import Entities.Animate.Character.Character;
+import GameController.SoundController;
 import Graphics.Sprite;
 import Map.Map;
 import Trace.BfsTrace;
+import javafx.scene.effect.Effect;
 
 import java.util.Random;
+
+import static Constants.Constants.SOUND_PATH;
 
 public abstract class Enemy extends Character {
     protected int life;
@@ -41,12 +45,6 @@ public abstract class Enemy extends Character {
             return;
         }
         gameMap.getCharacters().remove(this);
-        if (gameMap.getCharacters().size() == 1) {
-            //Sound.backgroundSound.stop();
-            //Sound.stageCleared.setCycleCount(999);
-            //Sound.stageCleared.play();
-        }
-        //Map.score += score;
-        //Sound.playSound("EnemyDie");
+        SoundController.playSound(SOUND_PATH[5]);
     }
 }
