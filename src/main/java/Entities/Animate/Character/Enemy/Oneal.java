@@ -23,6 +23,6 @@ public class Oneal extends Enemy{
     @Override
     public DIRECTION trace(Bomber bomber, Enemy enemy, Map gameMap) {
         RandomTrace bfsTrace = new RandomTrace(bomber,enemy,gameMap);
-        return bfsTrace.getDirection();
+        return bfsTrace.trace();
     }
 }

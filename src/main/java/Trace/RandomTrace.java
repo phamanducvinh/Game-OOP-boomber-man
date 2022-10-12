@@ -14,7 +14,7 @@ public class RandomTrace extends Trace {
     }
 
     @Override
-    public DIRECTION getDirection() {
+    public DIRECTION trace() {
         if(enemy.isCollision()) {
             int rand = new Random().nextInt(4);
             return switch (rand) {
@@ -24,7 +24,7 @@ public class RandomTrace extends Trace {
                 default -> DOWN;
             };
         } else {
-            return enemy.direction;
+            return enemy.getDirection();
         }
     }
 }
