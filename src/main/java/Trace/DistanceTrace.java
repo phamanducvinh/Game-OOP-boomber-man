@@ -9,7 +9,7 @@ import javafx.scene.control.Spinner;
 
 public class DistanceTrace extends Trace{
 
-    DistanceTrace(Bomber player, Enemy enemy, Map gameMap) {
+    public DistanceTrace(Bomber player, Enemy enemy, Map gameMap) {
         super(player, enemy, gameMap);
     }
     @Override

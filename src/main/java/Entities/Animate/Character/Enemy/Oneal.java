@@ -7,6 +7,7 @@ import Entities.Animate.Character.Bomber;
 import Graphics.Sprite;
 import Map.Map;
 import Trace.BfsTrace;
+import Trace.BfsVsDodgeTrace;
 import Trace.RandomTrace;
 
 public class Oneal extends Enemy{
@@ -22,7 +23,6 @@ public class Oneal extends Enemy{
 
     @Override
     public DIRECTION trace(Bomber bomber, Enemy enemy, Map gameMap) {
-        RandomTrace bfsTrace = new RandomTrace(bomber,enemy,gameMap);
-        return bfsTrace.trace();
+        return new BfsVsDodgeTrace(bomber,enemy,gameMap).trace();
     }
 }

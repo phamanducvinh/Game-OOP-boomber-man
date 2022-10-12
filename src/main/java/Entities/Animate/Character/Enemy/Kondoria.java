@@ -4,6 +4,8 @@ import Constants.Constants;
 import Entities.Animate.Character.Bomber;
 import Graphics.Sprite;
 import Map.Map;
+import Trace.DistanceTrace;
+import Trace.HalfBfsTrace;
 import Trace.RandomTrace;
 
 import static Constants.Constants.DIRECTION.*;
@@ -21,6 +23,6 @@ public class Kondoria extends Enemy{
 
     @Override
     public Constants.DIRECTION trace(Bomber bomber, Enemy enemy, Map gameMap) {
-        return new RandomTrace(bomber,enemy,gameMap).getDirection();
+        return new DistanceTrace(bomber,enemy,gameMap).trace();
     }
 }
