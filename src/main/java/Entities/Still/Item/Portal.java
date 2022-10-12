@@ -5,7 +5,10 @@ import Entities.Animate.Character.Bomber;
 import Entities.Animate.Character.Character;
 import Entities.Animate.Character.Enemy.Enemy;
 import GameController.Bomberman;
+import GameController.SoundController;
 import Graphics.Sprite;
+
+import static Constants.Constants.SOUND_PATH;
 
 public class Portal extends Item{
     public Portal(int x, int y, Sprite sprite) {
@@ -26,6 +29,7 @@ public class Portal extends Item{
     @Override
     public void effect(Bomber bomber) {
         if (countEnemies() == 0) {
+            SoundController.playEffectSound(SOUND_PATH[1]);
             destroy();
             gameMap.nextStage();
         }

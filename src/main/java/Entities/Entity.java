@@ -5,8 +5,13 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.util.Pair;
+import lombok.Getter;
+import lombok.Setter;
+
 import static Graphics.Sprite.SCALED_SIZE;
 
+@Getter
+@Setter
 public abstract class Entity {
     protected static Map gameMap = Map.getGameMap();
     protected int pixelX, pixelY;
@@ -27,30 +32,6 @@ public abstract class Entity {
         this.block = false;
         this.destroyed = false;
         this.destroyable = false;
-    }
-
-    public void setBlock(boolean block) {
-        this.block = block;
-    }
-
-    public boolean isBlock() {
-        return block;
-    }
-
-    public void setDestroyable(boolean destroyable) {
-        this.destroyable = destroyable;
-    }
-
-    public boolean isDestroyable() {
-        return destroyable;
-    }
-
-    public void setDestroyed(boolean destroyed) {
-        this.destroyed = destroyed;
-    }
-
-    public boolean isDestroyed() {
-        return destroyed;
     }
 
     public static void setGameMap(Map gameMap) {

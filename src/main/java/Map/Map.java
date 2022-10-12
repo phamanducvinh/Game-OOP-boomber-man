@@ -120,7 +120,7 @@ public class Map {
     }
 
     public void nextStage() {
-        if(stage == 1) {
+        if(stage == 5) {
             Message.showWinGame();
         } else Bomberman.menu_status = MENU_STATUS.PLAYING;
 
