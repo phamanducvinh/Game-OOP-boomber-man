@@ -5,8 +5,13 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.util.Pair;
+import lombok.Getter;
+import lombok.Setter;
+
 import static Graphics.Sprite.SCALED_SIZE;
 
+@Getter
+@Setter
 public abstract class Entity {
     protected static Map gameMap = Map.getGameMap();
     protected int pixelX, pixelY;

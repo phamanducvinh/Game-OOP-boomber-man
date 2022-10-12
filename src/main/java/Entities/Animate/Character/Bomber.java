@@ -107,7 +107,7 @@ public class Bomber extends Character {
     }
 
     @Override
-    public void getDirection() {
+    public void findDirection() {
         direction = keyInput.handleKeyInput();
         this.setVelocity(0, 0);
         switch (direction) {

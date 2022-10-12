@@ -25,6 +25,6 @@ public class Balloon extends Enemy {
     @Override
     public DIRECTION trace(Bomber bomber, Enemy enemy,Map gameMap){
         RandomTrace randomTrace = new RandomTrace(gameMap.getPlayer(),this, gameMap);
-        return randomTrace.getDirection();
+        return randomTrace.trace();
     }
 }

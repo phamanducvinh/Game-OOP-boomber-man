@@ -8,6 +8,8 @@ import Graphics.Sprite;
 import Map.Map;
 import Trace.BfsTrace;
 import javafx.scene.effect.Effect;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Random;
 
@@ -25,7 +27,7 @@ public abstract class Enemy extends Character {
 
     public abstract DIRECTION trace(Bomber bomber,Enemy enemy,Map gameMap);
     @Override
-    public void getDirection() {
+    public void findDirection() {
         direction = trace(gameMap.getPlayer(),this,gameMap);
         switch (direction) {
             case UP -> this.setVelocity(-defaultVelocity, 0);

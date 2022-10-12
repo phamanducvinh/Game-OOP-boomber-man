@@ -18,7 +18,7 @@ public abstract class Character extends AnimateEntity implements Movable {
     protected int defaultVelocity;
     protected int velocityX;
     protected int velocityY;
-    public DIRECTION direction;
+    protected DIRECTION direction;
     protected int speed;
     protected boolean collision;
     protected boolean stand;
@@ -112,7 +112,7 @@ public abstract class Character extends AnimateEntity implements Movable {
             return;
         }
         for (int i = 0; i < speed; ++i) {
-            getDirection();
+            findDirection();
             checkCollision();
             if (!stand) {
                 updateAnimation();
@@ -123,5 +123,5 @@ public abstract class Character extends AnimateEntity implements Movable {
         }
     }
 
-    public abstract void getDirection();
+    public abstract void findDirection();
 }
