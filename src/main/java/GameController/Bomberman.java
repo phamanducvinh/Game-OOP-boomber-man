@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import static Constants.Constants.*;
 import static Constants.Constants.MENU_STATUS.MENU;
-import static Constants.Constants.STATUS.*;
+import static Constants.Constants.MENU_STATUS.PLAYING;
 import static Graphics.Sprite.SCALED_SIZE;
 
 public class Bomberman extends Application {
@@ -33,7 +33,6 @@ public class Bomberman extends Application {
     long lastUpdate = System.nanoTime();
     long lastCheckTime = System.currentTimeMillis();
     int framesRate = 0, updateRate = 0;
-    public static STATUS status;
     public static boolean sound;
 
     public static void main(String[] args) {
@@ -44,10 +43,8 @@ public class Bomberman extends Application {
     public void start(Stage stage) throws Exception {
         Bomberman.stage = stage;
         stage.setTitle(GAME_TITLE);
-        menu_status = MENU ;
+
         sound = true;
-        SoundController.backgroundSound = SoundController.playSound(SOUND_PATH[2]);
-        SoundController.backgroundSound.play();
         Message.showMenu();
 
         final long startNanoTime = System.nanoTime();
@@ -57,7 +54,7 @@ public class Bomberman extends Application {
             public void handle(long currentNanoTime) {
                 long now = System.nanoTime();
 
-                if (status == PLAYING) {
+                if (menu_status == PLAYING) {
                     if (now - lastFrame >= timePerFrame) {
                         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
                         lastFrame = System.nanoTime();
@@ -88,7 +85,7 @@ public class Bomberman extends Application {
     }
 
     public static void createStage() {
-        status = PLAYING;
+        SoundController.playBackGroundSound(SOUND_PATH[0]);
         canvas = new Canvas(SCALED_SIZE * WIDTH, SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
         VBox root = new VBox(Message.getBoard(),canvas);
@@ -97,7 +94,7 @@ public class Bomberman extends Application {
         scene.setOnKeyPressed(event -> {
             String code = event.getCode().toString();
             if(code.equals("P")) {
-                Message.showPauseMessage();
+                Message.showPause();
             }
 
             if(code.equals("M")) {
@@ -113,5 +110,4 @@ public class Bomberman extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
 }

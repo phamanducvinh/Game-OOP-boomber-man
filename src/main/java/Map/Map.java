@@ -9,6 +9,7 @@ import Entities.Still.Item.Item;
 import Factory.CharacterFactory;
 import Factory.ItemFactory;
 import Factory.StillFactory;
+import GameController.Bomberman;
 import GameController.Message;
 import GameController.SoundController;
 import Graphics.Sprite;
@@ -119,15 +120,23 @@ public class Map {
     }
 
     public void nextStage() {
-        SoundController.backgroundSound.stop();
-        SoundController.backgroundSound = SoundController.playSound(SOUND_PATH[0]);
-        SoundController.backgroundSound.play();
-        String map_path = MAP_PATHS[stage++];
-        try {
-            createMap(map_path);
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
+        if(stage == 1) {
+            Message.showWinGame();
+        } else Bomberman.menu_status = MENU_STATUS.PLAYING;
+
+        if(Bomberman.menu_status == MENU_STATUS.PLAYING) {
+            String map_path = MAP_PATHS[stage++];
+            try {
+                createMap(map_path);
+            } catch (FileNotFoundException e) {
+                System.out.println(e.getMessage());
+            }
+            Message.showNextStageMessenger();
         }
-        Message.showNextStageMessenger();
+    }
+
+    public void play() {
+        stage = 0;
+        nextStage();
     }
 }

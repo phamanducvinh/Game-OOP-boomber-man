@@ -136,13 +136,7 @@ public class Bomber extends Character {
         currentAnimate = animation.get(RIGHT);
         updateAnimation();
         if (life == 0) {
-            try {
-                //gameMap.resetEntities();
-                Message.showMenu();
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-            SoundController.playEffectSound(SOUND_PATH[7]);
+            Message.showGameOver();
         }
     }
 }

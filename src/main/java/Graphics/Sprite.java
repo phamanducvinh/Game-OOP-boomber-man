@@ -112,27 +112,24 @@ public class Sprite {
             new Sprite(DEFAULT_SIZE, 11, 3, SpriteSheet.tiles, 16, 16)
     };
 
-    //BOSS
-    public static Sprite boss_down1 = new Sprite(DEFAULT_SIZE, 6, 11, SpriteSheet.tiles, 16, 16);
-    public static Sprite boss_down2 = new Sprite(DEFAULT_SIZE, 7, 11, SpriteSheet.tiles, 16, 16);
-    public static Sprite boss_down3 = new Sprite(DEFAULT_SIZE, 6, 11, SpriteSheet.tiles, 16, 16);
+    //DOLL
+    public static Sprite[] DOLL_LEFT = {
+            new Sprite(DEFAULT_SIZE,13,0,SpriteSheet.tiles,16,16),
+            new Sprite(DEFAULT_SIZE,13,1,SpriteSheet.tiles,16,16),
+            new Sprite(DEFAULT_SIZE,13,2,SpriteSheet.tiles,16,16),
+    };
 
-    public static Sprite boss_left1 = new Sprite(DEFAULT_SIZE, 8, 11, SpriteSheet.tiles, 16, 16);
-    public static Sprite boss_left2 = new Sprite(DEFAULT_SIZE, 9, 11, SpriteSheet.tiles, 16, 16);
-    public static Sprite boss_left3 = new Sprite(DEFAULT_SIZE, 8, 11, SpriteSheet.tiles, 16, 16);
+    public static Sprite[] DOLL_RIGHT = {
+            new Sprite(DEFAULT_SIZE,14,0,SpriteSheet.tiles,16,16),
+            new Sprite(DEFAULT_SIZE,14,1,SpriteSheet.tiles,16,16),
+            new Sprite(DEFAULT_SIZE,14,2,SpriteSheet.tiles,16,16),
+    };
 
-    public static Sprite boss_right1 = new Sprite(DEFAULT_SIZE, 10, 11, SpriteSheet.tiles, 16, 16);
-    public static Sprite boss_right2 = new Sprite(DEFAULT_SIZE, 11, 11, SpriteSheet.tiles, 16, 16);
-    public static Sprite boss_right3 = new Sprite(DEFAULT_SIZE, 10, 11, SpriteSheet.tiles, 16, 16);
-
-    public static Sprite boss_up1 = new Sprite(DEFAULT_SIZE, 12, 11, SpriteSheet.tiles, 16, 16);
-    public static Sprite boss_up2 = new Sprite(DEFAULT_SIZE, 13, 11, SpriteSheet.tiles, 16, 16);
-    public static Sprite boss_up3 = new Sprite(DEFAULT_SIZE, 12, 11, SpriteSheet.tiles, 16, 16);
-
-    public static Sprite fire_down = new Sprite(DEFAULT_SIZE, 6, 12, SpriteSheet.tiles, 16, 16);
-    public static Sprite fire_right = new Sprite(DEFAULT_SIZE, 7, 12, SpriteSheet.tiles, 16, 16);
-    public static Sprite fire_up = new Sprite(DEFAULT_SIZE, 8, 12, SpriteSheet.tiles, 16, 16);
-    public static Sprite fire_left = new Sprite(DEFAULT_SIZE, 9, 12, SpriteSheet.tiles, 16, 16);
+    public static Sprite[] DOLL_DEAD = {
+            new Sprite(DEFAULT_SIZE,13,3,SpriteSheet.tiles,16,16),
+            new Sprite(DEFAULT_SIZE,13,3,SpriteSheet.tiles,16,16),
+            new Sprite(DEFAULT_SIZE,13,3,SpriteSheet.tiles,16,16),
+    };
 
     // GHOST
     public static Sprite ghost_right1 = new Sprite(DEFAULT_SIZE, 10, 12, SpriteSheet.tiles, 16, 16);

@@ -32,6 +32,14 @@ public class SoundController extends Application {
         }
     }
 
+    public static void playBackGroundSound(String path) {
+        if(Bomberman.sound) {
+            SoundController.backgroundSound.stop();
+            SoundController.backgroundSound = SoundController.playSound(path);
+            SoundController.backgroundSound.setCycleCount(1000);
+            SoundController.backgroundSound.play();
+        }
+    }
     public static void loop() {
         if(!backgroundSound.isPlaying() && Bomberman.sound ) backgroundSound.play();
     }

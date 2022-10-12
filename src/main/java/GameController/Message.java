@@ -3,6 +3,7 @@ package GameController;
 import Map.Map;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.SubScene;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -11,7 +12,6 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 
 import static Constants.Constants.*;
-import static Constants.Constants.STATUS.*;
 import static Graphics.Sprite.SCALED_SIZE;
 
 public class Message {
@@ -62,7 +62,6 @@ public class Message {
     }
 
     public static void showNextStageMessenger() {
-        Bomberman.status = PAUSE;
         Text text1 = createText("Stage " + Map.getGameMap().getStage(), 30);
         StackPane root = new StackPane(text1);
         root.setAlignment(Pos.CENTER);
@@ -79,35 +78,58 @@ public class Message {
         Bomberman.stage.show();
     }
 
-    public static void showPauseMessage() {
-        if (Bomberman.status == PLAYING) {
-            Bomberman.status = PAUSE;
-            Text text1 = createText("PAUSE", 30);
-            Text text2 = createText("Press P to continue", 20);
-            VBox root = new VBox(text1, text2);
-            root.setAlignment(Pos.CENTER);
-            root.setSpacing(10);
-            root.setPrefSize(SCALED_SIZE * WIDTH, SCALED_SIZE * HEIGHT);
-            root.setBackground(new Background(new BackgroundFill(Color.rgb(0, 0, 0), null, null)));
-            Scene scene = new Scene(root);
-            scene.setOnKeyPressed(
-                    e -> {
-                        String code = e.getCode().toString();
-                        if (code.equals("P")) {
-                            Message.showPauseMessage();
-                        }
-                    });
-            Bomberman.stage.setScene(scene);
+    public static void showPause() {
+        try {
+            SoundController.playBackGroundSound(SOUND_PATH[1]);
+            Bomberman.menu_status = MENU_STATUS.PAUSE;
+            Bomberman.stage.setScene(MenuController.getScene());
             Bomberman.stage.show();
-
-        } else {
-            Bomberman.status = PLAYING;
-            Bomberman.createStage();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 
-    public static void showMenu() throws IOException {
-        Bomberman.stage.setScene(MenuController.getScene());
-        Bomberman.stage.show();
+    public static void showGameOver() {
+        try {
+            SoundController.playBackGroundSound(SOUND_PATH[7]);
+            Bomberman.menu_status = MENU_STATUS.GAME_OVER;
+            Bomberman.stage.setScene(MenuController.getScene());
+            Bomberman.stage.show();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void showWinGame() {
+        try {
+            SoundController.playBackGroundSound(SOUND_PATH[8]);
+            Bomberman.menu_status = MENU_STATUS.GAME_WIN;
+            Bomberman.stage.setScene(MenuController.getScene());
+            Bomberman.stage.show();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void showMenu() {
+        try {
+            SoundController.playBackGroundSound(SOUND_PATH[2]);
+            Bomberman.menu_status = MENU_STATUS.MENU;
+            Bomberman.stage.setScene(MenuController.getScene());
+            Bomberman.stage.show();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void showGuide() {
+        try {
+            SoundController.playBackGroundSound(SOUND_PATH[1]);
+            Bomberman.menu_status = MENU_STATUS.GUIDE;
+            Bomberman.stage.setScene(MenuController.getScene());
+            Bomberman.stage.show();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

@@ -2,6 +2,7 @@ package Factory;
 
 import Entities.Animate.Character.Bomber;
 import Entities.Animate.Character.Character;
+import Entities.Animate.Character.Enemy.Doll;
 import Entities.Animate.Character.Enemy.Oneal;
 import Entities.Animate.Character.Enemy.Balloon;
 import Graphics.Sprite;
@@ -12,6 +13,7 @@ public class CharacterFactory {
          switch (c) {
             case '1' -> new Balloon(i, j, Sprite.BALLOON_RIGHT[0]);
             case '2' -> new Oneal(i, j, Sprite.ONEAL_RIGHT[0]);
+            case '3' -> new Doll(i,j,Sprite.DOLL_RIGHT[0]);
             default -> {}
         };
     }

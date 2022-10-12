@@ -9,7 +9,10 @@ public class Constants {
 
     public static final String[] MAP_PATHS = {
             Constants.class.getResource("/Levels/Campaign/map1.txt").getPath(),
-            Constants.class.getResource("/Levels/Campaign/map2.txt").getPath()
+            Constants.class.getResource("/Levels/Campaign/map2.txt").getPath(),
+            Constants.class.getResource("/Levels/Campaign/map3.txt").getPath(),
+            Constants.class.getResource("/Levels/Campaign/map4.txt").getPath(),
+            Constants.class.getResource("/Levels/Campaign/map5.txt").getPath()
     };
 
     public static final int HEIGHT = 13;
@@ -44,21 +47,23 @@ public class Constants {
         CENTER
     }
 
-    public enum STATUS {
-        PAUSE,
-        PLAYING,
-    }
-
     public enum MENU_STATUS {
         MENU,
         GUIDE,
         PAUSE,
-        GAME_OVER
+        GAME_OVER,
+        GAME_WIN,
+
+        PLAYING,
+        NEXT_STAGE
     }
 
     public static URL[] FXML_PATH = {
             Constants.class.getResource("/scene/MainMenu.fxml"),
-            Constants.class.getResource("/scene/Guide.fxml")
+            Constants.class.getResource("/scene/Guide.fxml"),
+            Constants.class.getResource("/scene/GameOver.fxml"),
+            Constants.class.getResource("/scene/Pause.fxml"),
+            Constants.class.getResource("/scene/WinGame.fxml")
     };
 
     public static String[] FONT_PATH = {
@@ -75,6 +80,8 @@ public class Constants {
             Constants.class.getResource("/sound/ItemAppears.wav").getPath(), // 4 Item
             Constants.class.getResource("/sound/EnemyDie.wav").getPath(),    // 5 Enemy die
             Constants.class.getResource("/sound/Die.wav").getPath(),         // 6 Bomber die
-            Constants.class.getResource("/sound/GameOver.wav").getPath()     // 7 Game over
+            Constants.class.getResource("/sound/GameOver.wav").getPath(),    // 7 Game over
+            Constants.class.getResource("/sound/Victory.wav").getPath(),      // 8 Win game
+            Constants.class.getResource("/sound/Pause.wav").getPath()    //9 Pause
     };
 }

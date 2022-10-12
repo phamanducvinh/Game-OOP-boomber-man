@@ -1,8 +1,10 @@
 package Entities.Still.Item;
 
+import Constants.Constants;
 import Entities.Animate.Character.Bomber;
 import Entities.Animate.Character.Character;
 import Entities.Animate.Character.Enemy.Enemy;
+import GameController.Bomberman;
 import Graphics.Sprite;
 
 public class Portal extends Item{
@@ -24,9 +26,8 @@ public class Portal extends Item{
     @Override
     public void effect(Bomber bomber) {
         if (countEnemies() == 0) {
-            gameMap.nextStage();
-            bomber.setLife(bomber.getLife() + 1);
             destroy();
+            gameMap.nextStage();
         }
     }
 

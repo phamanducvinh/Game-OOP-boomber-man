@@ -10,14 +10,13 @@ import javafx.scene.Scene;
 import java.io.IOException;
 
 import static Constants.Constants.*;
-import static Constants.Constants.MENU_STATUS.GUIDE;
-import static Constants.Constants.MENU_STATUS.MENU;
+import static Constants.Constants.MENU_STATUS.*;
 
 public class MenuController {
     public Map gameMap = Map.getGameMap();
     @FXML
     void campaignMode(){
-        gameMap.nextStage();
+        gameMap.play();
     }
 
     @FXML
@@ -28,23 +27,12 @@ public class MenuController {
 
     @FXML
     void guide(){
-        System.out.println("guide");
-        Bomberman.menu_status = GUIDE;
-        try {
-            Message.showMenu();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        Message.showGuide();
     }
 
     @FXML
     void backMenu(){
-        Bomberman.menu_status = MENU;
-        try {
-            Message.showMenu();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        Message.showMenu();
     }
     @FXML
     void exit() {
@@ -56,9 +44,17 @@ public class MenuController {
         SoundController.update();
     }
 
+    @FXML
+    void resume() {
+        Bomberman.menu_status = PLAYING;
+        Bomberman.createStage();
+    }
     public static Scene getScene() throws IOException {
         Parent root = switch (Bomberman.menu_status) {
             case GUIDE ->  FXMLLoader.load(FXML_PATH[1]);
+            case GAME_OVER -> FXMLLoader.load(FXML_PATH[2]);
+            case PAUSE -> FXMLLoader.load(FXML_PATH[3]);
+            case GAME_WIN -> FXMLLoader.load(FXML_PATH[4]);
             default -> FXMLLoader.load(FXML_PATH[0]);
         };
         return new Scene(root);
