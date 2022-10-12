@@ -82,6 +82,7 @@ public class Constants {
             Constants.class.getResource("/sound/Die.wav").getPath(),         // 6 Bomber die
             Constants.class.getResource("/sound/GameOver.wav").getPath(),    // 7 Game over
             Constants.class.getResource("/sound/Victory.wav").getPath(),      // 8 Win game
-            Constants.class.getResource("/sound/Pause.wav").getPath()    //9 Pause
+            Constants.class.getResource("/sound/Pause.wav").getPath(),    //9 Pause
+            Constants.class.getResource("/sound/PowerUp.wav").getPath()    //10 Power up
     };
 }

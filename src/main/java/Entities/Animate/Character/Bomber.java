@@ -64,7 +64,7 @@ public class Bomber extends Character {
         for (Item item : gameMap.getItems()) {
             if (this.isCollision2(item) && !item.isHidden()) {
                 if (!(item instanceof Portal)) {
-                    //Sound.playSound("PowerUp");
+                    SoundController.playEffectSound(SOUND_PATH[10]);
                 }
                 item.effect(this);
             }
@@ -95,6 +95,11 @@ public class Bomber extends Character {
     public void placeBomb() {
         if (countBombs == maxBombs) {
             return;
+        }
+        for(Bomb bomb : gameMap.getBombs()) {
+            if(bomb.getTileX() == tileX && bomb.getTileY() == tileY) {
+                return;
+            }
         }
 
         countBombs++;

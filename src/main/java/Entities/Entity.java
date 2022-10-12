@@ -34,30 +34,6 @@ public abstract class Entity {
         this.destroyable = false;
     }
 
-    public void setBlock(boolean block) {
-        this.block = block;
-    }
-
-    public boolean isBlock() {
-        return block;
-    }
-
-    public void setDestroyable(boolean destroyable) {
-        this.destroyable = destroyable;
-    }
-
-    public boolean isDestroyable() {
-        return destroyable;
-    }
-
-    public void setDestroyed(boolean destroyed) {
-        this.destroyed = destroyed;
-    }
-
-    public boolean isDestroyed() {
-        return destroyed;
-    }
-
     public static void setGameMap(Map gameMap) {
         Entity.gameMap = gameMap;
     }
