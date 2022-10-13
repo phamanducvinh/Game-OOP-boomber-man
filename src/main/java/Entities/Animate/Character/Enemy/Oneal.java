@@ -9,6 +9,7 @@ import Map.Map;
 import Trace.BfsTrace;
 import Trace.BfsVsDodgeTrace;
 import Trace.RandomTrace;
+import Trace.SpeedTrace;
 
 public class Oneal extends Enemy{
     public Oneal(int x, int y, Sprite sprite) {
@@ -23,6 +24,7 @@ public class Oneal extends Enemy{
 
     @Override
     public DIRECTION trace(Bomber bomber, Enemy enemy, Map gameMap) {
-        return new BfsVsDodgeTrace(bomber,enemy,gameMap).trace();
+        DIRECTION speedTrace = new SpeedTrace(bomber,enemy,gameMap).trace();
+        return speedTrace;
     }
 }

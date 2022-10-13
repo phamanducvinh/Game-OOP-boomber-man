@@ -85,6 +85,7 @@ public class Bomberman extends Application {
     }
 
     public static void createStage() {
+        Bomberman.menu_status = PLAYING;
         SoundController.playBackGroundSound(SOUND_PATH[0]);
         canvas = new Canvas(SCALED_SIZE * WIDTH, SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();

@@ -54,7 +54,7 @@ public class Message {
     }
 
     public static HBox getBoard() {
-        HBox hBox = new HBox(stage, life, bombs, flame, speed, sound);
+        HBox hBox = new HBox(stage,life, bombs, flame, speed, sound);
         hBox.setSpacing(100.0);
         hBox.setAlignment(Pos.CENTER);
         hBox.setBackground(new Background(new BackgroundFill(Color.rgb(185, 185, 185), null, null)));
@@ -62,6 +62,7 @@ public class Message {
     }
 
     public static void showNextStageMessenger() {
+        Bomberman.menu_status = MENU_STATUS.NEXT_STAGE;
         Text text1 = createText("Stage " + Map.getGameMap().getStage(), 30);
         StackPane root = new StackPane(text1);
         root.setAlignment(Pos.CENTER);

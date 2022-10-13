@@ -6,10 +6,13 @@ import Entities.Entity;
 import Entities.Still.Item.Item;
 import Graphics.Sprite;
 import javafx.scene.canvas.GraphicsContext;
+import lombok.Getter;
+import lombok.Setter;
 
 import static Constants.Constants.EXPLOSION.*;
 
-
+@Getter
+@Setter
 public class Flame extends AnimateEntity{
     private boolean destroyBrick;
     public Flame(int x, int y, Sprite sprite, Constants.EXPLOSION status) {
@@ -22,14 +25,18 @@ public class Flame extends AnimateEntity{
         animation.put(DOWN_LAST,Sprite.DOWN_LAST);
         animation.put(CENTER,Sprite.EXPLODED);
         currentAnimate = animation.get(status);
-        destroyBrick = false;
         timeDestroyed = 20;
+        destroyBrick = false;
+        Entity entity = gameMap.getTiles(tileX,tileY);
+        if (entity instanceof Brick) {
+            destroyBrick = true;
+        }
     }
 
     @Override
     public void delete() {
-        isCollision();
         gameMap.getFlames().remove(this);
+        isCollision();
     }
 
     @Override
@@ -44,8 +51,6 @@ public class Flame extends AnimateEntity{
     private void isCollision() {
         Entity entity = gameMap.getTiles(tileX,tileY);
         if (entity instanceof Brick) {
-            destroyBrick = true;
-            System.out.println(1);
             ((Brick) entity).destroy();
         }
         for (Character character: gameMap.getCharacters()) {
@@ -67,8 +72,9 @@ public class Flame extends AnimateEntity{
 
     @Override
     public void render(GraphicsContext graphicsContext) {
-        if(!destroyBrick) {
-            super.render(graphicsContext);
+        if(destroyBrick) {
+            return;
         }
+        super.render(graphicsContext);
     }
 }

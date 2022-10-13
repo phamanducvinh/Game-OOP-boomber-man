@@ -29,7 +29,7 @@ public class Portal extends Item{
     @Override
     public void effect(Bomber bomber) {
         if (countEnemies() == 0) {
-            SoundController.playEffectSound(SOUND_PATH[1]);
+            //SoundController.playEffectSound(SOUND_PATH[1]);
             destroy();
             gameMap.nextStage();
         }

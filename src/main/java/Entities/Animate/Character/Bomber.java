@@ -25,6 +25,7 @@ public class Bomber extends Character {
     private int lengthFlame;
     private int maxBombs;
     private int countBombs;
+    private long startLife;
 
     public Bomber(int x, int y, Sprite sprite, KeyInput keyInput) {
         super(x, y, sprite);
@@ -40,8 +41,9 @@ public class Bomber extends Character {
         this.countBombs = 0;
         this.maxBombs = 3;
         this.lengthFlame = 1;
-        this.life = 3;
         this.speed = 1;
+        this.life = 3;
+        startLife = System.currentTimeMillis();
     }
 
 
@@ -130,18 +132,41 @@ public class Bomber extends Character {
     }
 
     @Override
-    public void delete() {
+    public void destroy() {
+        if(System.currentTimeMillis() - startLife < 3000) {
+            return;
+        }
         SoundController.playEffectSound(SOUND_PATH[6]);
-        life -= 1;
-        this.destroyed = false;
-        this.tileX = 1;
-        this.tileY = 1;
-        this.pixelX = 32;
-        this.pixelY = 32;
-        currentAnimate = animation.get(RIGHT);
-        updateAnimation();
-        if (life == 0) {
-            Message.showGameOver();
+        currentAnimate = animation.get(DESTROYED);
+        timeDestroyed = 20;
+        destroyed = true;
+    }
+
+    @Override
+    public void updateDestroyAnimation() {
+        if (timeDestroyed -- >= 0) {
+            updateAnimation();
+        }else {
+            if(--life > 0) {
+                this.tileX = 1;
+                this.tileY = 1;
+                this.pixelY = 32;
+                this.pixelX = 32;
+                destroyed = false;
+                startLife = System.currentTimeMillis();
+                currentAnimate = animation.get(RIGHT);
+                updateAnimation();
+            } else {
+                delete();
+                Message.showGameOver();
+            }
         }
     }
+
+    @Override
+    public void delete() {
+        gameMap.getCharacters().remove(this);
+        gameMap.setPlayer(null);
+    }
+
 }

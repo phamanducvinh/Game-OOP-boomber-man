@@ -47,6 +47,6 @@ public abstract class Enemy extends Character {
             return;
         }
         gameMap.getCharacters().remove(this);
-        SoundController.playSound(SOUND_PATH[5]);
+        SoundController.playEffectSound(SOUND_PATH[5]);
     }
 }

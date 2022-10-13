@@ -6,12 +6,12 @@ import Entities.Animate.Character.Enemy.Enemy;
 import Map.Map;
 
 public class BfsVsDodgeTrace extends BfsTrace{
-    public BfsVsDodgeTrace(Bomber player, Enemy enemy, Map gameMap) {
-        super(player, enemy, gameMap);
+    public BfsVsDodgeTrace(Bomber bomber, Enemy enemy, Map gameMap) {
+        super(bomber,enemy, gameMap);
     }
 
     @Override
-    protected boolean checkFaceBoom(int X, int Y, int lengthBomb) {
+    public boolean checkFaceBoom(int X, int Y, int lengthBomb) {
         for (Bomb bomb : gameMap.getBombs()) {
             if (bomb.getTileX() == X && Math.abs(bomb.getTileY() - Y) <= lengthBomb) {
                 return true;
