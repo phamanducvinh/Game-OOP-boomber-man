@@ -17,7 +17,7 @@ import static Constants.Constants.DIRECTION.*;
 public class HalfBfsTrace extends Trace {
     private static int time = 0;
 
-    HalfBfsTrace(Bomber player, Enemy enemy, Map gameMap) {
+    public HalfBfsTrace(Bomber player, Enemy enemy, Map gameMap) {
         super(player, enemy, gameMap);
     }
 
@@ -28,10 +28,10 @@ public class HalfBfsTrace extends Trace {
         }
         time++;
         if (time < 9) {
-            return new BfsVsDodgeTrace(player, enemy, gameMap).trace();
+            return new BfsVsDodgeTrace(bomber,enemy , gameMap).trace();
         } else {
             time = time % 20;
-            return new RandomTrace(player, enemy, gameMap).trace();
+            return new RandomTrace(bomber, enemy, gameMap).trace();
         }
     }
 }

@@ -19,11 +19,11 @@ public class SpeedTrace extends Trace {
         ++time;
         if (time <= 7) {
             enemy.setSpeed(2);
-            return new BfsVsDodgeTrace(player, enemy, gameMap).trace();
+            return new BfsVsDodgeTrace(bomber, enemy, gameMap).trace();
         } else {
             enemy.setSpeed(1);
             time = time % 20;
-            return new RandomTrace(player, enemy, gameMap).trace();
+            return new BfsVsDodgeTrace(bomber, enemy, gameMap).trace();
         }
     }
 }

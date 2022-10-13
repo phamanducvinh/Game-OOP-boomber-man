@@ -59,11 +59,6 @@ public abstract class Character extends AnimateEntity implements Movable {
         tileY = pixelY / Sprite.SCALED_SIZE;
     }
 
-    public boolean isCollision2(Entity other) {
-        Rectangle2D rectangle2D = new Rectangle2D(pixelX + 10, pixelY + 10, Sprite.SCALED_SIZE - 25, Sprite.SCALED_SIZE - 25);
-        return rectangle2D.intersects(other.getBoundary());
-    }
-
     public void checkCollision() {
         collision = false;
         pixelX += this.velocityX;
@@ -94,12 +89,6 @@ public abstract class Character extends AnimateEntity implements Movable {
             }
         }
 
-        if(this instanceof Enemy) {
-            if(((Enemy) this).isCollision2(gameMap.getPlayer())) {
-                gameMap.getPlayer().destroy();
-            }
-        }
-
         stand = collision || (velocityX == 0 && velocityY == 0);
         pixelX -= this.velocityX;
         pixelY -= this.velocityY;
@@ -111,10 +100,21 @@ public abstract class Character extends AnimateEntity implements Movable {
             updateDestroyAnimation();
             return;
         }
+
+        if(this instanceof Bomber) {
+            for(int i=0;i<gameMap.getCharacters().size();++i) {
+                Character character = gameMap.getCharacters().get(i);
+                if(character instanceof Enemy && gameMap.getPlayer().isCollision2(character)) {
+                    this.destroy();
+                    break;
+                }
+            };
+        }
+
         for (int i = 0; i < speed; ++i) {
             findDirection();
             checkCollision();
-            if (!stand) {
+            if (!stand || this instanceof Enemy) {
                 updateAnimation();
             }
             if (!collision) {

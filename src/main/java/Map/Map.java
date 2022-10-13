@@ -3,6 +3,7 @@ package Map;
 import Entities.Animate.Bomb;
 import Entities.Animate.Character.Bomber;
 import Entities.Animate.Character.Character;
+import Entities.Animate.Character.Enemy.Enemy;
 import Entities.Animate.Flame;
 import Entities.Entity;
 import Entities.Still.Item.Item;
@@ -92,6 +93,8 @@ public class Map {
             characters.forEach(Character::update);
             bombs.forEach(Bomb::update);
             flames.forEach(Flame::update);
+
+
             life = player.getLife();
             bombs_max = player.getMaxBombs();
             level_bombs = player.getLengthFlame();

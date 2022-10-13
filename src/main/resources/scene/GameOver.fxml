@@ -8,25 +8,22 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/18"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="GameController.MenuController">
+<AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameController.MenuController">
    <children>
       <ImageView fitHeight="500.0" fitWidth="900.0">
          <image>
             <Image url="@../textures/MainMenuBackground.jpg" />
          </image>
       </ImageView>
-      <TextArea layoutX="337.0" layoutY="32.0" prefHeight="69.0" prefWidth="227.0" text="GAME OVER!">
+      <TextArea focusTraversable="false" layoutX="337.0" layoutY="32.0" mouseTransparent="true" prefHeight="69.0" prefWidth="227.0" text="GAME OVER!">
          <font>
             <Font name="System Bold Italic" size="30.0" />
          </font>
       </TextArea>
       <VBox layoutX="400.0" layoutY="302.0" prefHeight="81.0" prefWidth="100.0" spacing="30.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" onMouseClicked="#backMenu" text="Menu" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="178.0" onMouseClicked="#exit" text="Exit" />
+            <Button mnemonicParsing="false" onMouseClicked="#backMenu" prefHeight="25.0" prefWidth="145.0" text="Menu" />
+            <Button mnemonicParsing="false" onMouseClicked="#exit" prefHeight="25.0" prefWidth="178.0" text="Exit" />
          </children>
       </VBox>
    </children>

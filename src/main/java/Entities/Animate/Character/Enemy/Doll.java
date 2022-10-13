@@ -5,6 +5,7 @@ import Entities.Animate.Character.Bomber;
 import Graphics.Sprite;
 import Map.Map;
 import Trace.RandomTrace;
+import Trace.SpeedTrace;
 
 import static Constants.Constants.DIRECTION.*;
 
@@ -21,6 +22,6 @@ public class Doll extends Enemy{
 
     @Override
     public Constants.DIRECTION trace(Bomber bomber, Enemy enemy, Map gameMap) {
-        return new RandomTrace(bomber,enemy,gameMap).getDirection();
+        return new SpeedTrace(bomber,enemy,gameMap).trace();
     }
 }
