@@ -23,7 +23,7 @@ public class HalfBfsTrace extends Trace {
 
     @Override
     public DIRECTION trace() {
-        if (enemy.getPixelX() % Sprite.SCALED_SIZE != 0 || enemy.getPixelY() % Sprite.SCALED_SIZE == 0) {
+        if (enemy.getPixelX() % Sprite.SCALED_SIZE != 0 || enemy.getPixelY() % Sprite.SCALED_SIZE != 0) {
             return enemy.getDirection();
         }
         time++;

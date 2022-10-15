@@ -23,7 +23,7 @@ public abstract class AnimateEntity extends Entity {
 
     public void destroy() {
         currentAnimate = animation.get(DESTROYED);
-        timeDestroyed = 20;
+        timeDestroyed = 50;
         destroyed = true;
     }
 

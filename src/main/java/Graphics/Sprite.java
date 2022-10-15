@@ -2,7 +2,9 @@ package Graphics;
 
 import Graphics.SpriteSheet;
 import javafx.scene.image.*;
+import javafx.scene.image.Image;
 
+import java.awt.*;
 import java.util.Arrays;
 
 /**
@@ -12,7 +14,7 @@ public class Sprite {
 
     public static final int DEFAULT_SIZE = 16;
     public static final int SCALED_SIZE = DEFAULT_SIZE * 2;
-    private static final int TRANSPARENT_COLOR = 0xffff00ff;
+    private static final int TRANSPARENT_COLOR = 0xFFFD40FF;
     public final int SIZE;
     private int _x, _y;
     public int[] _pixels;
@@ -264,6 +266,33 @@ public class Sprite {
             new Sprite(DEFAULT_SIZE, 7, 3, SpriteSheet.tiles, 16, 16)
     };
 
+    /**
+     * FIRE
+     * */
+    public static Sprite[] fire_down = {
+            new Sprite(DEFAULT_SIZE, 6, 12, SpriteSheet.tiles, 16, 16),
+            new Sprite(DEFAULT_SIZE, 6, 12, SpriteSheet.tiles, 16, 16),
+            new Sprite(DEFAULT_SIZE, 6, 12, SpriteSheet.tiles, 16, 16)
+    };
+
+    public static Sprite[] fire_right = {
+            new Sprite(DEFAULT_SIZE, 7, 12, SpriteSheet.tiles, 16, 16),
+            new Sprite(DEFAULT_SIZE, 7, 12, SpriteSheet.tiles, 16, 16),
+            new Sprite(DEFAULT_SIZE, 7, 12, SpriteSheet.tiles, 16, 16)
+
+    };
+    public static Sprite[] fire_up = {
+            new Sprite(DEFAULT_SIZE, 8, 12, SpriteSheet.tiles, 16, 16),
+            new Sprite(DEFAULT_SIZE, 8, 12, SpriteSheet.tiles, 16, 16),
+            new Sprite(DEFAULT_SIZE, 8, 12, SpriteSheet.tiles, 16, 16)
+    };
+    public static Sprite[] fire_left = {
+            new Sprite(DEFAULT_SIZE, 9, 12, SpriteSheet.tiles, 16, 16),
+            new Sprite(DEFAULT_SIZE, 9, 12, SpriteSheet.tiles, 16, 16),
+            new Sprite(DEFAULT_SIZE, 9, 12, SpriteSheet.tiles, 16, 16)
+    };
+
+
     /*
     |--------------------------------------------------------------------------
     | PowerUps
@@ -272,7 +301,9 @@ public class Sprite {
     public static Sprite BOMB_ITEM = new Sprite(DEFAULT_SIZE, 0, 10, SpriteSheet.tiles, 16, 16);
     public static Sprite FLAME_ITEM = new Sprite(DEFAULT_SIZE, 1, 10, SpriteSheet.tiles, 16, 16);
     public static Sprite SPEED_ITEM = new Sprite(DEFAULT_SIZE, 2, 10, SpriteSheet.tiles, 16, 16);
-
+    public static Sprite WALL_PASS_ITEM = new Sprite(DEFAULT_SIZE, 3, 10, SpriteSheet.tiles, 16, 16);
+    public static Sprite BOMB_PASS_ITEM = new Sprite(DEFAULT_SIZE, 5, 10, SpriteSheet.tiles, 16, 16);
+    public static Sprite FLAME_PASS_ITEM = new Sprite(DEFAULT_SIZE, 6, 10, SpriteSheet.tiles, 16, 16);
     public Sprite(int size, int x, int y, SpriteSheet sheet, int rw, int rh) {
         SIZE = size;
         _pixels = new int[SIZE * SIZE];

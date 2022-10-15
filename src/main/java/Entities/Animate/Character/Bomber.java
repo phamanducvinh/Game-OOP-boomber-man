@@ -2,6 +2,7 @@ package Entities.Animate.Character;
 
 import Constants.Constants;
 import Entities.Animate.Bomb;
+import Entities.Animate.Brick;
 import Entities.Animate.Character.Enemy.Enemy;
 import Entities.Entity;
 import Entities.Still.Item.Item;
@@ -103,6 +104,20 @@ public class Bomber extends Character {
                 return;
             }
         }
+
+        for(Character character : gameMap.getCharacters()) {
+            if(character instanceof Enemy) {
+                if(character.getTileX() == tileX
+                        && character.getTileY() == tileY) {
+                    return;
+                }
+            }
+        }
+
+        if(gameMap.getTiles()[tileX][tileY] instanceof Brick) {
+            return;
+        }
+
 
         countBombs++;
         Bomb bomb = new Bomb(tileX, tileY, Sprite.BOMB[0], this);

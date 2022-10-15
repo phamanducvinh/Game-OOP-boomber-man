@@ -19,6 +19,7 @@ public class Kondoria extends Enemy{
         animation.put(DOWN,Sprite.KONDORIA_RIGHT);
         animation.put(DESTROYED,Sprite.KONDORIA_DEAD);
         currentAnimate = animation.get(LEFT);
+        wallPass = true;
     }
 
     @Override

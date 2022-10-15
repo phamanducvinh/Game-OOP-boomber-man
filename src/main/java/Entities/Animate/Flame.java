@@ -30,6 +30,7 @@ public class Flame extends AnimateEntity{
         Entity entity = gameMap.getTiles(tileX,tileY);
         if (entity instanceof Brick) {
             destroyBrick = true;
+            //((Brick) entity).destroy();
         }
     }
 
@@ -51,18 +52,22 @@ public class Flame extends AnimateEntity{
     private void isCollision() {
         Entity entity = gameMap.getTiles(tileX,tileY);
         if (entity instanceof Brick) {
+            destroyBrick = true;
             ((Brick) entity).destroy();
         }
         for (Character character: gameMap.getCharacters()) {
-            if (this.isCollision(character)) {
+            if (this.isCollision(character) && !character.isFlamePass()) {
                 character.destroy();
             }
         }
+
+
         for (Item item: gameMap.getItems()) {
             if (this.isCollision(item) && item.isDestroyable()) {
                 item.destroy();
             }
         }
+
         for (Bomb bomb: gameMap.getBombs()) {
             if (this.isCollision(bomb) && !bomb.isDestroyed()) {
                 bomb.setTimeBeforeExplode(1);

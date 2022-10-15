@@ -23,7 +23,7 @@ public class SpeedTrace extends Trace {
         } else {
             enemy.setSpeed(1);
             time = time % 20;
-            return new BfsVsDodgeTrace(bomber, enemy, gameMap).trace();
+            return new RandomTrace(bomber, enemy, gameMap).trace();
         }
     }
 }
