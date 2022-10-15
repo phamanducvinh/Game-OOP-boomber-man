@@ -25,12 +25,11 @@ public class Flame extends AnimateEntity{
         animation.put(DOWN_LAST,Sprite.DOWN_LAST);
         animation.put(CENTER,Sprite.EXPLODED);
         currentAnimate = animation.get(status);
-        timeDestroyed = 20;
+        timeDestroyed = 10;
         destroyBrick = false;
         Entity entity = gameMap.getTiles(tileX,tileY);
         if (entity instanceof Brick) {
             destroyBrick = true;
-            //((Brick) entity).destroy();
         }
     }
 
