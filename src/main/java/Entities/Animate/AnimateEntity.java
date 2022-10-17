@@ -2,10 +2,15 @@ package Entities.Animate;
 import Entities.Entity;
 import GameController.Bomberman;
 import Graphics.Sprite;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.HashMap;
 
 import static Constants.Constants.DIRECTION.DESTROYED;
 
+@Getter
+@Setter
 public abstract class AnimateEntity extends Entity {
     public HashMap<Enum,Sprite[]> animation = new HashMap<>();
     protected Sprite[] currentAnimate;

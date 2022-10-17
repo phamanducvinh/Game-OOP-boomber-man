@@ -6,10 +6,7 @@ import static Graphics.Sprite.*;
 import Entities.Animate.Character.Bomber;
 import Graphics.Sprite;
 import Map.Map;
-import Trace.BfsTrace;
-import Trace.BfsVsDodgeTrace;
-import Trace.RandomTrace;
-import Trace.SpeedTrace;
+import Trace.*;
 
 public class Oneal extends Enemy{
     public Oneal(int x, int y, Sprite sprite) {
@@ -24,7 +21,6 @@ public class Oneal extends Enemy{
 
     @Override
     public DIRECTION trace(Bomber bomber, Enemy enemy, Map gameMap) {
-        DIRECTION direction1 = new RandomTrace(bomber,enemy,gameMap).trace();
-        return direction1;
+        return new DistanceTrace(bomber,enemy,gameMap).trace();
     }
 }

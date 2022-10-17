@@ -28,7 +28,7 @@ public class HalfBfsTrace extends Trace {
         }
         time++;
         if (time < 9) {
-            return new BfsVsDodgeTrace(bomber,enemy , gameMap).trace();
+            return new BfsTrace(bomber,enemy , gameMap).trace();
         } else {
             time = time % 20;
             return new RandomTrace(bomber, enemy, gameMap).trace();

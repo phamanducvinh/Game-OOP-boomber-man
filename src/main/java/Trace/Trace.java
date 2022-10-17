@@ -12,7 +12,7 @@ import static Constants.Constants.DIRECTION;
 
 public abstract class Trace {
     int distanceBomb = 12000;
-    int distanceTarget = 50000;
+    int distanceTarget = 30;
 
     protected Enemy enemy;
     protected Bomber bomber;
@@ -29,10 +29,11 @@ public abstract class Trace {
     public abstract Constants.DIRECTION trace();
 
     public int getDistance(Enemy enemy, Bomber player) {
-        return (enemy.getPixelX() - player.getTileX())
-                * (enemy.getPixelX() - player.getTileX())
-                + (enemy.getPixelY() - player.getPixelY())
-                * (enemy.getPixelY() - player.getPixelY());
+        return (int) Math.sqrt(
+                    (enemy.getTileX() - player.getTileX())
+                * (enemy.getTileX() - player.getTileX())
+                + (enemy.getTileY() - player.getTileY())
+                * (enemy.getTileY() - player.getTileY()));
     }
 
     public int getDistanceBomb(Enemy enemy) {

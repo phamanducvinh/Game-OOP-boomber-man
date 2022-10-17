@@ -32,14 +32,20 @@ public abstract class Item extends StillEntity {
     }
 
     public void destroy() {
-        if(hidden) {
-            hidden = false;
-            SoundController.playEffectSound(SOUND_PATH[4]);
-            return;
+        if (gameMap.getTiles()[tileX][tileY] instanceof Grass) {
+                gameMap.getItems().remove(this);
+                SoundController.playEffectSound(SOUND_PATH[4]);
         }
-        gameMap.getItems().remove(this);
-        Grass grass = new Grass(tileX,tileY,Sprite.grass);
-        gameMap.setTiles(tileX,tileY,grass);
+        else {
+                ((Brick) gameMap.getTiles()[tileX][tileY]).destroy();
+        }
+    }
+
+    @Override
+    public void update(){
+        if(gameMap.getTiles()[tileX][tileY] instanceof Grass) {
+            hidden = false;
+        }
     }
 
     abstract public void effect(Bomber bomber);

@@ -25,7 +25,7 @@ public class Ghost extends Enemy{
 
     @Override
     public Constants.DIRECTION trace(Bomber bomber, Enemy enemy, Map gameMap) {
-        return new SpeedTrace(bomber,enemy,gameMap).trace();
+        return new BfsVsDodgeTrace(bomber,enemy,gameMap).trace();
     }
 
     @Override
