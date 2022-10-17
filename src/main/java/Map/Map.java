@@ -38,6 +38,7 @@ public class Map {
     private ArrayList<Bomb> bombs;
     private ArrayList<Flame> flames;
     private Bomber player;
+    private boolean artificialIntelligenceMode = false;
 
 
     public static Map getGameMap() {
