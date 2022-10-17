@@ -48,8 +48,7 @@ Enemy,
   có thể bò được qua tường ([Demo](https://drive.google.com/file/d/11JeClFZ8gqWHJNhrxkHd30PFBsKHx9Qh/view?usp=sharing))
   + ![Ghost](src/main/resources/sprites/ghost.png) Ghost, quái vật này có thể tìm được người chơi, né bomb 
   có thể đi xuyên tường và đi qua bomb và có thể tàng hình ([Demo](https://drive.google.com/file/d/1ZKlnT9un96Ma9xke8p9ShJ_AaSBMrtf9/view?usp=sharing))
-  + ![Minvo](src/main/resources/sprites/minvo_right1.png) Minvo, quái vật này có thể tìm được người chơi, đi xuyên tường,  
-  né bomb, và phun lửa ([Demo](https://drive.google.com/file/d/1LZ2rDyPdu02EJU1RcscFNmWuyVyXagog/view?usp=sharing))
+  + ![Minvo](src/main/resources/sprites/minvo_right1.png) Minvo, quái vật này có thể tìm được người chơi, đi xuyên tường, né bomb, và phun lửa ([Demo](https://drive.google.com/file/d/1LZ2rDyPdu02EJU1RcscFNmWuyVyXagog/view?usp=sharing))
 - Phát triển thêm 3 loại Item mới với sức mạnh lớn
   + ![](src/main/resources/sprites/powerup_bombpass.png) giúp người chơi có thể đi xuyên qua bomb khi chưa nổ
   + ![](src/main/resources/sprites/powerup_flamepass.png) giúp người chơi không bị lửa từ bomb nổ thiêu đốt
