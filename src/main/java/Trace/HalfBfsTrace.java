@@ -23,12 +23,12 @@ public class HalfBfsTrace extends Trace {
 
     @Override
     public DIRECTION trace() {
-        if (enemy.getPixelX() % Sprite.SCALED_SIZE != 0 || enemy.getPixelY() % Sprite.SCALED_SIZE == 0) {
+        if (enemy.getPixelX() % Sprite.SCALED_SIZE != 0 || enemy.getPixelY() % Sprite.SCALED_SIZE != 0) {
             return enemy.getDirection();
         }
         time++;
         if (time < 9) {
-            return new BfsVsDodgeTrace(bomber,enemy , gameMap).trace();
+            return new BfsTrace(bomber,enemy , gameMap).trace();
         } else {
             time = time % 20;
             return new RandomTrace(bomber, enemy, gameMap).trace();

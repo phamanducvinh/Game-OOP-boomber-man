@@ -1,6 +1,7 @@
 package Trace;
 
 import Constants.Constants;
+import Entities.Animate.Bomb;
 import Entities.Animate.Character.Bomber;
 import Entities.Animate.Character.Enemy.Enemy;
 import Entities.Still.Grass;
@@ -48,14 +49,26 @@ public class BfsTrace extends Trace {
             enemy.setTileX(enemy.getTileX() + dx[direction]);
             enemy.setTileY(enemy.getTileY() + dy[direction]);
 
+            boolean isBomb = false;
+            for(Bomb bomb : gameMap.getBombs()) {
+                if(bomb.getTileX() == enemy.getTileX()
+                && bomb.getTileY() == enemy.getTileY()) {
+                    isBomb = true;
+                    break;
+                }
+            }
+
             if (enemy.getTileX() >= 0 && enemy.getTileY() >= 0
                     && (gameMap.getTiles()[enemy.getTileX()][enemy.getTileY()] instanceof Grass
-                    || gameMap.getTiles()[enemy.getTileX()][enemy.getTileY()] instanceof Bomber)) {
+                    || gameMap.getTiles()[enemy.getTileX()][enemy.getTileY()] instanceof Bomber)
+                    && !isBomb
+            ) {
                 direc.add(direction);
                 tileX.add(enemy.getTileX());
                 tileY.add(enemy.getTileY());
                 checkPass[enemy.getTileX()][enemy.getTileY()] = true;
             }
+
             enemy.setTileX(enemy.getTileX() - dx[direction]);
             enemy.setTileY(enemy.getTileY() - dy[direction]);
         }
@@ -79,10 +92,22 @@ public class BfsTrace extends Trace {
             for (int direction = 0; direction < 5; ++direction) {
                 X += dx[direction];
                 Y += dy[direction];
+
+                boolean isBomb = false;
+                for(Bomb bomb : gameMap.getBombs()) {
+                    if(bomb.getTileX() == X
+                            && bomb.getTileY() == Y) {
+                        isBomb = true;
+                        break;
+                    }
+                }
+
                 if (X >= 0 && Y >= 0
                         && !checkPass[X][Y]
                         && (gameMap.getTiles()[X][Y] instanceof Grass
-                        || gameMap.getTiles()[X][Y] instanceof Bomber)) {
+                        || gameMap.getTiles()[X][Y] instanceof Bomber)
+                        && !isBomb
+                ) {
                     direc.add(direcFirst);
                     tileX.add(X);
                     tileY.add(Y);

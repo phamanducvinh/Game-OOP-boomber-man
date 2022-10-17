@@ -93,6 +93,7 @@ public class Map {
             }
             characters.forEach(Character::update);
             bombs.forEach(Bomb::update);
+            items.forEach(Item::update);
             flames.forEach(Flame::update);
 
 

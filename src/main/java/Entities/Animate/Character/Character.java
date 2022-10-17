@@ -1,6 +1,7 @@
 package Entities.Animate.Character;
 import Entities.Animate.AnimateEntity;
 import Entities.Animate.Bomb;
+import Entities.Animate.Brick;
 import Entities.Animate.Character.Enemy.Enemy;
 import Entities.Entity;
 import Features.Movable;
@@ -22,6 +23,9 @@ public abstract class Character extends AnimateEntity implements Movable {
     protected int speed;
     protected boolean collision;
     protected boolean stand;
+    protected boolean wallPass;
+    protected boolean bombPass;
+    protected boolean flamePass;
 
     public Character(int x, int y, Sprite sprite) {
         super(x, y, sprite);
@@ -29,9 +33,13 @@ public abstract class Character extends AnimateEntity implements Movable {
         defaultVelocity = 1;
         velocityX = 0;
         velocityY = 0;
+        speed = 1;
+
         stand = true;
         collision = false;
-        speed = 1;
+        wallPass = false;
+        bombPass = false;
+        flamePass = false;
     }
 
     public void setVelocity(int velocityX, int velocityY) {
@@ -65,9 +73,12 @@ public abstract class Character extends AnimateEntity implements Movable {
         pixelY += this.velocityY;
         for (Bomb bomb : gameMap.getBombs()) {
             if (this.isCollision(bomb)) {
-                if (bomb.isDestroyed()) {
+                if (bomb.isDestroyed() && !this.flamePass) {
                     this.destroy();
                 } else {
+                    if (isBombPass()) {
+                        continue;
+                    }
                     collision = true;
                 }
                 if (bomb.getOwner() == this && !bomb.isBlock()) {
@@ -82,7 +93,12 @@ public abstract class Character extends AnimateEntity implements Movable {
 
         for (int i = 0; i < HEIGHT; ++i) {
             for (int j = 0; j < WIDTH; ++j) {
-                Entity entity = gameMap.getEntity()[i][j];
+                Entity entity = gameMap.getTiles()[i][j];
+
+                if (entity instanceof Brick && isWallPass()) {
+                    continue;
+                }
+
                 if (entity.isBlock() && this.isCollision(entity)) {
                     collision = true;
                 }

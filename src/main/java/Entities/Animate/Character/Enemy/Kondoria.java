@@ -19,10 +19,11 @@ public class Kondoria extends Enemy{
         animation.put(DOWN,Sprite.KONDORIA_RIGHT);
         animation.put(DESTROYED,Sprite.KONDORIA_DEAD);
         currentAnimate = animation.get(LEFT);
+        wallPass = true;
     }
 
     @Override
     public Constants.DIRECTION trace(Bomber bomber, Enemy enemy, Map gameMap) {
-        return new DistanceTrace(bomber,enemy,gameMap).trace();
+        return new HalfBfsTrace(bomber,enemy,gameMap).trace();
     }
 }

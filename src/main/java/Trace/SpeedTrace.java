@@ -16,14 +16,12 @@ public class SpeedTrace extends Trace {
         if ((enemy.getPixelX() % Sprite.SCALED_SIZE) != 0 || (enemy.getPixelY() % Sprite.SCALED_SIZE != 0)) {
             return enemy.getDirection();
         }
-        ++time;
-        if (time <= 7) {
-            enemy.setSpeed(2);
-            return new BfsVsDodgeTrace(bomber, enemy, gameMap).trace();
-        } else {
+        if (getDistance(enemy,bomber) > 3) {
             enemy.setSpeed(1);
-            time = time % 20;
-            return new BfsVsDodgeTrace(bomber, enemy, gameMap).trace();
+            return new RandomTrace(bomber, enemy, gameMap).trace();
+        } else {
+            enemy.setSpeed(3);
+            return new BfsTrace(bomber, enemy, gameMap).trace();
         }
     }
 }

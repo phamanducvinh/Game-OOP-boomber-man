@@ -16,35 +16,10 @@ public class DistanceTrace extends Trace{
 
     @Override
     public Constants.DIRECTION trace() {
-        if (getDistance(enemy, bomber) > distanceTarget) {
+        System.out.println(getDistance(enemy,bomber));
+        if (getDistance(enemy, bomber) > 5) {
             return new RandomTrace(bomber,enemy,gameMap).trace();
         }
-        int currentDistanceFromBomb = getDistanceBomb(enemy);
-        if (currentDistanceFromBomb < distanceBomb) {
-            return new RandomTrace(bomber,enemy,gameMap).trace();
-        }
-        int minDistance = getDistance(enemy, bomber);
-        int rightDirection = -1;
-        for (int direction = 0; direction < 4; direction++) {
-            enemy.setPixelX(enemy.getPixelX() + dx[direction]);
-            enemy.setPixelY(enemy.getPixelY() + dy[direction]);
-            enemy.setVelocity(0, 0);
-            enemy.checkCollision();
-            if (!enemy.isCollision()
-                    && (enemy.getPixelX() % Sprite.SCALED_SIZE == 0
-                    || enemy.getPixelY() % Sprite.SCALED_SIZE == 0)) {
-                int distance = getDistance(enemy, bomber);
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    rightDirection = direction;
-                }
-            }
-            enemy.setPixelX(enemy.getPixelX() - dx[direction]);
-            enemy.setPixelY(enemy.getPixelY() - dy[direction]);
-        }
-        if (rightDirection == -1) {
-            return new RandomTrace(bomber,enemy,gameMap).trace();
-        }
-        return directionFactory(rightDirection);
+        return new  BfsTrace(bomber,enemy,gameMap).trace();
     }
 }
