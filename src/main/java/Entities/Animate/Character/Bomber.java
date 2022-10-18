@@ -11,6 +11,7 @@ import GameController.Message;
 import GameController.SoundController;
 import Graphics.Sprite;
 import Input.KeyInput;
+import Trace.BomberArtificialIntelligence;
 import javafx.geometry.Rectangle2D;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,6 +28,7 @@ public class Bomber extends Character {
     private int maxBombs;
     private int countBombs;
     private long startLife;
+    private BomberArtificialIntelligence bomberArtificialIntelligence;
 
     public Bomber(int x, int y, Sprite sprite, KeyInput keyInput) {
         super(x, y, sprite);
@@ -35,7 +37,6 @@ public class Bomber extends Character {
         animation.put(UP, Sprite.PLAYER_UP);
         animation.put(DOWN, Sprite.PLAYER_DOWN);
         animation.put(DESTROYED, Sprite.PLAYER_DEAD);
-
         currentAnimate = animation.get(RIGHT);
         this.keyInput = keyInput;
         this.keyInput.initialization();
@@ -45,6 +46,9 @@ public class Bomber extends Character {
         this.speed = 1;
         this.life = 3;
         startLife = System.currentTimeMillis();
+        if (gameMap.isArtificialIntelligenceMode()) {
+            this.bomberArtificialIntelligence = new BomberArtificialIntelligence(this, gameMap);
+        }
     }
 
 
@@ -130,7 +134,11 @@ public class Bomber extends Character {
 
     @Override
     public void findDirection() {
-        direction = keyInput.handleKeyInput();
+        if (gameMap.isArtificialIntelligenceMode()){
+            direction = bomberArtificialIntelligence.findDirection();
+        } else {
+            direction = keyInput.handleKeyInput();
+        }
         this.setVelocity(0, 0);
         switch (direction) {
             case PLACE_BOMB -> placeBomb();

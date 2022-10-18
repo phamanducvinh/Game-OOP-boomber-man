@@ -15,14 +15,15 @@ import static Constants.Constants.MENU_STATUS.*;
 public class MenuController {
     public Map gameMap = Map.getGameMap();
     @FXML
-    void campaignMode(){
+    void campaignMode() {
+        gameMap.setArtificialIntelligenceMode(false);
         gameMap.play();
     }
 
     @FXML
     void aiMode() {
-        System.out.println("aiMode");
-
+        gameMap.setArtificialIntelligenceMode(true);
+        gameMap.play();
     }
 
     @FXML
