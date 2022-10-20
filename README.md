@@ -18,7 +18,7 @@
 ## Demo game
 ![img.png](img.png) 
 - Load map
-- Di chuyển ![Bomber](src/main/resources/sprites/player_down.png) Bomber theo sự điều kiện của người chơi
+- Di chuyển ![Bomber](src/main/resources/sprites/player_down.png) Bomber theo sự điều khiển của người chơi
 - Tự động di chuyển các Enemy (![Balloon](src/main/resources/sprites/balloom_right1.png) Balloon di chuyển ngẫu nhiên)
 - Xỷ lý va chạm cho các đối tượng ![Bomber](src/main/resources/sprites/player_down.png) Bomber, 
 Enemy,
@@ -26,7 +26,7 @@ Enemy,
 ![Brick](src/main/resources/sprites/brick.png) Brick, 
 ![Bomb](src/main/resources/sprites/bomb.png) Bomb
 - Xỷ lý bomb nổ ![](src/main/resources/sprites/bomb.png)
-- Xử lý Khi bomber sử dụng các Item và khi di vào vài vị trí Portal
+- Xử lý Khi bomber sử dụng các Item và khi đi vào vị trí Portal
     + ![Portal](src/main/resources/sprites/portal.png) Cổng dịch chuyển sang màn mới
     + ![SpeedItem](src/main/resources/sprites/powerup_speed.png) Chạy nhanh hơn
     + ![FlameItem](src/main/resources/sprites/powerup_flames.png) Bomb nổ to hơn
