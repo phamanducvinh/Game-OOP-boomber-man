@@ -302,8 +302,10 @@ public class Sprite {
     public static Sprite FLAME_ITEM = new Sprite(DEFAULT_SIZE, 1, 10, SpriteSheet.tiles, 16, 16);
     public static Sprite SPEED_ITEM = new Sprite(DEFAULT_SIZE, 2, 10, SpriteSheet.tiles, 16, 16);
     public static Sprite WALL_PASS_ITEM = new Sprite(DEFAULT_SIZE, 3, 10, SpriteSheet.tiles, 16, 16);
+    public static Sprite DETONATOR_ITEM = new Sprite(DEFAULT_SIZE,4,10,SpriteSheet.tiles,16,16);
     public static Sprite BOMB_PASS_ITEM = new Sprite(DEFAULT_SIZE, 5, 10, SpriteSheet.tiles, 16, 16);
     public static Sprite FLAME_PASS_ITEM = new Sprite(DEFAULT_SIZE, 6, 10, SpriteSheet.tiles, 16, 16);
+    public static Sprite RANDOM_ITEM = new Sprite(DEFAULT_SIZE,7,10,SpriteSheet.tiles,16,16);
     public Sprite(int size, int x, int y, SpriteSheet sheet, int rw, int rh) {
         SIZE = size;
         _pixels = new int[SIZE * SIZE];

@@ -10,10 +10,12 @@ public class ItemFactory {
             case 'b' -> new Bomb(i,j, Sprite.BOMB_ITEM);
             case 's' -> new Speed(i,j,Sprite.SPEED_ITEM);
             case 'f' -> new Flame(i,j,Sprite.FLAME_ITEM);
-            case 'x' -> new Portal(i,j,Sprite.PORTAL);
             case 'w' -> new WallPass(i,j, Sprite.WALL_PASS_ITEM);
+            case 'd' -> new Detonator(i,j,Sprite.DETONATOR_ITEM);
             case 'l' -> new BombPass(i,j,Sprite.BOMB_PASS_ITEM);
             case 'k' -> new FlamePass(i,j, Sprite.FLAME_PASS_ITEM);
+            case 'r' -> new Random(i,j,Sprite.RANDOM_ITEM);
+            case 'x' -> new Portal(i,j,Sprite.PORTAL);
             default -> {}
         };
     }

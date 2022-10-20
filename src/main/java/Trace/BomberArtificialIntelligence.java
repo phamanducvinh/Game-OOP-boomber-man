@@ -17,6 +17,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -124,7 +125,7 @@ public class BomberArtificialIntelligence {
             for (int direction = 0; direction < 4; direction++) {
                 int u = x + DIRECTION_X[direction];
                 int v = y + DIRECTION_Y[direction];
-                if (inBoard(u, v) && enemyDistance[u][v] == -1 && gameMap.getTiles(u, v) instanceof Grass && !inBomb(u, v)) {
+                if (inBoard(u, v) && enemyDistance[u][v] == Integer.MAX_VALUE && gameMap.getTiles(u, v) instanceof Grass && !inBomb(u, v)) {
                     enemyDistance[u][v] = enemyDistance[x][y] + 1;
                     xQueue.add(u);
                     yQueue.add(v);
@@ -163,7 +164,7 @@ public class BomberArtificialIntelligence {
                 int p = u + DIRECTION_X[direction];
                 int q = v + DIRECTION_Y[direction];
                 if (inBoard(p, q) && distance[p][q] == Integer.MAX_VALUE
-                        && gameMap.getTiles(p, q) instanceof Grass && enemyDistance[p][q] > 1) {
+                        && gameMap.getTiles(p, q) instanceof Grass) {
 
                     if (!nearByBomb(u, v) && nearByBomb(p, q)) {
                         continue;
@@ -257,8 +258,19 @@ public class BomberArtificialIntelligence {
 
 
     private DIRECTION findEnemy() {
+        for (int i = 6; i < 10; i++) {
+            for (int j = 13; j < 17; j++) {
+                if (distance[i][j] != Integer.MAX_VALUE) {
+                    System.out.print(distance[i][j] + " ");
+                } else {
+                    System.out.print("# ");
+                }
+            }
+            System.out.println();
+        }
         int minDistance = distanceToEnemy();
         for (Character character : gameMap.getCharacters()) {
+            System.out.println((character instanceof Enemy ) + " " + distance[character.getTileX()][character.getTileY()] + " "  + enemyDistance[character.getTileX()][character.getTileY()]+ " " + character.getTileX() + " " + character.getTileY() + " " + minDistance);
             if (character instanceof Enemy && distance[character.getTileX()][character.getTileY()] == minDistance) {
                 return Trace.directionFactory(directions[character.getTileX()][character.getTileY()]);
             }
@@ -325,10 +337,10 @@ public class BomberArtificialIntelligence {
     }
 
     public DIRECTION findDirection() {
+        timer++;
         if (bomber.getPixelX() % Sprite.SCALED_SIZE != 0 || bomber.getPixelY() % Sprite.SCALED_SIZE != 0) {
             return bomber.getDirection();
         }
-        timer++;
         buildFlameMap();
         enemiesBreadthFirstSearch();
         bomberBreadthFirstSearch(distance, directions, bomber.getTileX(), bomber.getTileY());
@@ -336,23 +348,26 @@ public class BomberArtificialIntelligence {
             System.out.println("Grass");
             return findGrass();
         }
-        System.out.println(gameMap.getCharacters().size());
         if (gameMap.getCharacters().size() == 2 && portalIsOpen()) {
             System.out.println("Portal");
             return findPortal();
         }
-        if (distanceToEnemy() <= 5) {
+        if (distanceToEnemy() <= 2) {
             if (checkPlaceBomb(bomber.getTileX(), bomber.getTileY())) {
-                bombCountdownQueue.add(new BombCountdown(bomber.getTileX(), bomber.getTileY(), timer + 300));
+                bombCountdownQueue.add(new BombCountdown(bomber.getTileX(), bomber.getTileY(), timer + 420));
                 return DIRECTION.PLACE_BOMB;
             } else {
                 return findGrass();
             }
         }
+        if (distanceToEnemy() != Integer.MAX_VALUE && bomber.getCountBombs() < bomber.getMaxBombs()) {
+            System.out.println(distanceToEnemy());
+            return findEnemy();
+        }
 
         if ( nearByBrick(bomber.getTileX(), bomber.getTileY())
                 && checkPlaceBomb(bomber.getTileX(), bomber.getTileY())) {
-            bombCountdownQueue.add(new BombCountdown(bomber.getTileX(), bomber.getTileY(), timer + 300));
+            bombCountdownQueue.add(new BombCountdown(bomber.getTileX(), bomber.getTileY(), timer + 420));
             return DIRECTION.PLACE_BOMB;
         }
         if (distanceToItem() != Integer.MAX_VALUE) {
@@ -360,10 +375,6 @@ public class BomberArtificialIntelligence {
             return findItem();
         }
 
-        if (distanceToEnemy() < 5 && bomber.getCountBombs() < bomber.getMaxBombs()) {
-            return findEnemy();
-        }
-        System.out.println(distanceToBrick());
         if (distanceToBrick() != Integer.MAX_VALUE) {
             System.out.println("Brick");
             return findBrick();
