@@ -34,7 +34,7 @@ Enemy,
 - [Video demo game](https://drive.google.com/file/d/1ZdyyQUwcMcBzrQsOe-bswLOe13SIa8M-/view?usp=sharing)
 
 ## Game detail
-![TreeExtends](Game-OOP-bomber-man.png)
+![TreeExtends](TreeExtends.png)
 - Xây dựng cây kế thừa
 - Phát triển thêm hệ thống âm thanh, hiệu ứng bomb nổ, giết quái, nhạc nền ... có thể bật tắt âm thanh tùy ý.
 - Phát triển thuật toán tìm đường cho các enemy - xử dụng thuật toán [BFS](https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/)
@@ -55,5 +55,5 @@ Enemy,
   + ![](src/main/resources/sprites/powerup_wallpass.png) giúp người chơi đi xuyên qua được các khối gạch ![Brick](src/main/resources/sprites/brick.png)
   + ![](src/main/resources/sprites/powerup_detonator.png) giúp người chơi thêm 1 mạng nữa
   + ![](src/main/resources/sprites/random_item.png) là một trong số bất kỳ các item khác hoặc <strong>mất một mạng</strong> 
-  + [Vide demo item](https://drive.google.com/file/d/1NRf4Q5UFmzYrBxczGbWV-gtJew0MWeNu/view?usp=sharing)
+  + [Video demo item](https://drive.google.com/file/d/1NRf4Q5UFmzYrBxczGbWV-gtJew0MWeNu/view?usp=sharing)
 - Phát triển AI tự chơi cho bomber ([Demo](https://drive.google.com/file/d/12o51Ijet0E3-pk56Gvs8-jV1MZ3E1RC-/view?usp=sharing))
